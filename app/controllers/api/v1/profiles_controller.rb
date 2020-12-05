@@ -1,8 +1,9 @@
-class Api::V1::ProfilesController < ApplicationController
+class Api::V1::ProfilesController < Api::V1::BaseController
+  
   before_action :set_profile, only: %i[show]
   
   def show
-    render json: @profile
+    render_resource(@profile)
   end
 
   private
