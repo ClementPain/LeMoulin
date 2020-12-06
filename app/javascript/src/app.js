@@ -2,12 +2,16 @@ import React from 'react';
 import {
   BrowserRouter as Router
 } from "react-router-dom";
+import { Provider } from 'react-redux';
 
 import TheMill from './pages/TheMill';
+import store from './redux-config'
 
 const App = () => (
   <Router>
-    <TheMill />
+    <Provider store={store}>
+      <TheMill />
+    </Provider>
   </Router>
 )
 
