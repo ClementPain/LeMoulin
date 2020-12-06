@@ -3,9 +3,9 @@ class Profile < ApplicationRecord
   belongs_to :user
 
   # Validations
-  enum profile_type: [ :admin, :client, :shopkeeper ]
-  validates :profile_type, inclusion: { in: profile_types.keys }
+  enum role: [ :client, :shopkeeper, :admin ]
+  validates :role, inclusion: { in: roles.keys }
 
-  validates :profile_type, presence: true
+  validates :role, presence: true
   validates :user_id, uniqueness: true
 end
