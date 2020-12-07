@@ -5,9 +5,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: %w[show]
       resources :profiles, only: %w[show]
-      resources :shops_categories, only: %w[index]
-
-      get 'shops_categories/index'
+      resources :shops, only: %w[index]
+      resources :shop_categories, only: %w[index]
     end
   end
 
