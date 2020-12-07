@@ -31,7 +31,7 @@ const handleAuth = (type, identifiers) => (dispatch) => {
     .then((result) => {
       if (result.errors) {
         dispatch(authFailed(
-          Object.entries(result.errors[0].detail).map(([key, value]) => [key, value.join(',')].join(',')).join(',')
+          Object.entries(result.errors[0].detail).map(([key, value]) => [key, value.join(', ')].join(' : ')).join(', ')
         ));
       } else if (result.error) {
         dispatch(authFailed(

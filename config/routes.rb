@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  namespace :api do
-    namespace :v1 do
-      get 'shops_categories/index'
-    end
-  end
   root to: 'pages#index'
   
   namespace :api, defaults: { format: :json } do

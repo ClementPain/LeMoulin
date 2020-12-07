@@ -16,9 +16,9 @@ const Auth = ({ children, type }) => {
     const inputs = Array.from(data.entries());
     const identifiers = Object.fromEntries(inputs);
 
-    const errors = inputs.reduce((acc, input) => (input[1] === '' ? [...acc, input[0]] : []), []);
+    const inputsErrors = inputs.reduce((acc, input) => (input[1] === '' ? [...acc, input[0]] : []), []);
 
-    if (errors.length) setAlert((`You must provide ${errors.join(' and ')}.`));
+    if (inputsErrors.length) setAlert((`You must provide ${inputsErrors.join(' and ')}.`));
     else {
       setAlert(null);
       dispatch(handleAuth(type, identifiers));
