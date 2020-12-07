@@ -1,9 +1,10 @@
 import React from 'react'
 import ShopsCategoriesList from '../../components/ShopsCategoriesList'
+import Jumborton from "./jumborton";
 
 const Home = () => (
   <div>
-    <p>Hello world !</p>
+    <Jumborton />
     <ShopsCategoriesList />
   </div>
 )
