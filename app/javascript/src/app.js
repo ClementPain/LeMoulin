@@ -1,4 +1,6 @@
 import React from 'react';
+import 'bootswatch/dist/lux/bootstrap.min.css'; 
+import './App.css';
 import {
   BrowserRouter as Router
 } from "react-router-dom";
