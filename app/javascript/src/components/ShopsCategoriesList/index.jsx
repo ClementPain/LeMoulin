@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
+import { Container, Row } from 'react-bootstrap'
+
 const ShopsCategoriesList = () => {
   const [shopsCategoriesArray, setShopsCategoriesArray] = useState([])
 
@@ -15,18 +17,18 @@ const ShopsCategoriesList = () => {
 
   return (
   <main>
-    <h4>Voici la liste des catégories</h4>
+    <Row>
+      <h4>Voici la liste des catégories</h4>
+    </Row>
 
-    <div>
-        <div>
-          { shopsCategoriesArray.map( (cat) => (
-            <div key = {cat.id}>
-              <p>{ cat.title }</p>
-            </div>
-          )
-          )}
-        </div>
-      </div>
+    <Container>
+      { shopsCategoriesArray.map( (cat) => (
+        <Row key = {cat.id}>
+          <p>{ cat.title }</p>
+        </Row>
+      )
+      )}
+    </Container>
   </main>
   )
 }

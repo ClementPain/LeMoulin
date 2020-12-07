@@ -1,11 +1,12 @@
 import React from 'react'
 import ShopsCategoriesList from '../../components/ShopsCategoriesList'
 
+import { Container } from 'react-bootstrap'
+
 const Home = () => (
-  <div>
-    <p>Hello world !</p>
+  <Container fluid>
     <ShopsCategoriesList />
-  </div>
+  </Container>
 )
 
 export default Home;
