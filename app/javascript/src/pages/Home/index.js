@@ -1,11 +1,13 @@
 import React from 'react'
-import ShopsCategoriesList from '../../components/ShopsCategoriesList'
+import ShopCategoriesList from '../../components/ShopCategoriesList'
+import ShopsList from '../../components/ShopsList'
 
 import { Container } from 'react-bootstrap'
 
 const Home = () => (
   <Container fluid>
-    <ShopsCategoriesList />
+    <ShopCategoriesList />
+    <ShopsList />
   </Container>
 )
 

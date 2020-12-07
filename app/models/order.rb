@@ -10,5 +10,4 @@ class Order < ApplicationRecord
   # Validations
   enum status: [ :in_progress, :prepared, :validated, :canceled ]
   validates :status, inclusion: { in: statuses.keys }
-
 end

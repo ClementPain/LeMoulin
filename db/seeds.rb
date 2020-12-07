@@ -26,7 +26,28 @@ end
 end
 
 5.times do
-  shops_category = ShopsCategory.create! title: Faker::JapaneseMedia::DragonBall.character
+  shop_category = ShopCategory.create! title: Faker::JapaneseMedia::DragonBall.character
+end
+
+shopId = 0
+3.times do
+  shop = Shop.create!(
+    name: Faker::Creature::Cat.name,
+    description: Faker::Superhero.descriptor,
+    address: Faker::Address.street_address,
+    zip_code: Faker::Address.zip_code, 
+    city: Faker::Address.city, 
+    siret: '000000000', 
+    is_active: true, 
+    shopkeeper_id: Profile.select{ |profile| profile.is_shopkeeper === true}[shopId].user_id
+  )
+
+  shop_categories_join = ShopCategoriesJoin.create!(
+    shop_id: shop.id,
+    shop_category_id: ShopCategory.all.sample.id
+  )
+  
+  shopId += 1
 end
 
 puts "The database is filled with a few records !"

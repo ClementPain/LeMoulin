@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react'
 
 import { Container, Row } from 'react-bootstrap'
 
-const ShopsCategoriesList = () => {
-  const [shopsCategoriesArray, setShopsCategoriesArray] = useState([])
+const ShopCategoriesList = () => {
+  const [shopCategoriesArray, setShopCategoriesArray] = useState([])
 
   useEffect( () => {
-    fetch('api/v1/shops_categories')
+    fetch('api/v1/shop_categories')
       .then((response) => response.json())
       .then((response) => {
         response?.map( (category) => {
-          setShopsCategoriesArray(previousArray => [category, ...previousArray])
+          setShopCategoriesArray(previousArray => [category, ...previousArray])
         })
       })
   }, []);
@@ -22,7 +22,7 @@ const ShopsCategoriesList = () => {
     </Row>
 
     <Container>
-      { shopsCategoriesArray.map( (cat) => (
+      { shopCategoriesArray.map( (cat) => (
         <Row key = {cat.id}>
           <p>{ cat.title }</p>
         </Row>
@@ -33,4 +33,4 @@ const ShopsCategoriesList = () => {
   )
 }
 
-export default ShopsCategoriesList
+export default ShopCategoriesList
