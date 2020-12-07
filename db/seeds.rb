@@ -17,15 +17,12 @@ ApplicationRecord.descendants.each { |model|
 
 5.times do
   user = User.create! email: Faker::Internet.email, password: 'password'
-  profile = Profile.create! first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, profile_type: 'client', user: user
+  profile = Profile.create! first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, is_shopkeeper: false, user: user
 end
 
 3.times do
   user = User.create! email: Faker::Internet.email, password: 'password'
-  profile = Profile.create! first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, profile_type: 'shopkeeper', user: user
+  profile = Profile.create! first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, is_shopkeeper: true, user: user
 end
-
-user = User.create! email: 'admin@admin.admin', password: 'password'
-profile = Profile.create! first_name: 'admin', last_name: 'admin', profile_type: 'admin', user: user
 
 puts "The database is filled with a few records !"
