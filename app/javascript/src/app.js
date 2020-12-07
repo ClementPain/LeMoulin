@@ -15,6 +15,7 @@ const App = () => (
       <TheMill />
     </Provider>
   </Router>
+
 )
 
 export default App;
