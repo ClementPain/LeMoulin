@@ -9,8 +9,6 @@ const Logout = () => {
 
   dispatch(handleDeauth());
 
-  console.log('logout');
-
   return <Redirect to="/login" />;
 };
 
