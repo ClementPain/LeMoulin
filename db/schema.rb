@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_07_132319) do
+ActiveRecord::Schema.define(version: 2020_12_07_152454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,23 +62,33 @@ ActiveRecord::Schema.define(version: 2020_12_07_132319) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
-  create_table "shops", force: :cascade do |t|
+  create_table "shop_categories", force: :cascade do |t|
     t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "shop_categories_joins", force: :cascade do |t|
+    t.bigint "shop_category_id"
+    t.bigint "shop_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["shop_category_id"], name: "index_shop_categories_joins_on_shop_category_id"
+    t.index ["shop_id"], name: "index_shop_categories_joins_on_shop_id"
+  end
+
+  create_table "shops", force: :cascade do |t|
+    t.string "name"
     t.text "description"
     t.string "address"
     t.string "zip_code"
     t.string "siret"
-    t.boolean "is_ative", default: true
+    t.boolean "is_active", default: true
     t.bigint "shopkeeper_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "city"
     t.index ["shopkeeper_id"], name: "index_shops_on_shopkeeper_id"
-  end
-
-  create_table "shops_categories", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

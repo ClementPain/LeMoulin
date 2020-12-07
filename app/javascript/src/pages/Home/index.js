@@ -1,12 +1,18 @@
 import React from 'react'
-import ShopsCategoriesList from '../../components/ShopsCategoriesList'
+
+import ShopCategoriesList from '../../components/ShopCategoriesList'
+import ShopsList from '../../components/ShopsList'
+
 import Jumborton from "./jumborton";
 
+import { Container } from 'react-bootstrap'
+
 const Home = () => (
-  <div>
+  <Container fluid>
     <Jumborton />
-    <ShopsCategoriesList />
-  </div>
+    <ShopCategoriesList />
+    <ShopsList />
+  </Container>
 )
 
 export default Home;
