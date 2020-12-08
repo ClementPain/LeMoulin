@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { handleAuth } from '../../redux-config';
 
@@ -17,13 +17,8 @@ const Auth = ({ children, type }) => {
 
   const [alert, setAlert] = useState(null);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.target);
-    const inputs = Array.from(data.entries());
-    const identifiers = Object.fromEntries(inputs);
-
-    const inputsErrors = inputs.reduce((acc, input) => (input[1] === '' ? [...acc, input[0]] : []), []);
+  const handleSubmit = (values) => {
+    
 
     if (inputsErrors.length) setAlert((`You must provide ${inputsErrors.join(' and ')}.`));
     else {
@@ -83,14 +78,25 @@ const Auth = ({ children, type }) => {
                 {({ isSubmitting }) => (
                   <div className="container">
                     <Form>
-                        
-                        {children}
-
-                        <div className="form-group text-center">
-                          <button type="submit" disabled={isSubmitting} className="btn btn-primary mx-5">
-                            Submit
-                          </button>
-                        </div>
+                      <div className="form-group row">
+                        <label htmlFor="email" className="text-md-right">
+                          Email
+                        </label>
+                        <Field name="email" type="email" placeholder="Enter email"className="form-control" />
+                        <ErrorMessage name="email" component="div" className="alert alert-danger" /> 
+                      </div>
+                      <div className="form-group row">
+                        <label htmlFor="password" className="text-md-right">
+                          Password
+                        </label>
+                        <Field name="password" type="password" placeholder="Enter password" className="form-control" />
+                        <ErrorMessage name="password" component="div" className="alert alert-danger"/> 
+                      </div>
+                      <div className="form-group text-center">
+                        <button type="submit" disabled={isSubmitting} className="btn btn-primary mx-5">
+                          Submit
+                        </button>
+                      </div>
                     </Form>
                   </div>
                 )}
