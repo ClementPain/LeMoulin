@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-import { handleAuth } from '../../redux-config';
+import { handleAuth, eraseErrors } from '../../redux-config';
 
 const endpoints = {
-  signup: '/signup',
-  login: '/login',
+  signup: 'signup',
+  login: 'login',
 }
 
 const Auth = ({ type }) => {
@@ -19,9 +19,13 @@ const Auth = ({ type }) => {
 
   const handleSubmit = (values) => {
     
-    setAlert(null);
     dispatch(handleAuth(endpoints[type], values));
   };
+
+  useEffect(
+    () => dispatch(eraseErrors()),
+    [],
+  )
 
   useEffect(
     () => {
@@ -71,14 +75,15 @@ const Auth = ({ type }) => {
               >
                 {({ isSubmitting }) => (
                   <div className="container">
-                    <Form>
+                    <Form onInput={handleOnInput}>
+                      { alert && alert.error && (<div className="alert alert-danger">{ alert.error }</div>) }
                       <div className="form-group row">
                         <label htmlFor="email" className="text-md-right">
                           Email
                         </label>
                         <Field name="email" type="email" placeholder="Enter email"className="form-control" />
                         <ErrorMessage name="email" component="div" className="alert alert-danger" /> 
-                        { alert && alert.email && (<div className="alert alert-danger">{alert.email.join(', ')}</div>) }
+                        { alert?.errors && alert.errors.email && (<div className="alert alert-danger">{alert.errors.email.join(', ')}</div>) }
                       </div>
                       <div className="form-group row">
                         <label htmlFor="password" className="text-md-right">
@@ -86,7 +91,7 @@ const Auth = ({ type }) => {
                         </label>
                         <Field name="password" type="password" placeholder="Enter password" className="form-control" />
                         <ErrorMessage name="password" component="div" className="alert alert-danger"/> 
-                        { alert && alert.password && (<div className="alert alert-danger">{alert.password.join(', ')}</div>) }
+                        { alert?.errors && alert.errors.password && (<div className="alert alert-danger">{alert.errors.password.join(', ')}</div>) }
                       </div>
                       <div className="form-group text-center">
                         <button type="submit" disabled={isSubmitting} className="btn btn-primary mx-5">
