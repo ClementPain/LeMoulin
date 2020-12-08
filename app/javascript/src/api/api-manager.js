@@ -28,30 +28,63 @@ async function request(endpoint, { method = 'get', authRequired = true, body = n
 }
 
 export async function find(endpoint, { authRequired = false } = {}) {
-  const response = await request(endpoint, {
+  const firstRequest = await request(endpoint, {
     authRequired,
   })
 
-  return response.json();
+  const result = await firstRequest.json();
+
+  const { errors, error } = result;
+
+  if (errors)
+    onErrors(errors);
+  else if (error)
+    onError(error);
+  else
+    onSuccess(result);
+
+  return result.json();
 }
 
 export async function create(endpoint, { authRequired = true, body } = {}) {
-  const response = await request(endpoint, { 
+  const firstRequest = await request(endpoint, { 
     method: 'post',
     authRequired,
     body,
   })
 
-  return response.json();
+  const result = await firstRequest.json();
+
+  const { errors, error } = result;
+
+  if (errors)
+    onErrors(errors);
+  else if (error)
+    onError(error);
+  else
+    onSuccess(result);
+
+  return result.json();
 }
 
 export async function update(endpoint, { body } = {}) {
-  const response = await request(endpoint, {
+  const firstRequest = await request(endpoint, {
     method: 'put',
     body,
   })
 
-  return response.json();
+  const result = await firstRequest.json();
+
+  const { errors, error } = result;
+
+  if (errors)
+    onErrors(errors);
+  else if (error)
+    onError(error);
+  else
+    onSuccess(result);
+
+  return result.json();
 }
 
 export async function remove(endpoint) {
@@ -60,8 +93,8 @@ export async function remove(endpoint) {
   })
 }
 
-export async function auth(endpoint, { identifiers }) {
-  const response = await request(endpoint, {
+export async function auth(endpoint, { identifiers }, onErrors, onError, onSuccess) {
+  const firstRequest = await request(endpoint, {
     method: 'post',
     authRequired: false,
     body : {
@@ -69,11 +102,22 @@ export async function auth(endpoint, { identifiers }) {
     }
   })
 
-  const token = response.headers.get('Authorization');
+  const token = firstRequest.headers.get('Authorization');
   if (token)
     setAuthCookie('token', token.split('Bearer ').pop());
 
-  return response.json();
+  const result = await firstRequest.json();
+
+  const { errors, error } = result;
+
+  if (errors)
+    onErrors(errors);
+  else if (error)
+    onError(error);
+  else
+    onSuccess(result);
+
+  return result;
 }
 
 export function deauth() {

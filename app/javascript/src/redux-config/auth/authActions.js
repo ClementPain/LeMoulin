@@ -27,21 +27,22 @@ const deauthRequest = () => ({
 
 const handleAuth = (endpoint, identifiers) => (dispatch) => {
   dispatch(authRequest());
-  auth(endpoint, { identifiers })
-    .then((result) => {
-      if (result.errors) {
+  auth(endpoint, { identifiers },
+      (errors) => {
         dispatch(authFailed(
-          Object.entries(result.errors[0].detail).map(([key, value]) => [key, value.join(', ')].join(' : ')).join(', ')
+          Object.entries(errors[0].detail).map(([key, value]) => [key, value.join(', ')].join(' : ')).join(', ')
         ));
-      } else if (result.error) {
+      },
+      (error) => {
         dispatch(authFailed(
-          result.error
+          error
         ));
-      } else {
+      },
+      (result) => {
         setAuthCookie('currentUserId', result.id);
         dispatch(authSuccess(result.id));
       }
-    })
+    )
     .catch((error) => dispatch(authFailed(error)));
 };
 
