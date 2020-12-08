@@ -1,5 +1,5 @@
 import {
-  AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILED, DEAUTH_REQUEST,
+  AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILED, DEAUTH_REQUEST, ERASE_ERRORS
 } from './authTypes';
 
 const initialState = {
@@ -30,12 +30,17 @@ const authReducer = (state = initialState, { type, id, errors }) => {
         ongoing: false,
         errors,
       };
-    case DEAUTH_REQUEST:
+    case DEAUTH_REQUEST: 
       return {
         ...state,
         isAuthenticated: false,
         id: null,
       };
+    case ERASE_ERRORS:
+      return {
+        ...state,
+        errors: '',
+      }
     default: return state;
   }
 };

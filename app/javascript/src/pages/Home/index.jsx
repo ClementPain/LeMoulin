@@ -1,13 +1,11 @@
 import React from 'react'
 
-import Jumborton from "./jumborton";
-
-import { Container } from 'react-bootstrap'
+import Jumborton from "./jumborton"
 
 const Home = () => (
-  <Container fluid>
+  <div>
     <Jumborton />
-  </Container>
+  </div>
 )
 
 export default Home;

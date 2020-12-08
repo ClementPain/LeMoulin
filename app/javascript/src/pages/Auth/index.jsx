@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-import { handleAuth } from '../../redux-config';
+import { handleAuth, eraseErrors } from '../../redux-config';
 
 const endpoints = {
-  signup: '/signup',
-  login: '/login',
+  signup: 'signup',
+  login: 'login',
 }
 
-const Auth = ({ children, type }) => {
+const Auth = ({ type }) => {
   const { isAuthenticated, errors } = useSelector((state) => state);
 
   const dispatch = useDispatch();
@@ -19,13 +19,13 @@ const Auth = ({ children, type }) => {
 
   const handleSubmit = (values) => {
     
-
-    if (inputsErrors.length) setAlert((`You must provide ${inputsErrors.join(' and ')}.`));
-    else {
-      setAlert(null);
-      dispatch(handleAuth(endpoints[type], identifiers));
-    }
+    dispatch(handleAuth(endpoints[type], values));
   };
+
+  useEffect(
+    () => dispatch(eraseErrors()),
+    [],
+  )
 
   useEffect(
     () => {
@@ -62,28 +62,28 @@ const Auth = ({ children, type }) => {
                   
                   if (!values.password) {
                     errors.password = 'Required';
-                  } else if (values.password < 6) {
+                  } else if (values.password.length < 6) {
                     errors.password = 'Must be 6 characters or more'
                   }
 
                   return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
-                  setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
-                    setSubmitting(false);
-                  }, 400);
+                  setSubmitting(false);
+                  handleSubmit(values);
                 }}
               >
                 {({ isSubmitting }) => (
                   <div className="container">
-                    <Form>
+                    <Form onInput={handleOnInput}>
+                      { alert && alert.error && (<div className="alert alert-danger">{ alert.error }</div>) }
                       <div className="form-group row">
                         <label htmlFor="email" className="text-md-right">
                           Email
                         </label>
                         <Field name="email" type="email" placeholder="Enter email"className="form-control" />
                         <ErrorMessage name="email" component="div" className="alert alert-danger" /> 
+                        { alert?.errors && alert.errors.email && (<div className="alert alert-danger">{alert.errors.email.join(', ')}</div>) }
                       </div>
                       <div className="form-group row">
                         <label htmlFor="password" className="text-md-right">
@@ -91,6 +91,7 @@ const Auth = ({ children, type }) => {
                         </label>
                         <Field name="password" type="password" placeholder="Enter password" className="form-control" />
                         <ErrorMessage name="password" component="div" className="alert alert-danger"/> 
+                        { alert?.errors && alert.errors.password && (<div className="alert alert-danger">{alert.errors.password.join(', ')}</div>) }
                       </div>
                       <div className="form-group text-center">
                         <button type="submit" disabled={isSubmitting} className="btn btn-primary mx-5">
