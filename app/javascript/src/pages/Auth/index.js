@@ -3,6 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { handleAuth } from '../../redux-config';
 
+const endpoints = {
+  signup: '/signup',
+  login: '/login',
+}
+
 const Auth = ({ children, type }) => {
   const { isAuthenticated, errors } = useSelector((state) => state);
 
@@ -21,7 +26,7 @@ const Auth = ({ children, type }) => {
     if (inputsErrors.length) setAlert((`You must provide ${inputsErrors.join(' and ')}.`));
     else {
       setAlert(null);
-      dispatch(handleAuth(type, identifiers));
+      dispatch(handleAuth(endpoints[type], identifiers));
     }
   };
 
