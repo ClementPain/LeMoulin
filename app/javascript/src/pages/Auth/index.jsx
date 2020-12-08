@@ -39,7 +39,7 @@ const Auth = ({ children, type }) => {
   if (isAuthenticated) return <Redirect to="/" />;
 
   return (
-    <nav className="login-form mt-5 mb-4 justify-content-center">
+    <nav className="login-form mt-5 mb-4  ml-5 justify-content-center">
       <div className="container">
         <div className="col-md-6">
           <div className="card">
