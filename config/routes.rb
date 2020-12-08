@@ -7,9 +7,6 @@ Rails.application.routes.draw do
       resources :profiles, only: %w[show]
       resources :shops, only: %w[index]
       resources :shop_categories, only: %w[index]
-
-      # Custom route
-      get 'shops/search/:keywords', to: 'shops#index', as: :shops_search
     end
   end
 

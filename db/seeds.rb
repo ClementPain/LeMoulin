@@ -17,12 +17,12 @@ ApplicationRecord.descendants.each { |model|
 
 5.times do
   user = User.create! email: Faker::Internet.email, password: 'password'
-  profile = Profile.create! first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, is_shopkeeper: false, user: user
+  profile = user.profile.update first_name: Faker::Name.first_name, last_name: Faker::Name.last_name
 end
 
 3.times do
   user = User.create! email: Faker::Internet.email, password: 'password'
-  profile = Profile.create! first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, is_shopkeeper: true, user: user
+  profile = user.profile.update first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, is_shopkeeper: true
 end
 
 5.times do
