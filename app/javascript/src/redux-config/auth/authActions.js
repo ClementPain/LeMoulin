@@ -2,7 +2,6 @@ import {
   AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILED, DEAUTH_REQUEST,
 } from './authTypes';
 
-import apiManager from '../../api/apiManager';
 import { auth, deauth } from '../../api/api-manager';
 import { authCookieHandler } from '../../tools';
 
