@@ -11,6 +11,7 @@
     "bootstrap": "^4.5.3",
     "bootswatch": "^4.5.3",
     "dayjs": "^1.9.7",
+    "formik": "^2.2.5",
     "js-cookie": "^2.2.1",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
