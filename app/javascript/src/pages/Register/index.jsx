@@ -1,4 +1,6 @@
 import React from 'react';
+import { Field, ErrorMessage } from 'formik';
+
 import Auth from '../Auth';
 
 const Register = () => (
@@ -7,18 +9,17 @@ const Register = () => (
       <label htmlFor="email" className="text-md-right">
         Email
       </label>
-      <input type="text" placeholder="Enter your email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" />
+      <Field name="email" type="email" placeholder="Enter an email"className="form-control" />
+      <ErrorMessage name="email" component="div" className="alert alert-danger" /> 
     </div>
     <div className="form-group row">
       <label htmlFor="password" className="text-md-right">
         Password
       </label>
-      <input type="password" placeholder="Enter your password" className="form-control" id="exampleInputPassword1" name="password" />
+      <Field name="password" type="password" placeholder="Enter a password" className="form-control" />
+      <ErrorMessage name="password" component="div" className="alert alert-danger"/> 
     </div>
   </Auth>
-  
 );
 
 export default Register;
-
-
