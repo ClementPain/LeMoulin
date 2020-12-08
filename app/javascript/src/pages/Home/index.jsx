@@ -5,14 +5,13 @@ import ShopsList from '../../components/ShopsList'
 
 import Jumborton from "./jumborton";
 
-import { Container } from 'react-bootstrap'
 
 const Home = () => (
-  <Container fluid>
+  <div>
     <Jumborton />
     <ShopCategoriesList />
     <ShopsList />
-  </Container>
+   </div>
 )
 
 export default Home;

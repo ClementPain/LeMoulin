@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Routes from '../../routes';
-import Navbar from '../../components/Navbar';
 import { authCookieHandler } from '../../tools';
 import { authSuccess } from '../../redux-config';
+import Navbar from '../../components/Navbar';
 
 const { getAuthCookie } = authCookieHandler;
 
@@ -22,7 +22,7 @@ const TheMill = () => {
     );
     
   return (
-    <div className="container-fluid">
+    <div>
       <Navbar />
       <Routes />
     </div>
