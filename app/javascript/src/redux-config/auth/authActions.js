@@ -1,13 +1,13 @@
 import {
-  AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILED, DEAUTH,
+  AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILED, DEAUTH_REQUEST,
 } from './authTypes';
 
-import apiManager from '../../api/apiManager';
+import { auth, deauth } from '../../api/api-manager';
 import { authCookieHandler } from '../../tools';
 
 const { setAuthCookie, removeAuthCookie } = authCookieHandler;
 
-const authRequested = () => ({
+const authRequest = () => ({
   type: AUTH_REQUEST,
 });
 
@@ -21,13 +21,13 @@ const authFailed = (errors) => ({
   errors,
 });
 
-const deauth = () => ({
-  type: DEAUTH,
+const deauthRequest = () => ({
+  type: DEAUTH_REQUEST,
 });
 
-const handleAuth = (type, identifiers) => (dispatch) => {
-  dispatch(authRequested());
-  apiManager.auth(type, identifiers)
+const handleAuth = (endpoint, identifiers) => (dispatch) => {
+  dispatch(authRequest());
+  auth(endpoint, { identifiers })
     .then((result) => {
       if (result.errors) {
         dispatch(authFailed(
@@ -46,8 +46,8 @@ const handleAuth = (type, identifiers) => (dispatch) => {
 };
 
 const handleDeauth = () => (dispatch) => {
-  apiManager.deauth();
-  dispatch(deauth());
+  deauth();
+  dispatch(deauthRequest());
   removeAuthCookie();
 };
 
