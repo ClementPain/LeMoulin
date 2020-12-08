@@ -5,6 +5,8 @@ import Routes from '../../routes';
 import { authCookieHandler } from '../../tools';
 import { authSuccess } from '../../redux-config';
 import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer/index'
+
 
 const { getAuthCookie } = authCookieHandler;
 
@@ -25,6 +27,7 @@ const TheMill = () => {
     <div>
       <Navbar />
       <Routes />
+      <Footer />
     </div>
   )
 }
