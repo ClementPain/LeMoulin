@@ -77,7 +77,5 @@ export async function auth(endpoint, { identifiers }) {
 }
 
 export function deauth() {
-  request('logout', {
-    method: 'delete',
-  })
+  remove('logout')
 }
