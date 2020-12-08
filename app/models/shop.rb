@@ -11,6 +11,7 @@ class Shop < ApplicationRecord
   # Validation
   validates :shopkeeper_id, uniqueness: true
 
+  # scopes
   scope :filter_by_name, lambda { |keyword|
     where('lower(name) LIKE ? ', "%#{keyword.downcase}%")
   }
@@ -19,9 +20,16 @@ class Shop < ApplicationRecord
     where('lower(description) LIKE ? ', "%#{keyword.downcase}%")
   }
 
+  scope :filter_by_categories, lambda { |categories|
+    select{ |shop| !( shop.shop_categories.map{ |cat| cat.title } & categories.split(',') ).empty? }
+  }
+
+  # methodes
   def self.search(params)
+    puts params
     shops = Shop.all
     shops = shops.filter_by_name(params[:keyword]).or(shops.filter_by_description(params[:keyword])) if params[:keyword]
+    shops = shops.filter_by_categories(params[:categories]) if params[:categories]
 
     shops
   end

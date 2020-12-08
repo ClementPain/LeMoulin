@@ -1,9 +1,20 @@
 import React from 'react'
-import { Card } from 'react-bootstrap'
+import { Card, Row, Col } from 'react-bootstrap'
 
 const ShopCard = ({ shop }) => (
   <Card>
-    <Card.Header>{ shop.name }</Card.Header>
+    <Card.Header>
+      <Row>
+        <Col sm={6}>
+          <Card.Title>{ shop.name }</Card.Title>
+        </Col>
+        <Col sm={6} className="align-items-end">
+          {shop.shop_categories.map( (cat) => (
+            cat.title
+          ))}
+        </Col>
+      </Row>
+    </Card.Header>
     <Card.Body>
       <Card.Text>{ shop.description }</Card.Text>
       <footer className="blockquote-footer">
