@@ -1,5 +1,6 @@
 import React from 'react';
 import Auth from '../Auth';
+import { Field, ErrorMessage } from 'formik';
 
 const Login = () => (
   <Auth type="login">
@@ -7,13 +8,15 @@ const Login = () => (
       <label htmlFor="email" className="text-md-right">
         Email
       </label>
-      <input type="text" placeholder="Enter your email"className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" />
+      <Field name="email" type="email" placeholder="Enter your email"className="form-control" />
+      <ErrorMessage name="email" component="div" className="alert alert-danger" /> 
     </div>
     <div className="form-group row">
       <label htmlFor="password" className="text-md-right">
         Password
       </label>
-      <input type="password" placeholder="Enter your password" className="form-control" id="exampleInputPassword1" name="password" />
+      <Field name="password" type="password" placeholder="Enter your password" className="form-control" />
+      <ErrorMessage name="password" component="div" className="alert alert-danger"/> 
     </div>
   </Auth>
 );

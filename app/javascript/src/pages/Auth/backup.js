@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Formik, Form } from 'formik';
 
 import { handleAuth } from '../../redux-config';
 
@@ -52,49 +51,24 @@ const Auth = ({ children, type }) => {
               <h5 className="text-white text-center">{type.toUpperCase()}</h5>
             </div>
             <div className="card-body">
-              <Formik
-                initialValues={{ email: '', password: '' }}
-                validate={(values) => {
-                  const errors = {};
-                  
-                  if (!values.email) {
-                    errors.email = 'Required';
-                  } else if (
-                    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                  ) {
-                    errors.email = 'Invalid email address';
-                  }
-                  
-                  if (!values.password) {
-                    errors.password = 'Required';
-                  } else if (values.password < 6) {
-                    errors.password = 'Must be 6 characters or more'
+              
+              <form onSubmit={handleSubmit} onInput={handleOnInput}>
+                <div className="container">
+                  {
+                    alert && (
+                    <div className="alert alert-danger">
+                      <p>{alert}</p>
+                    </div>
+                    )
                   }
 
-                  return errors;
-                }}
-                onSubmit={(values, { setSubmitting }) => {
-                  setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
-                    setSubmitting(false);
-                  }, 400);
-                }}
-              >
-                {({ isSubmitting }) => (
-                  <div className="container">
-                    <Form>
-                        
-                        {children}
+                  {children}
 
-                        <div className="form-group text-center">
-                          <button type="submit" disabled={isSubmitting} className="btn btn-primary mx-5">
-                            Submit
-                          </button>
-                        </div>
-                    </Form>
+                  <div className="form-group text-center">
+                    <button type="submit" className="btn btn-primary mx-5">Submit</button>
                   </div>
-                )}
-              </Formik>
+                </div>
+              </form>
             </div>
           </div>
         </div>
