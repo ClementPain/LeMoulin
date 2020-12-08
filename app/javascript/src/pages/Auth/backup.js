@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+
 import { handleAuth } from '../../redux-config';
 
 const endpoints = {
@@ -50,6 +51,7 @@ const Auth = ({ children, type }) => {
               <h5 className="text-white text-center">{type.toUpperCase()}</h5>
             </div>
             <div className="card-body">
+              
               <form onSubmit={handleSubmit} onInput={handleOnInput}>
                 <div className="container">
                   {
