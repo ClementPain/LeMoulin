@@ -11,7 +11,7 @@ const Home = () => (
     <Jumborton />
     <ShopCategoriesList />
     <ShopsList />
-   </div>
+  </div>
 )
 
 export default Home;

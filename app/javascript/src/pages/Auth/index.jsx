@@ -10,7 +10,7 @@ const endpoints = {
   login: '/login',
 }
 
-const Auth = ({ children, type }) => {
+const Auth = ({ type }) => {
   const { isAuthenticated, errors } = useSelector((state) => state);
 
   const dispatch = useDispatch();
@@ -19,12 +19,8 @@ const Auth = ({ children, type }) => {
 
   const handleSubmit = (values) => {
     
-
-    if (inputsErrors.length) setAlert((`You must provide ${inputsErrors.join(' and ')}.`));
-    else {
-      setAlert(null);
-      dispatch(handleAuth(endpoints[type], identifiers));
-    }
+    setAlert(null);
+    dispatch(handleAuth(endpoints[type], values));
   };
 
   useEffect(
@@ -62,17 +58,15 @@ const Auth = ({ children, type }) => {
                   
                   if (!values.password) {
                     errors.password = 'Required';
-                  } else if (values.password < 6) {
+                  } else if (values.password.length < 6) {
                     errors.password = 'Must be 6 characters or more'
                   }
 
                   return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
-                  setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
-                    setSubmitting(false);
-                  }, 400);
+                  setSubmitting(false);
+                  handleSubmit(values);
                 }}
               >
                 {({ isSubmitting }) => (
@@ -84,6 +78,7 @@ const Auth = ({ children, type }) => {
                         </label>
                         <Field name="email" type="email" placeholder="Enter email"className="form-control" />
                         <ErrorMessage name="email" component="div" className="alert alert-danger" /> 
+                        { alert && alert.email && (<div className="alert alert-danger">{alert.email.join(', ')}</div>) }
                       </div>
                       <div className="form-group row">
                         <label htmlFor="password" className="text-md-right">
@@ -91,6 +86,7 @@ const Auth = ({ children, type }) => {
                         </label>
                         <Field name="password" type="password" placeholder="Enter password" className="form-control" />
                         <ErrorMessage name="password" component="div" className="alert alert-danger"/> 
+                        { alert && alert.password && (<div className="alert alert-danger">{alert.password.join(', ')}</div>) }
                       </div>
                       <div className="form-group text-center">
                         <button type="submit" disabled={isSubmitting} className="btn btn-primary mx-5">
