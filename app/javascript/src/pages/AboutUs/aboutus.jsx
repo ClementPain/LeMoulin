@@ -1,5 +1,4 @@
 import React from 'react'
-import bgimage from '../../../../assets/images/commerces-de-proximite-lille.jpg'
 
 import { Jumbotron, Container } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
