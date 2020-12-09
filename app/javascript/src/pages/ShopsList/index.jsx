@@ -35,12 +35,10 @@ const ShopsList = () => {
     let url = 'api/v1/shops'
     let noParameter = true
 
-    console.log(search.categories)
-
     if(search.keyword.length > 0) {
       url += checkForFirstParameter(noParameter)
       noParameter = false
-      url += "keyword=" + search.keyword
+      url += "keyword=" + encodeURIComponent(search.keyword.trim())
     }
 
     if(search.categories.length > 0) {
@@ -49,14 +47,11 @@ const ShopsList = () => {
       url += "categories=" + search.categories.join(',')
     }
 
-    console.log(url)
-
     fetch(url)
       .then((response) => response.json())
       .then((response) => {
         setShopsArray([])
         response?.map( (shop) => {
-          shop.isActive = false
           setShopsArray(previousArray => [shop, ...previousArray])
         })
     })
@@ -121,7 +116,7 @@ const ShopsList = () => {
     
     <Col sm={9}>
       <Row className='justify-content-center m-5'>
-        <h4>Voici la liste des magasins</h4>
+        <h4>Voici la liste des boutiques</h4>
       </Row>
 
       <Container>

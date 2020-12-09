@@ -1,7 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import SearchBar from './SearchBar'
+          
 const NavBar = ()  => {
   const { isAuthenticated } = useSelector((state) => state);
   
@@ -14,8 +16,8 @@ const NavBar = ()  => {
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/shopslist">Shops</Nav.Link>
           <Nav.Link href="/shop">Shop</Nav.Link>
-      
           <NavDropdown title="User" id="basic-nav-dropdown">
+
           {
             !isAuthenticated &&
             (
@@ -36,10 +38,10 @@ const NavBar = ()  => {
               }
           </NavDropdown>
         </Nav>
+        <SearchBar />
       </Navbar.Collapse>
     </Navbar>
   )
 }
       
 export default NavBar;
-      
