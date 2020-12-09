@@ -13,7 +13,7 @@ const PagesContainer = () => {
     <main>
       {page}
     </main>
-    );
-  };
+  );
+};
   
-  export default PagesContainer;
+export default PagesContainer;
