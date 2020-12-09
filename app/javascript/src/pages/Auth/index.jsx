@@ -6,6 +6,9 @@ import { Redirect } from 'react-router-dom';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
+import {
+  Container, Row, Col, Card, FormGroup, FormLabel, Button,
+} from 'react-bootstrap';
 
 import { handleAuth, eraseErrors } from '../../redux-config';
 
@@ -42,14 +45,14 @@ const Auth = ({ type }) => {
   if (isAuthenticated) return <Redirect to="/" />;
 
   return (
-    <nav className="login-form mt-5 mb-4 justify-content-center">
-      <div className="container">
-        <div className="col-md-6">
-          <div className="card">
-            <div className="card-header bg-primary">
+    <Container className="mt-5">
+      <Row>
+        <Col md={{ span: 6, offset: 3 }}>
+          <Card>
+            <Card.Header className="bg-primary">
               <h5 className="text-white text-center">{type.toUpperCase()}</h5>
-            </div>
-            <div className="card-body">
+            </Card.Header>
+            <Card.Body className="px-4">
               <Formik
                 initialValues={{ email: '', password: '' }}
                 validate={(values) => {
@@ -77,39 +80,37 @@ const Auth = ({ type }) => {
                 }}
               >
                 {({ isSubmitting }) => (
-                  <div className="container">
-                    <Form onInput={handleOnInput}>
-                      { alert && alert.error && (<div className="alert alert-danger">{ alert.error }</div>) }
-                      <div className="form-group row">
-                        <label htmlFor="email" className="text-md-right">
-                          Email
-                        </label>
-                        <Field name="email" type="email" placeholder="Enter email" className="form-control" />
-                        <ErrorMessage name="email" component="div" className="alert alert-danger" />
-                        { alert?.errors && alert.errors.email && (<div className="alert alert-danger">{alert.errors.email.join(', ')}</div>) }
-                      </div>
-                      <div className="form-group row">
-                        <label htmlFor="password" className="text-md-right">
-                          Password
-                        </label>
-                        <Field name="password" type="password" placeholder="Enter password" className="form-control" />
-                        <ErrorMessage name="password" component="div" className="alert alert-danger" />
-                        { alert?.errors && alert.errors.password && (<div className="alert alert-danger">{alert.errors.password.join(', ')}</div>) }
-                      </div>
-                      <div className="form-group text-center">
-                        <button type="submit" disabled={isSubmitting} className="btn btn-primary mx-5">
-                          Submit
-                        </button>
-                      </div>
-                    </Form>
-                  </div>
+                  <Form onInput={handleOnInput}>
+                    { alert && alert.error && (<div className="alert alert-danger">{ alert.error }</div>) }
+                    <FormGroup>
+                      <FormLabel htmlFor="email">
+                        Email
+                      </FormLabel>
+                      <Field name="email" type="email" placeholder="Enter email" className="form-control" />
+                      <ErrorMessage name="email" component="div" className="alert alert-danger" />
+                      { alert?.errors && alert.errors.email && (<div className="alert alert-danger">{alert.errors.email.join(', ')}</div>) }
+                    </FormGroup>
+                    <FormGroup>
+                      <FormLabel htmlFor="password">
+                        Password
+                      </FormLabel>
+                      <Field name="password" type="password" placeholder="Enter password" className="form-control" />
+                      <ErrorMessage name="password" component="div" className="alert alert-danger" />
+                      { alert?.errors && alert.errors.password && (<div className="alert alert-danger">{alert.errors.password.join(', ')}</div>) }
+                    </FormGroup>
+                    <FormGroup className="text-center">
+                      <Button variant="primary" type="submit" disabled={isSubmitting}>
+                        Submit
+                      </Button>
+                    </FormGroup>
+                  </Form>
                 )}
               </Formik>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
