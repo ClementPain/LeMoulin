@@ -5,6 +5,7 @@ import Login from '../pages/Login';
 import Logout from '../pages/Logout';
 import Home from '../pages/Home';
 import ShopsList from '../pages/ShopsList'
+import Profile from '../pages';
 
 const pagesMap = {
   '': {
@@ -22,6 +23,10 @@ const pagesMap = {
   logout: {
     label: 'Logout',
     page: <Logout />,
+  },
+  profile: {
+    label:'Profile',
+    page: <Profile />
   },
   shopslist: {
     label: 'ShopsList',
