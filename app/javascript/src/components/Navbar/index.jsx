@@ -26,18 +26,17 @@ const NavBar = ()  => {
                 <NavDropdown.Item href="/register">Inscription</NavDropdown.Item>
                 <NavDropdown.Item href="/login">Connexion</NavDropdown.Item>
               </NavDropdown>
-              )
-            }
-            {
+            )
+          }
+          {
             isAuthenticated && 
             (
               <NavDropdown title="Mon Compte" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/profile">Mon Profil</NavDropdown.Item>
                 <NavDropdown.Item href="/logout">Déconnexion</NavDropdown.Item>
               </NavDropdown>
-              )
-            }
-          
+            )
+          }
         </Nav>
         <SearchBar />
       </Navbar.Collapse>
