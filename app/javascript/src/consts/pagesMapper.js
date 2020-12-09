@@ -7,6 +7,8 @@ import Home from '../pages/Home';
 import ShopsList from '../pages/ShopsList'
 import ItemsList from '../pages/ItemsList'
 import Profile from '../pages';
+import AboutUs from '../pages/AboutUs';
+
 
 const pagesMap = {
   '': {
@@ -40,6 +42,10 @@ const pagesMap = {
   shop: {
     label: 'Shop show',
     page: <div >Shop</div>
+  },
+  aboutus: {
+    label: 'About us',
+    page: <AboutUs />
   }
 };
 
