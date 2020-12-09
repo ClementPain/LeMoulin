@@ -27,6 +27,10 @@ const pagesMap = {
     label: 'ShopsList',
     page: <ShopsList />
   },
+  shop: {
+    label: 'Shop show',
+    page: <div >Shop</div>
+  }
 };
 
 export default pagesMap;
