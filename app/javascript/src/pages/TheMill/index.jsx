@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import Routes from '../../routes';
 import { authCookieHandler } from '../../tools';
 import { authSuccess } from '../../redux-config';
-import Navbar from '../../components/Navbar';
+import NavBar from '../../components/Navbar';
 import Footer from '../../components/Footer/index'
 
 
@@ -25,7 +25,7 @@ const TheMill = () => {
     
   return (
     <div>
-      <Navbar />
+      <NavBar />
       <Routes />
       <Footer />
     </div>

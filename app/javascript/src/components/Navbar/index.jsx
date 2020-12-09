@@ -1,62 +1,47 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import { Navbar, Nav } from 'react-bootstrap'
 
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import SearchBar from './SearchBar'
-
-const NavbarLeMoulin = ()  => {
+          
+const NavBar = ()  => {
   const { isAuthenticated } = useSelector((state) => state);
   
   return (
-    <Navbar bg="primary" expand="lg" variant="dark">
-      <Link className="navbar-brand" to="/">Le Moulin</Link>
+    <Navbar bg="primary" variant="dark" expand="lg">
+      <Navbar.Brand href="/">The Mill</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <li className="nav-item active">
-            <Link className="nav-link" to="/">Home
-              <span className="sr-only">(current)</span>
-            </Link>
-          </li>
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/shopslist">Shops</Nav.Link>
+          <Nav.Link href="/shop">Shop</Nav.Link>
+          <NavDropdown title="User" id="basic-nav-dropdown">
 
-          <li className="nav-item active">
-            <Link className="nav-link" to="/shopslist">Boutiques
-              <span className="sr-only">(current)</span>
-            </Link>
-          </li>
-
-          <li className="nav-item active">
-            <Link className="nav-link" to="/itemslist">Produits
-              <span className="sr-only">(current)</span>
-            </Link>
-          </li>
           {
             !isAuthenticated &&
             (
               <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">Sign Up</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">Log In</Link>
-                </li>
+              <NavDropdown.Item href="/register">Sign Up</NavDropdown.Item>
+              <NavDropdown.Item href="/login">Log In</NavDropdown.Item>
               </>
-            )
-          }
-          {
-            isAuthenticated && 
-            (
-              <li className="nav-item">
-                <Link className="nav-link" to="/logout">Log Out</Link>
-              </li>
-            )
-          }
+              )
+            }
+            {
+              isAuthenticated && 
+              (
+                <>
+                <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                <NavDropdown.Item href="/logout">Log Out</NavDropdown.Item>
+                </>
+                )
+              }
+          </NavDropdown>
         </Nav>
         <SearchBar />
       </Navbar.Collapse>
     </Navbar>
   )
 }
-
-export default NavbarLeMoulin;
+      
+export default NavBar;

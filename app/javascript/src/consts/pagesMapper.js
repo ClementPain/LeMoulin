@@ -6,6 +6,7 @@ import Logout from '../pages/Logout';
 import Home from '../pages/Home';
 import ShopsList from '../pages/ShopsList'
 import ItemsList from '../pages/ItemsList'
+import Profile from '../pages';
 
 const pagesMap = {
   '': {
@@ -24,6 +25,10 @@ const pagesMap = {
     label: 'Logout',
     page: <Logout />,
   },
+  profile: {
+    label:'Profile',
+    page: <Profile />
+  },
   shopslist: {
     label: 'ShopsList',
     page: <ShopsList />
@@ -32,6 +37,10 @@ const pagesMap = {
     label: 'ItemsList',
     page: <ItemsList />
   },
+  shop: {
+    label: 'Shop show',
+    page: <div >Shop</div>
+  }
 };
 
 export default pagesMap;
