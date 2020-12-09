@@ -14,8 +14,6 @@ const SearchBar = () => {
         state: { keyword: keyword }
       })
       history.go(0)
-    } else {
-      history.push('/itemslist')
     }
   }
 
@@ -27,13 +25,13 @@ const SearchBar = () => {
       className="mr-sm-2"
       value={search}
       onChange={(event) => setSearch(event.target.value)}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault()
+          handleSearch(search)
+        }
+      }}
     />
-    <Button
-      variant="outline-success"
-      onClick={() => handleSearch(search)}
-    >
-      OK
-    </Button>
   </Form>
   )
 }
