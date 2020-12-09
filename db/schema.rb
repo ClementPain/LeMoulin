@@ -62,12 +62,6 @@ ActiveRecord::Schema.define(version: 2020_12_07_152454) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
-  create_table "shop_categories", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "shop_categories_joins", force: :cascade do |t|
     t.bigint "shop_category_id"
     t.bigint "shop_id"
@@ -89,6 +83,12 @@ ActiveRecord::Schema.define(version: 2020_12_07_152454) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "city"
     t.index ["shopkeeper_id"], name: "index_shops_on_shopkeeper_id"
+  end
+
+  create_table "shops_categories", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

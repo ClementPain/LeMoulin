@@ -3,13 +3,17 @@ import { useSelector } from 'react-redux';
 
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import SearchBar from './SearchBar'
+
+import Logo from '../Logo'
           
 const NavBar = ()  => {
   const { isAuthenticated } = useSelector((state) => state);
   
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
-      <Navbar.Brand href="/">The Mill</Navbar.Brand>
+      <Navbar.Brand href="/">
+        <Logo />
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
