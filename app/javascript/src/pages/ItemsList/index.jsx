@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
 import { Form } from 'react-bootstrap'
 
 import ItemCard from '../../components/ItemCard'
 
 const ItemsList = () => {
+  // let history = useHistory()
+  let params = useParams()
+
   const [itemsArray, setItemsArray] = useState([])
-  const [search, setSearch] = useState({
-    keyword: '',
-    categories: [],
-  })
+  // const [search, setSearch] = useState({
+  //   keyword: history.location.state ? history.location.state.keyword : '',
+  //   categories: [],
+  // })
 
   // const [shopCategoriesList, setShopCategoriesList] = useState([])
 
@@ -32,20 +36,28 @@ const ItemsList = () => {
   // }, []);
 
   useEffect( () => {
-    let url = 'api/v1/items'
-  //   let noParameter = true
+    let url = 'http://localhost:3000/api/v1/items'
+    let noParameter = true
 
-  //   if(search.keyword.length > 0) {
-  //     url += checkForFirstParameter(noParameter)
-  //     noParameter = false
-  //     url += "keyword=" + encodeURIComponent(search.keyword.trim())
-  //   }
+    if(params.keyword) {
+      url += checkForFirstParameter(noParameter)
+      noParameter = false
+      url += "keyword=" + encodeURIComponent(params.keyword.trim())
+    }
 
-  //   if(search.categories.length > 0) {
-  //     url += checkForFirstParameter(noParameter)
-  //     noParameter = false
-  //     url += "categories=" + search.categories.join(',')
-  //   }
+    // if(history.location.state?.keyword) {
+    //   url += checkForFirstParameter(noParameter)
+    //   noParameter = false
+    //   url += "keyword=" + encodeURIComponent(history.location.state?.keyword.trim())
+    // }
+
+    console.log(url)
+
+    // if(search.categories.length > 0) {
+    //   url += checkForFirstParameter(noParameter)
+    //   noParameter = false
+    //   url += "categories=" + search.categories.join(',')
+    // }
 
     fetch(url)
       .then((response) => response.json())
@@ -55,19 +67,19 @@ const ItemsList = () => {
           setItemsArray(previousArray => [item, ...previousArray])
         })
     })
-  }, [search])
+  }, [])
 
   // const setUrl = (url) => {
     
   // }
 
-  // const checkForFirstParameter = (noParameter) => {
-  //   if (noParameter) {
-  //     return '?'
-  //   } else  {
-  //     return '&&'
-  //   }
-  // }
+  const checkForFirstParameter = (noParameter) => {
+    if (noParameter) {
+      return '?'
+    } else  {
+      return '&&'
+    }
+  }
 
   // const handleCategoriesFilter = (event) => {
   //   if(event.target.checked) {
@@ -88,7 +100,7 @@ const ItemsList = () => {
   // }
 
   return (
-  <Container fluid className='border justify-content-center'>
+  <Container fluid className='justify-content-center'>
   {/* <Row> */}
     {/* <Col sm={3} className='justify-content-center mt-5'>
       <h5>Filtrer les résultats</h5>
