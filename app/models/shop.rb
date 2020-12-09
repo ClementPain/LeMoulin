@@ -26,7 +26,6 @@ class Shop < ApplicationRecord
 
   # methodes
   def self.search(params)
-    puts params
     shops = Shop.all
     shops = shops.filter_by_name(params[:keyword]).or(shops.filter_by_description(params[:keyword])) if params[:keyword]
     shops = shops.filter_by_categories(params[:categories]) if params[:categories]
