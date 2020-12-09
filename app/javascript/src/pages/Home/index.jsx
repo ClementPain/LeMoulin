@@ -1,10 +1,10 @@
 import React from 'react'
 
-import Jumborton from "./jumborton"
+import Hero from "../../components/Jumbotron"
 
 const Home = () => (
   <div>
-    <Jumborton />
+    <Hero />
   </div>
 )
 

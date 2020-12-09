@@ -14,15 +14,13 @@ const NavBar = ()  => {
       <Navbar.Brand href="/">
         <Logo />
       </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
+       <Navbar.Toggle aria-controls="basic-navbar-nav" />
+       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/shopslist">Boutiques</Nav.Link>
           <Nav.Link href="/itemslist">Produits</Nav.Link>
           <Nav.Link href="/shop">Shop</Nav.Link>
-          
-
           {
             !isAuthenticated &&
             (
