@@ -25,6 +25,11 @@ const Navbar = ()  => {
               <span className="sr-only">(current)</span>
             </Link>
           </li>
+          <li className="nav-item active">
+            <Link className="nav-link" to="/shop">Shop
+              <span className="sr-only">(current)</span>
+            </Link>
+          </li>
           {
             !isAuthenticated &&
             (
