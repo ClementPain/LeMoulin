@@ -1,60 +1,45 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
-const Navbar = ()  => {
+const NavBar = ()  => {
   const { isAuthenticated } = useSelector((state) => state);
   
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <Link className="navbar-brand" to="/">The Mill</Link>
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-
-      <div className="collapse navbar-collapse" id="navbarColor01">
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item active">
-            <Link className="nav-link" to="/">Home
-              <span className="sr-only">(current)</span>
-            </Link>
-          </li>
-
-          <li className="nav-item active">
-            <Link className="nav-link" to="/shopslist">Shops
-              <span className="sr-only">(current)</span>
-            </Link>
-          </li>
-          <li className="nav-item active">
-            <Link className="nav-link" to="/shop">Shop
-              <span className="sr-only">(current)</span>
-            </Link>
-          </li>
+    <Navbar bg="primary" variant="dark" expand="lg">
+      <Navbar.Brand href="/">The Mill</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/shopslist">Shops</Nav.Link>
+          <Nav.Link href="/shop">Shop</Nav.Link>
+      
+          <NavDropdown title="User" id="basic-nav-dropdown">
           {
             !isAuthenticated &&
             (
               <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">Sign Up</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">Log In</Link>
-                </li>
+              <NavDropdown.Item href="/register">Sign Up</NavDropdown.Item>
+              <NavDropdown.Item href="/login">Log In</NavDropdown.Item>
               </>
-            )
-          }
-          {
-            isAuthenticated && 
-            (
-              <li className="nav-item">
-                <Link className="nav-link" to="/logout">Log Out</Link>
-              </li>
-            )
-          }
-        </ul>
-      </div>
-    </nav>
+              )
+            }
+            {
+              isAuthenticated && 
+              (
+                <>
+                <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                <NavDropdown.Item href="/logout">Log Out</NavDropdown.Item>
+                </>
+                )
+              }
+          </NavDropdown>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   )
 }
-
-export default Navbar;
+      
+export default NavBar;
+      
