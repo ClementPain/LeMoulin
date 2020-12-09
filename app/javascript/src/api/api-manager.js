@@ -4,8 +4,14 @@ const { setAuthCookie, getAuthCookie } = authCookieHandler;
 
 const root = '/api/v1/';
 
-async function request(endpoint, { method = 'get', authRequired = true, body = null } = {}) {
-  const url = `${root}${endpoint}`;
+async function request(endpoint, { method = 'get', authRequired = true, body = null, params = {} } = {}) {
+  
+  const queryString = Object.entries(params)
+                        .map(([key, value]) =>
+                          `${key}=${encodeURIComponent(String(value).trim())}`
+                        ).join('&')
+
+  const url = `${root}${endpoint}?${queryString}`;
   
   const authorizaton = authRequired? 
     { Authorization: `Bearer ${getAuthCookie().token}` }
@@ -27,26 +33,27 @@ async function request(endpoint, { method = 'get', authRequired = true, body = n
   return response;
 }
 
-export async function find(endpoint, { authRequired = false } = {}) {
+export async function find(endpoint, { authRequired = false, params = {}, onError, onErrors, onSuccess } = {}) {
   const firstRequest = await request(endpoint, {
     authRequired,
+    params,
   })
 
   const result = await firstRequest.json();
 
-  const { errors, error } = result;
+  const { error, errors } = result;
 
-  if (errors)
-    onErrors(errors);
-  else if (error)
+  if (error)
     onError(error);
+  else if (errors)
+    onErrors(errors);
   else
     onSuccess(result);
 
   return result.json();
 }
 
-export async function create(endpoint, { authRequired = true, body } = {}) {
+export async function create(endpoint, { authRequired = true, body, onError, onErrors, onSuccess } = {}) {
   const firstRequest = await request(endpoint, { 
     method: 'post',
     authRequired,
@@ -55,19 +62,19 @@ export async function create(endpoint, { authRequired = true, body } = {}) {
 
   const result = await firstRequest.json();
 
-  const { errors, error } = result;
+  const { error, errors } = result;
 
-  if (errors)
-    onErrors(errors);
-  else if (error)
+  if (error)
     onError(error);
+  else if (errors)
+    onErrors(errors);
   else
     onSuccess(result);
 
   return result.json();
 }
 
-export async function update(endpoint, { body } = {}) {
+export async function update(endpoint, { body, onError, onErrors, onSuccess } = {}) {
   const firstRequest = await request(endpoint, {
     method: 'put',
     body,
@@ -75,12 +82,12 @@ export async function update(endpoint, { body } = {}) {
 
   const result = await firstRequest.json();
 
-  const { errors, error } = result;
+  const { error, errors } = result;
 
-  if (errors)
-    onErrors(errors);
-  else if (error)
+  if (error)
     onError(error);
+  else if (errors)
+    onErrors(errors);
   else
     onSuccess(result);
 
@@ -93,7 +100,7 @@ export async function remove(endpoint) {
   })
 }
 
-export async function auth(endpoint, { identifiers }, onErrors, onError, onSuccess) {
+export async function auth(endpoint, { identifiers ,onError, onErrors, onSuccess }) {
   const firstRequest = await request(endpoint, {
     method: 'post',
     authRequired: false,
@@ -108,12 +115,12 @@ export async function auth(endpoint, { identifiers }, onErrors, onError, onSucce
 
   const result = await firstRequest.json();
 
-  const { errors, error } = result;
+  const { error, errors } = result;
 
-  if (errors)
-    onErrors(errors);
-  else if (error)
+  if (error)
     onError(error);
+  else if (errors)
+    onErrors(errors);
   else
     onSuccess(result);
 
