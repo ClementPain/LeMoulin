@@ -62,14 +62,6 @@ Item.create!(
 )
 
 Item.create!(
-  name: 'Tomates des Pouilles pelées à la main 550 gr',
-  description: "Ces Pomodori pelati sont des tomates pelées à la main. Une spécialité typique, 100% naturelle et artisanale, sans aucun ajout de sel, sucre ou correcteur d'acidité. On pèle à la main 'i pomodori della Daunia' : une sélection de bonnes tomates mûres et juteuses de la région de la Valle d’Ofanto, dans les Pouilles.",
-  price: 5.50,
-  stock: 2,
-  shop_id: shop1.id
-)
-
-Item.create!(
   name: 'Crème Parmesan Reggiano et truffe 80 gr',
   description: "C'est une crème raffinée au fromage Parmigiano DOP et à la truffe estivale (dite aussi truffe de Saint Jean). Le mariage parmesan/truffe est un régal à l'apéritif sur des Crostini ou Bruschette de pain mais également en accompagnement d'omelette, pâtes, risotto, etc.",
   price: 10.40,

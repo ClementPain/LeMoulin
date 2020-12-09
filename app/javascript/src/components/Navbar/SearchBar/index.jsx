@@ -1,14 +1,21 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Form, FormControl, Button } from 'react-bootstrap'
 
 const SearchBar = () => {
+  let history = useHistory()
+
   const [search, setSearch] = useState('')
 
   const handleSearch = (keyword) => {
     if (keyword.length > 0) {
-      history.push(`/items/${keyword}`)
+      history.push({
+        pathname: `/itemslist/search/${keyword}`,
+        state: { keyword: keyword }
+      })
+      history.go(0)
     } else {
-      history.push('/items')
+      history.push('/itemslist')
     }
   }
 
