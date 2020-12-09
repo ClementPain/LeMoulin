@@ -31,18 +31,18 @@ const eraseErrors = () => ({
 
 const handleAuth = (endpoint, identifiers) => (dispatch) => {
   dispatch(authRequest());
-  auth(endpoint, { identifiers },
-    (errors) => {
-      dispatch(authFailed({ errors: errors[0].detail }));
-    },
-    (error) => {
+  auth(endpoint, { identifiers,
+    onError: (error) => {
       dispatch(authFailed({ error }));
     },
-    (result) => {
+    onErrors: (errors) => {
+      dispatch(authFailed({ errors: errors[0].detail }));
+    },
+    onSuccess: (result) => {
       setAuthCookie('currentUserId', result.id);
       dispatch(authSuccess(result.id));
     }
-  )
+  })
   .catch((error) => dispatch(authFailed(error)));
 };
 
