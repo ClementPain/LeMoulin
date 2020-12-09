@@ -1,14 +1,18 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import {
+  Formik, Form, Field, ErrorMessage,
+} from 'formik';
 
 import { handleAuth, eraseErrors } from '../../redux-config';
 
 const endpoints = {
   signup: 'signup',
   login: 'login',
-}
+};
 
 const Auth = ({ type }) => {
   const { isAuthenticated, errors } = useSelector((state) => state);
@@ -18,14 +22,13 @@ const Auth = ({ type }) => {
   const [alert, setAlert] = useState(null);
 
   const handleSubmit = (values) => {
-    
     dispatch(handleAuth(endpoints[type], values));
   };
 
   useEffect(
     () => dispatch(eraseErrors()),
     [],
-  )
+  );
 
   useEffect(
     () => {
@@ -50,23 +53,23 @@ const Auth = ({ type }) => {
               <Formik
                 initialValues={{ email: '', password: '' }}
                 validate={(values) => {
-                  const errors = {};
-                  
+                  const formErrors = {};
+
                   if (!values.email) {
-                    errors.email = 'Required';
+                    formErrors.email = 'Required';
                   } else if (
                     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
                   ) {
-                    errors.email = 'Invalid email address';
-                  }
-                  
-                  if (!values.password) {
-                    errors.password = 'Required';
-                  } else if (values.password.length < 6) {
-                    errors.password = 'Must be 6 characters or more'
+                    formErrors.email = 'Invalid email address';
                   }
 
-                  return errors;
+                  if (!values.password) {
+                    formErrors.password = 'Required';
+                  } else if (values.password.length < 6) {
+                    formErrors.password = 'Must be 6 characters or more';
+                  }
+
+                  return formErrors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(false);
@@ -81,8 +84,8 @@ const Auth = ({ type }) => {
                         <label htmlFor="email" className="text-md-right">
                           Email
                         </label>
-                        <Field name="email" type="email" placeholder="Enter email"className="form-control" />
-                        <ErrorMessage name="email" component="div" className="alert alert-danger" /> 
+                        <Field name="email" type="email" placeholder="Enter email" className="form-control" />
+                        <ErrorMessage name="email" component="div" className="alert alert-danger" />
                         { alert?.errors && alert.errors.email && (<div className="alert alert-danger">{alert.errors.email.join(', ')}</div>) }
                       </div>
                       <div className="form-group row">
@@ -90,7 +93,7 @@ const Auth = ({ type }) => {
                           Password
                         </label>
                         <Field name="password" type="password" placeholder="Enter password" className="form-control" />
-                        <ErrorMessage name="password" component="div" className="alert alert-danger"/> 
+                        <ErrorMessage name="password" component="div" className="alert alert-danger" />
                         { alert?.errors && alert.errors.password && (<div className="alert alert-danger">{alert.errors.password.join(', ')}</div>) }
                       </div>
                       <div className="form-group text-center">

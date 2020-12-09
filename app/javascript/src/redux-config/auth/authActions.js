@@ -1,5 +1,5 @@
 import {
-  AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILED, DEAUTH_REQUEST, ERASE_ERRORS
+  AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILED, DEAUTH_REQUEST, ERASE_ERRORS,
 } from './authTypes';
 
 import { auth, deauth } from '../../api/api-manager';
@@ -26,12 +26,13 @@ const deauthRequest = () => ({
 });
 
 const eraseErrors = () => ({
-  type: ERASE_ERRORS
-})
+  type: ERASE_ERRORS,
+});
 
 const handleAuth = (endpoint, identifiers) => (dispatch) => {
   dispatch(authRequest());
-  auth(endpoint, { identifiers,
+  auth(endpoint, {
+    identifiers,
     onError: (error) => {
       dispatch(authFailed({ error }));
     },
@@ -41,9 +42,9 @@ const handleAuth = (endpoint, identifiers) => (dispatch) => {
     onSuccess: (result) => {
       setAuthCookie('currentUserId', result.id);
       dispatch(authSuccess(result.id));
-    }
+    },
   })
-  .catch((error) => dispatch(authFailed(error)));
+    .catch((error) => dispatch(authFailed(error)));
 };
 
 const handleDeauth = () => (dispatch) => {
@@ -52,4 +53,6 @@ const handleDeauth = () => (dispatch) => {
   removeAuthCookie();
 };
 
-export { handleAuth, authSuccess, handleDeauth, eraseErrors };
+export {
+  handleAuth, authSuccess, handleDeauth, eraseErrors,
+};

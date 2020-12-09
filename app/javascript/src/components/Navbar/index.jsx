@@ -22,7 +22,6 @@ const NavBar = () => {
           <Nav.Link href="/itemslist">Produits</Nav.Link>
           <Nav.Link href="/shop">Shop</Nav.Link>
           <Nav.Link href="/aboutus">About us</Nav.Link>
-
           {
             !isAuthenticated
             && (
