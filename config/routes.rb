@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :profiles, only: %w[show]
       resources :shops, only: %w[index show create]
       resources :shop_categories, only: %w[index]
+      resources :items, only: %w[index]
     end
   end
 
