@@ -7,10 +7,10 @@ const Shop= ({ shop }) => (
   <Card>
     <Card.Header style={{ backgroundColor: `#45B5AA`}}>
       <Row>
-        <Col sm={6} className="text-center">
-          <Card.Title> Shop Name </Card.Title>
+        <Col sm={12} className="text-center">
+          <Card.Title > Shop Name </Card.Title>
         </Col>
-        <Col sm={6} className="align-items-end">
+        <Col sm={12} className="align-items-end">
         </Col>
       </Row>
     </Card.Header>
