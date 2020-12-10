@@ -28,6 +28,8 @@ const Auth = ({ type }) => {
     dispatch(handleAuth(endpoints[type], values));
   };
 
+  const handleOnInput = () => setAlert(null);
+
   useEffect(
     () => dispatch(eraseErrors()),
     [],
@@ -39,8 +41,6 @@ const Auth = ({ type }) => {
     },
     [errors],
   );
-
-  const handleOnInput = () => setAlert(null);
 
   if (isAuthenticated) return <Redirect to="/" />;
 
@@ -90,6 +90,7 @@ const Auth = ({ type }) => {
                       <ErrorMessage name="email" component="div" className="alert alert-danger" />
                       { alert?.errors && alert.errors.email && (<div className="alert alert-danger">{alert.errors.email.join(', ')}</div>) }
                     </FormGroup>
+
                     <FormGroup>
                       <FormLabel htmlFor="password">
                         Password
@@ -98,6 +99,7 @@ const Auth = ({ type }) => {
                       <ErrorMessage name="password" component="div" className="alert alert-danger" />
                       { alert?.errors && alert.errors.password && (<div className="alert alert-danger">{alert.errors.password.join(', ')}</div>) }
                     </FormGroup>
+
                     <FormGroup className="text-center">
                       <Button variant="primary" type="submit" disabled={isSubmitting}>
                         Submit

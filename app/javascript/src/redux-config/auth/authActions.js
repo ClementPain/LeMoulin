@@ -11,9 +11,9 @@ const authRequest = () => ({
   type: AUTH_REQUEST,
 });
 
-const authSuccess = (id) => ({
+const authSuccess = (currentUserId) => ({
   type: AUTH_SUCCESS,
-  id,
+  currentUserId,
 });
 
 const authFailed = (errors) => ({

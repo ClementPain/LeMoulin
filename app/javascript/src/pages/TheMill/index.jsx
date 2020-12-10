@@ -5,8 +5,7 @@ import Routes from '../../routes';
 import { authCookieHandler } from '../../tools';
 import { authSuccess } from '../../redux-config';
 import NavBar from '../../components/Navbar';
-import Footer from '../../components/Footer/index'
-
+import Footer from '../../components/Footer';
 
 const { getAuthCookie } = authCookieHandler;
 
@@ -15,21 +14,21 @@ const TheMill = () => {
 
   const authUserIfAuthCookieExist = () => {
     const authCookie = getAuthCookie();
-    if (authCookie) { dispatch(authSuccess(authCookie.currentUserId)); }
+    if (authCookie) dispatch(authSuccess(authCookie.currentUserId))
   };
-  
+
   useEffect(
     () => { authUserIfAuthCookieExist(); },
     [],
-    );
-    
+  );
+
   return (
     <div>
       <NavBar />
       <Routes />
       <Footer />
     </div>
-  )
-}
+  );
+};
 
 export default TheMill;

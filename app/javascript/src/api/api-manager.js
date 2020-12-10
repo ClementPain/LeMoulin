@@ -4,9 +4,14 @@ const { setAuthCookie, getAuthCookie } = authCookieHandler;
 
 const root = '/api/v1/';
 
-async function request(endpoint, {
-  method = 'get', authRequired = true, data = null, params = {},
-} = {}) {
+const request = async (endpoint, options = {}) => {
+  const {
+    method = 'get',
+    authRequired = true,
+    data = null,
+    params = {},
+  } = options;
+
   const queryString = Object.entries(params)
     .map(([key, value]) => `${key}=${encodeURIComponent(String(value).trim())}`).join('&');
 
@@ -30,11 +35,17 @@ async function request(endpoint, {
   });
 
   return response;
-}
+};
 
-export async function find(endpoint, {
-  authRequired = false, params = {}, onError, onErrors, onSuccess,
-} = {}) {
+const find = async (endpoint, options = {}) => {
+  const {
+    authRequired = false,
+    params = {},
+    onError,
+    onErrors,
+    onSuccess,
+  } = options;
+
   const firstRequest = await request(endpoint, {
     authRequired,
     params,
@@ -44,14 +55,24 @@ export async function find(endpoint, {
 
   const { error, errors } = result;
 
-  if (error) { onError(error); } else if (errors) { onErrors(errors); } else { onSuccess(result); }
+  if (error && onError) {
+    onError(error);
+  } else if (errors && onErrors) {
+    onErrors(errors);
+  } else { onSuccess(result); }
 
-  return result.json();
-}
+  return result;
+};
 
-export async function create(endpoint, {
-  authRequired = true, data, onError, onErrors, onSuccess,
-} = {}) {
+const create = async (endpoint, options = {}) => {
+  const {
+    authRequired = true,
+    data,
+    onError,
+    onErrors,
+    onSuccess,
+  } = options;
+
   const firstRequest = await request(endpoint, {
     method: 'post',
     authRequired,
@@ -62,14 +83,23 @@ export async function create(endpoint, {
 
   const { error, errors } = result;
 
-  if (error) { onError(error); } else if (errors) { onErrors(errors); } else { onSuccess(result); }
+  if (error && onError) {
+    onError(error);
+  } else if (errors && onErrors) {
+    onErrors(errors);
+  } else { onSuccess(result); }
 
-  return result.json();
-}
+  return result;
+};
 
-export async function update(endpoint, {
-  data, onError, onErrors, onSuccess,
-} = {}) {
+const update = async (endpoint, options = {}) => {
+  const {
+    data,
+    onError,
+    onErrors,
+    onSuccess,
+  } = options;
+
   const firstRequest = await request(endpoint, {
     method: 'put',
     data,
@@ -79,22 +109,31 @@ export async function update(endpoint, {
 
   const { error, errors } = result;
 
-  if (error) { onError(error); } else if (errors) { onErrors(errors); } else { onSuccess(result); }
+  if (error && onError) {
+    onError(error);
+  } else if (errors && onErrors) {
+    onErrors(errors);
+  } else { onSuccess(result); }
 
-  return result.json();
-}
+  return result;
+};
 
-export async function remove(endpoint) {
+const remove = async (endpoint) => {
   const response = await request(endpoint, {
     method: 'delete',
   });
 
   return response;
-}
+};
 
-export async function auth(endpoint, {
-  identifiers, onError, onErrors, onSuccess,
-}) {
+const auth = async (endpoint, options) => {
+  const {
+    identifiers,
+    onError,
+    onErrors,
+    onSuccess,
+  } = options;
+
   const firstRequest = await request(endpoint, {
     method: 'post',
     authRequired: false,
@@ -110,11 +149,19 @@ export async function auth(endpoint, {
 
   const { error, errors } = result;
 
-  if (error) { onError(error); } else if (errors) { onErrors(errors); } else { onSuccess(result); }
+  if (error && onError) {
+    onError(error);
+  } else if (errors && onErrors) {
+    onErrors(errors);
+  } else { onSuccess(result); }
 
   return result;
-}
+};
 
-export function deauth() {
+const deauth = () => {
   remove('logout');
-}
+};
+
+export {
+  find, create, update, remove, auth, deauth,
+};
