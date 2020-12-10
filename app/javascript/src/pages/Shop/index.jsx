@@ -1,24 +1,39 @@
 import React from 'react'
-import { Card, Row, Col, Container } from 'react-bootstrap'
-
-
+import { Card, Col, Row, Container, Jumbotron } from 'react-bootstrap'
+import Image from 'react-bootstrap/Image'
+import ShopImage from './Page-Grise.jpg'
 const Shop= ({ shop }) => (
   <Container style={{ marginTop:20}} >
   <Card>
     <Card.Header style={{ backgroundColor: `#45B5AA`}}>
-      <Row>
-        <Col sm={12} className="text-center">
-          <Card.Title > Shop Name </Card.Title>
+        <Col sm={12}>
+          <Card.Title>
+            <h4 className="text-center text-white"> SHOP NAME</h4>
+            </Card.Title>
         </Col>
+      </Card.Header>
         <Col sm={12} className="align-items-end">
         </Col>
-      </Row>
-    </Card.Header>
     <Card.Body>
+    <Container>
+  <Row>
+    <Col xs={6} md={4}>
+      <Image src= {ShopImage} className="Page-Grise.jpg/171x180"  thumbnail  />
+    </Col>
+    <Col xs={6} md={4}>
+      <Image src= {ShopImage} className="Page-Grise.jpg/171x180" thumbnail />
+    </Col>
+    <Col xs={6} md={4}>
+      <Image src= {ShopImage} className="Page-Grise.jpg/171x180" thumbnail />
+    </Col>
+  </Row>
+</Container>
+   <Col>
       <Card.Text>shop.description </Card.Text>
       <footer className="blockquote-footer">
         shop.address - shop.city
       </footer>
+      </Col>
     </Card.Body>
   </Card>
   </Container>
