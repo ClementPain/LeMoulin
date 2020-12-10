@@ -1,9 +1,9 @@
-import './index.scss'
-import React from 'react'
-import LogoImage from './Logo-Moulin-Negatif.png'
+import './index.scss';
+import React from 'react';
+import LogoImage from './Logo-Moulin-Negatif.png';
 
 const Logo = () => (
-	<img src={LogoImage} className="Logo"  />
+  <img src={LogoImage} className="Logo" alt="Logo" />
 );
 
 export default Logo;
