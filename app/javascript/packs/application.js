@@ -15,3 +15,4 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 require('bootswatch/dist/lux/bootstrap.min')
+import '../stylesheets/application.scss'
