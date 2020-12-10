@@ -15,9 +15,7 @@ const SearchBar = () => {
   useEffect(() => {
     find('shop_categories', {
       onSuccess: (response) => {
-        response?.map((category) => {
-          setShopCategoriesList((previousArray) => [category, ...previousArray]);
-        });
+        response?.map((category) => setShopCategoriesList((previousArray) => [category, ...previousArray]));
       },
     });
   }, []);
