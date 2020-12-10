@@ -6,7 +6,7 @@ import {
   Field, ErrorMessage, Form, Formik,
 } from 'formik';
 import {
-  Container, Row, Col, Card, Tabs, Tab, Button, Accordion, FormGroup,
+  Container, Row, Col, Card, Tabs, Tab, Button, FormGroup,
 } from 'react-bootstrap';
 
 import avatar from './avatar.png';
@@ -50,11 +50,6 @@ const Profile = () => {
                 {' '}
                 {currentUser?.profile.last_name}
               </Card.Title>
-              <Card.Text />
-              <p>{currentUser?.profile.address}</p>
-              <p>{currentUser?.profile.zip_code}</p>
-              <p className="text-muted">{currentUser?.email}</p>
-              <Button variant="primary" size="sm" className="text-center">Modifier</Button>
             </Card.Body>
           </Card>
         </Col>
