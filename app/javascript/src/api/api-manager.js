@@ -4,129 +4,164 @@ const { setAuthCookie, getAuthCookie } = authCookieHandler;
 
 const root = '/api/v1/';
 
-async function request(endpoint, { method = 'get', authRequired = true, body = null, params = {} } = {}) {
-  
+const request = async (endpoint, options = {}) => {
+  const {
+    method = 'get',
+    authRequired = true,
+    data = null,
+    params = {},
+  } = options;
+
   const queryString = Object.entries(params)
-                        .map(([key, value]) =>
-                          `${key}=${encodeURIComponent(String(value).trim())}`
-                        ).join('&')
+    .map(([key, value]) => `${key}=${encodeURIComponent(String(value).trim())}`).join('&');
 
   const url = `${root}${endpoint}?${queryString}`;
-  
-  const authorizaton = authRequired? 
-    { Authorization: `Bearer ${getAuthCookie().token}` }
-  : {}
 
-  body = body ?
-  { body: JSON.stringify(body) }
-  : {}
+  const authorizaton = authRequired
+    ? { Authorization: `Bearer ${getAuthCookie().token}` }
+    : {};
+
+  const body = data
+    ? { body: JSON.stringify(data) }
+    : {};
 
   const response = await fetch(url, {
     method,
-    headers : {
+    headers: {
       ...authorizaton,
       'Content-Type': 'application/json',
     },
     ...body,
-  })
+  });
 
   return response;
-}
+};
 
-export async function find(endpoint, { authRequired = false, params = {}, onError, onErrors, onSuccess } = {}) {
+const find = async (endpoint, options = {}) => {
+  const {
+    authRequired = false,
+    params = {},
+    onError,
+    onErrors,
+    onSuccess,
+  } = options;
+
   const firstRequest = await request(endpoint, {
     authRequired,
     params,
-  })
+  });
 
   const result = await firstRequest.json();
 
   const { error, errors } = result;
 
-  if (error)
+  if (error && onError) {
     onError(error);
-  else if (errors)
+  } else if (errors && onErrors) {
     onErrors(errors);
-  else
-    onSuccess(result);
+  } else { onSuccess(result); }
 
-  return result.json();
-}
+  return result;
+};
 
-export async function create(endpoint, { authRequired = true, body, onError, onErrors, onSuccess } = {}) {
-  const firstRequest = await request(endpoint, { 
+const create = async (endpoint, options = {}) => {
+  const {
+    authRequired = true,
+    data,
+    onError,
+    onErrors,
+    onSuccess,
+  } = options;
+
+  const firstRequest = await request(endpoint, {
     method: 'post',
     authRequired,
-    body,
-  })
+    data,
+  });
 
   const result = await firstRequest.json();
 
   const { error, errors } = result;
 
-  if (error)
+  if (error && onError) {
     onError(error);
-  else if (errors)
+  } else if (errors && onErrors) {
     onErrors(errors);
-  else
-    onSuccess(result);
+  } else { onSuccess(result); }
 
-  return result.json();
-}
+  return result;
+};
 
-export async function update(endpoint, { body, onError, onErrors, onSuccess } = {}) {
+const update = async (endpoint, options = {}) => {
+  const {
+    data,
+    onError,
+    onErrors,
+    onSuccess,
+  } = options;
+
   const firstRequest = await request(endpoint, {
     method: 'put',
-    body,
-  })
+    data,
+  });
 
   const result = await firstRequest.json();
 
   const { error, errors } = result;
 
-  if (error)
+  if (error && onError) {
     onError(error);
-  else if (errors)
+  } else if (errors && onErrors) {
     onErrors(errors);
-  else
-    onSuccess(result);
+  } else { onSuccess(result); }
 
-  return result.json();
-}
+  return result;
+};
 
-export async function remove(endpoint) {
-  return await request(endpoint, {
+const remove = async (endpoint) => {
+  const response = await request(endpoint, {
     method: 'delete',
-  })
-}
+  });
 
-export async function auth(endpoint, { identifiers ,onError, onErrors, onSuccess }) {
+  return response;
+};
+
+const auth = async (endpoint, options) => {
+  const {
+    identifiers,
+    onError,
+    onErrors,
+    onSuccess,
+  } = options;
+
   const firstRequest = await request(endpoint, {
     method: 'post',
     authRequired: false,
-    body : {
-      user: identifiers
-    }
-  })
+    data: {
+      user: identifiers,
+    },
+  });
 
   const token = firstRequest.headers.get('Authorization');
-  if (token)
-    setAuthCookie('token', token.split('Bearer ').pop());
+  if (token) { setAuthCookie('token', token.split('Bearer ').pop()); }
 
   const result = await firstRequest.json();
 
   const { error, errors } = result;
 
-  if (error)
+  if (error && onError) {
     onError(error);
-  else if (errors)
+  } else if (errors && onErrors) {
     onErrors(errors);
-  else
-    onSuccess(result);
+  } else { onSuccess(result); }
 
   return result;
-}
+};
 
-export function deauth() {
-  remove('logout')
-}
+const deauth = () => {
+  remove('logout');
+};
+
+export {
+  find, create, update, remove, auth, deauth,
+};
