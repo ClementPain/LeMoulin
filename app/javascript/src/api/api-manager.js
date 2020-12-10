@@ -163,10 +163,6 @@ const deauth = () => {
   remove('logout');
 };
 
-export function deauth() {
-  remove('logout')
-}
-
 const setUrl = (url, params = {}) => {
   let firstParameter = true
   let newUrl = url
@@ -200,4 +196,4 @@ const checkForFirstParameter = (noParameter) => {
   }
 }
 
-export { auth, setUrl, find, create, update, remove, auth, deauth };
+export { auth, setUrl, find, create, update, remove, deauth };

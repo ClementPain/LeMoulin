@@ -11,8 +11,6 @@ const SearchBar = () => {
     keyword: '',
     category: '',
   })
-
-  useEffect( () => console.log(search), [search]);
   
   useEffect( () => {
     find('shop_categories', {
