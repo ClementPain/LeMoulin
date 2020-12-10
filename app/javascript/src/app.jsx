@@ -1,5 +1,5 @@
 import React from 'react';
-import 'bootswatch/dist/lux/bootstrap.min.css';
+import './vendor/bootstrap.min.css';
 
 import {
   BrowserRouter as Router,
