@@ -1,8 +1,7 @@
 import React from 'react';
 
 const Footer = () => (
-  // <div className="fixed-bottom">
-  <div>
+  <div className="fixed-bottom">
     <nav className="navbar navbar-expand-lg bg-primary text-white text-center">
       <div className="col">
         <div className="title">Title1</div>
