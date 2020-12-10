@@ -30,8 +30,9 @@ const Profile = () => {
       if (currentUserId) {
         find(`users/${currentUserId}`, {
           authRequired: true,
-          onSuccess: (result) => setCurrentUser(result)
-          ,
+          onError: (error) => console.log(error),
+          onErrors: (errors) => console.log(errors),
+          onSuccess: (result) => setCurrentUser(result),
         });
       }
     },
@@ -45,11 +46,13 @@ const Profile = () => {
           <img src={avatar} alt="Avatar" className="avatar" />
           <Card>
             <Card.Body>
-              <Card.Title>
-                {currentUser?.profile.first_name}
-                {' '}
-                {currentUser?.profile.last_name}
-              </Card.Title>
+              {currentUser && (
+                <Card.Title>
+                  {currentUser.profile.first_name}
+                  {' '}
+                  {currentUser.profile.last_name}
+                </Card.Title>
+              )}
             </Card.Body>
           </Card>
         </Col>

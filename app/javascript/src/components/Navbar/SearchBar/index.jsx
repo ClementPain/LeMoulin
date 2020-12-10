@@ -31,21 +31,16 @@ const SearchBar = () => {
 
   return (
     <Form inline>
-      <Form.Control as="select" className="mr-sm-2">
-        <option
-          value=""
-          key={0}
-          onClick={() => setSearch({ ...search, category: '' })}
-        >
+      <Form.Control
+        as="select"
+        className="mr-sm-2"
+        onChange={(event) => setSearch({ ...search, category: event.target.value })}
+      >
+        <option value="" key={0}>
           Toute catégorie
-
         </option>
         { shopCategoriesList.map((cat) => (
-          <option
-            value={cat.title}
-            key={cat.id}
-            onClick={(event) => setSearch({ ...search, category: event.target.value })}
-          >
+          <option value={cat.title} key={cat.id}>
             {cat.title}
           </option>
         ))}
