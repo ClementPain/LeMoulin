@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
-import { Form } from 'react-bootstrap'
 
 import ItemCard from '../../components/ItemCard'
 
 const ItemsList = () => {
-  let params = useParams()
+  let history = useHistory()
+  let searchUrl = history.location.search
 
   const [itemsArray, setItemsArray] = useState([])
 
   useEffect( () => {
-    let url = 'http://localhost:3000/api/v1/items'
-    let noParameter = true
-
-    if(params.keyword) {
-      url += checkForFirstParameter(noParameter)
-      noParameter = false
-      url += "keyword=" + encodeURIComponent(params.keyword.trim())
-    }
+    let url = '/api/v1/items' + searchUrl
 
     fetch(url)
       .then((response) => response.json())
@@ -28,19 +21,7 @@ const ItemsList = () => {
           setItemsArray(previousArray => [item, ...previousArray])
         })
     })
-  }, [])
-
-  // const setUrl = (url) => {
-    
-  // }
-
-  const checkForFirstParameter = (noParameter) => {
-    if (noParameter) {
-      return '?'
-    } else  {
-      return '&&'
-    }
-  }
+  }, [searchUrl])
 
   return (
   <Container fluid className='justify-content-center'>
