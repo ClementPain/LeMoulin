@@ -12,6 +12,7 @@ import Logout from './pages/Logout';
 import Profile from './pages/Profile';
 import ItemsList from './pages/ItemsList';
 import ShopsList from './pages/ShopsList';
+import CreateShop from './pages/CreateShop';
 
 const Routes = () => (
   <Switch>
@@ -24,6 +25,7 @@ const Routes = () => (
     <Route path="/shopslist" component={ShopsList} />
     <Route path="/itemslist" component={ItemsList} />
     <Route path="/shop" component={<div>Shop</div>} />
+    <Route path="/createshop" component={CreateShop} />
   </Switch>
 );
 
