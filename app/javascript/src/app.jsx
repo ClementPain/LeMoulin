@@ -1,13 +1,13 @@
 import React from 'react';
-import 'bootswatch/dist/lux/bootstrap.min.css'; 
+import 'bootswatch/dist/lux/bootstrap.min.css';
 
 import {
-  BrowserRouter as Router
-} from "react-router-dom";
+  BrowserRouter as Router,
+} from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import TheMill from './pages/TheMill';
-import store from './redux-config'
+import store from './redux-config';
 
 const App = () => (
   <Router>
@@ -15,6 +15,6 @@ const App = () => (
       <TheMill />
     </Provider>
   </Router>
-)
+);
 
 export default App;

@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 import { Jumbotron, Container } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 
-const AboutUsComponent = ()  => (
+const AboutUsComponent = () => (
 
 <Jumbotron fluid>
   <Container>
@@ -64,7 +64,7 @@ const AboutUsComponent = ()  => (
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-      <small className="text-muted">THP session 13</small>
+      <small className="text-muted">THP Next session 14</small>
     </Card.Footer>
   </Card>
   <Card>
@@ -84,8 +84,6 @@ const AboutUsComponent = ()  => (
 </Container>
 </Jumbotron>
 
-
-
-)
+);
 
 export default AboutUsComponent;
