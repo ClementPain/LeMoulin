@@ -5,13 +5,13 @@ const { setAuthCookie, getAuthCookie } = authCookieHandler;
 const root = '/api/v1/';
 
 async function request(endpoint, { method = 'get', authRequired = true, body = null, params = {} } = {}) {
-  
   const queryString = Object.entries(params)
                         .map(([key, value]) =>
                           `${key}=${encodeURIComponent(String(value).trim())}`
                         ).join('&')
 
-  const url = `${root}${endpoint}?${queryString}`;
+  let url = `${root}${endpoint}`;
+  if (queryString.length > 0) { url += `?${queryString}` };
   
   const authorizaton = authRequired? 
     { Authorization: `Bearer ${getAuthCookie().token}` }
@@ -50,7 +50,7 @@ export async function find(endpoint, { authRequired = false, params = {}, onErro
   else
     onSuccess(result);
 
-  return result.json();
+  return result;
 }
 
 export async function create(endpoint, { authRequired = true, body, onError, onErrors, onSuccess } = {}) {
@@ -100,7 +100,7 @@ export async function remove(endpoint) {
   })
 }
 
-export async function auth(endpoint, { identifiers ,onError, onErrors, onSuccess }) {
+const auth = async (endpoint, { identifiers, onError, onErrors, onSuccess }) => {
   const firstRequest = await request(endpoint, {
     method: 'post',
     authRequired: false,
@@ -117,12 +117,13 @@ export async function auth(endpoint, { identifiers ,onError, onErrors, onSuccess
 
   const { error, errors } = result;
 
-  if (error)
+  if (error) {
     onError(error);
-  else if (errors)
+  } else if (errors) {
     onErrors(errors);
-  else
+  } else {
     onSuccess(result);
+  }
 
   return result;
 }
@@ -130,3 +131,38 @@ export async function auth(endpoint, { identifiers ,onError, onErrors, onSuccess
 export function deauth() {
   remove('logout')
 }
+
+const setUrl = (url, params = {}) => {
+  let firstParameter = true
+  let newUrl = url
+
+  if(params.keyword?.length > 0) {
+    newUrl += checkForFirstParameter(firstParameter)
+    firstParameter = false
+    newUrl += "keyword=" + encodeURIComponent(params.keyword.trim())
+  }
+
+  if(params.category?.length > 0) {
+    newUrl += checkForFirstParameter(firstParameter)
+    firstParameter = false
+    newUrl += "category=" + encodeURIComponent(params.category.trim())
+  }
+
+  if(params.categories?.length > 0) {
+    newUrl += checkForFirstParameter(firstParameter)
+    firstParameter = false
+    newUrl += "categories=" + encodeURIComponent(params.categories.map( (cat) => cat.trim()).join(','))
+  }
+
+  return newUrl
+}
+
+const checkForFirstParameter = (noParameter) => {
+  if (noParameter) {
+    return '?'
+  } else  {
+    return '&&'
+  }
+}
+
+export { auth, setUrl };

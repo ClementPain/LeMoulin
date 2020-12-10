@@ -20,8 +20,8 @@ const pagesMap = {
     page: <Register />,
   },
   login: {
-  label: 'Login',
-  page: <Login />,
+    label: 'Login',
+    page: <Login />,
   },
   logout: {
     label: 'Logout',

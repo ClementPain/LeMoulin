@@ -11,7 +11,7 @@ import ItemsList from './pages/ItemsList'
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={PageContainer} />
-    <Route path="/itemslist/search/:keyword" component={ItemsList} />
+    <Route path="/itemslist/:search" component={ItemsList} />
     <Route path='/:slug' component={PageContainer} />
   </Switch>
 )
