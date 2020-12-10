@@ -1,4 +1,4 @@
-import './index.scss';
+import './index.sass';
 import React from 'react';
 import LogoImage from './Logo-Moulin-Negatif.png';
 
