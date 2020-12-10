@@ -26,6 +26,7 @@ const AboutUsComponent = ()  => (
       The Best team from The Hacking Project
     </p>
   </Container>
+  <Container>
 <CardDeck>
   <Card>
     <Card.Img variant="top" src="holder.js/100px160" />
@@ -37,7 +38,7 @@ const AboutUsComponent = ()  => (
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-      <small className="text-muted">THP session 13</small>
+      <small className="text-muted">THP Next session 14</small>
     </Card.Footer>
   </Card>
   <Card>
@@ -50,7 +51,7 @@ const AboutUsComponent = ()  => (
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-      <small className="text-muted">THP session 13</small>
+      <small className="text-muted">THP Next session 14</small>
     </Card.Footer>
   </Card>
   <Card>
@@ -76,10 +77,11 @@ const AboutUsComponent = ()  => (
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-      <small className="text-muted">THP session 13</small>
+      <small className="text-muted">THP Next session 14</small>
     </Card.Footer>
   </Card>
 </CardDeck>
+</Container>
 </Jumbotron>
 
 
