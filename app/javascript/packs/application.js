@@ -12,7 +12,11 @@ require("channels")
 // or the `imagePath` JavaScript helper below.
 //
 // const images = require.context('../images', true)
+<<<<<<< HEAD
 // const imagePath = (name) => images(name, true)
 
 require('bootswatch/dist/lux/bootstrap')
 import '../stylesheets/application.scss'
+=======
+// const imagePath = (name) => images(name, true)
+>>>>>>> feature-profile
