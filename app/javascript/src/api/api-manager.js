@@ -16,7 +16,7 @@ const request = async (endpoint, options = {}) => {
     .map(([key, value]) => `${key}=${encodeURIComponent(String(value).trim())}`).join('&');
 
   let url = `${root}${endpoint}`;
-  if (queryString.length > 0) { url += `?${queryString}` };
+  if (queryString.length > 0) { url += `?${queryString}`; }
 
   const authorizaton = authRequired
     ? { Authorization: `Bearer ${getAuthCookie().token}` }
@@ -163,37 +163,38 @@ const deauth = () => {
   remove('logout');
 };
 
-const setUrl = (url, params = {}) => {
-  let firstParameter = true
-  let newUrl = url
-
-  if(params.keyword?.length > 0) {
-    newUrl += checkForFirstParameter(firstParameter)
-    firstParameter = false
-    newUrl += "keyword=" + encodeURIComponent(params.keyword.trim())
-  }
-
-  if(params.category?.length > 0) {
-    newUrl += checkForFirstParameter(firstParameter)
-    firstParameter = false
-    newUrl += "category=" + encodeURIComponent(params.category.trim())
-  }
-
-  if(params.categories?.length > 0) {
-    newUrl += checkForFirstParameter(firstParameter)
-    firstParameter = false
-    newUrl += "categories=" + encodeURIComponent(params.categories.map( (cat) => cat.trim()).join(','))
-  }
-
-  return newUrl
-}
-
 const checkForFirstParameter = (noParameter) => {
   if (noParameter) {
-    return '?'
-  } else  {
-    return '&&'
+    return '?';
   }
-}
+  return '&&';
+};
 
-export { auth, setUrl, find, create, update, remove, deauth };
+const setUrl = (url, params = {}) => {
+  let firstParameter = true;
+  let newUrl = url;
+
+  if (params.keyword?.length > 0) {
+    newUrl += checkForFirstParameter(firstParameter);
+    firstParameter = false;
+    newUrl += `keyword=${encodeURIComponent(params.keyword.trim())}`;
+  }
+
+  if (params.category?.length > 0) {
+    newUrl += checkForFirstParameter(firstParameter);
+    firstParameter = false;
+    newUrl += `category=${encodeURIComponent(params.category.trim())}`;
+  }
+
+  if (params.categories?.length > 0) {
+    newUrl += checkForFirstParameter(firstParameter);
+    firstParameter = false;
+    newUrl += `categories=${encodeURIComponent(params.categories.map((cat) => cat.trim()).join(','))}`;
+  }
+
+  return newUrl;
+};
+
+export {
+  auth, deauth, find, create, update, remove, setUrl,
+};
