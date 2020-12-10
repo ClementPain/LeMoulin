@@ -1,73 +1,40 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Form } from 'react-bootstrap'
 
 import ShopCard from '../../components/ShopCard'
-import { Form } from 'react-bootstrap'
+
+import { find, setUrl } from '../../api/api-manager'
 
 const ShopsList = () => {
   const [shopsArray, setShopsArray] = useState([])
+  const [shopCategoriesList, setShopCategoriesList] = useState([])
   const [search, setSearch] = useState({
     keyword: '',
     categories: [],
   })
 
-  const [shopCategoriesList, setShopCategoriesList] = useState([])
-
-  // useEffect( () => {
-  //   find('shop_categories')
-  //     .then((response) => {
-  //       response?.map( (category) => {
-  //         setshopCategoriesList(previousArray => [category, ...previousArray])
-  //       })
-  // })
-
   useEffect( () => {
-    fetch('api/v1/shop_categories')
-      .then((response) => response.json())
-      .then((response) => {
+    find('shop_categories', {
+      onSuccess: (response) => {
         response?.map( (category) => {
           setShopCategoriesList(previousArray => [category, ...previousArray])
         })
-      })
+      }
+    })
   }, []);
 
   useEffect( () => {
-    let url = 'api/v1/shops'
-    let noParameter = true
-
-    if(search.keyword.length > 0) {
-      url += checkForFirstParameter(noParameter)
-      noParameter = false
-      url += "keyword=" + encodeURIComponent(search.keyword.trim())
-    }
-
-    if(search.categories.length > 0) {
-      url += checkForFirstParameter(noParameter)
-      noParameter = false
-      url += "categories=" + search.categories.join(',')
-    }
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((response) => {
+    let url = setUrl('/shops', search)
+    
+    find(url, {
+      onSuccess: (response) => {
         setShopsArray([])
         response?.map( (shop) => {
           setShopsArray(previousArray => [shop, ...previousArray])
         })
+      }
     })
   }, [search])
-
-  const setUrl = (url) => {
-    
-  }
-
-  const checkForFirstParameter = (noParameter) => {
-    if (noParameter) {
-      return '?'
-    } else  {
-      return '&&'
-    }
-  }
 
   const handleCategoriesFilter = (event) => {
     if(event.target.checked) {
@@ -133,6 +100,3 @@ const ShopsList = () => {
 }
 
 export default ShopsList
-
-
-

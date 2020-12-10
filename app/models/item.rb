@@ -16,10 +16,19 @@ class Item < ApplicationRecord
     where('lower(description) LIKE ? ', "%#{keyword.downcase}%")
   }
 
+  scope :filter_by_category, lambda { |searched_category|
+    select{ |item| 
+      item.shop_categories.map{ |cat|
+        cat.title.downcase
+      }.include?(searched_category.downcase)
+    }
+  }
+
   # methodes
   def self.search(params)
     items = Item.all
     items = items.filter_by_name(params[:keyword]).or(items.filter_by_description(params[:keyword])) if params[:keyword]
+    items = items.filter_by_category(params[:category]) if params[:category]
 
     items
   end
