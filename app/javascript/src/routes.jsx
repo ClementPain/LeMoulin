@@ -26,7 +26,8 @@ const Routes = () => (
     <Route path="/shopslist" component={ShopsList} />
     <Route path="/itemslist" component={ItemsList} />
     <Route path="/createshop" component={CreateShop} />
-    <Route path="/shop" component={Shop} />
+    <Route exact path="/shop" component={Shop} />
+    <Route path="/shop/:id" component={Shop} />
   </Switch>
 );
 
