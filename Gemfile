@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.0'
+ruby '2.7.2'
 
 gem 'devise'
 gem 'devise-jwt', '~> 0.7.0'
@@ -11,8 +11,8 @@ gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'mast
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'pry'
 gem "table_print"
-gem 'rails-i18n', '~> 5.0'
-gem 'devise-i18n', '~> 1.9', '>= 1.9.1'
+gem 'rails-i18n'
+gem 'devise-i18n'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
