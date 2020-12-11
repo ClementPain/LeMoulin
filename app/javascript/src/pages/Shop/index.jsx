@@ -42,6 +42,9 @@ const Shop = () => (
             <Col className="card-title text-center text-primary mt-4">
               Shop city :
             </Col>
+            <Col className="card-title text-center text-primary mt-4">
+              References  :
+            </Col>
           </Row>
         </Col>
       </Card.Body>
