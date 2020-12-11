@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  Container, Row, Col, Card,
+  Container, Row, Col,
 } from 'react-bootstrap';
-
 import Switch from 'react-bootstrap/esm/Switch';
 import { Route, useRouteMatch } from 'react-router-dom';
+
 import { find } from '../../api/api-manager';
 import Avatar from './Avatar';
 import DashboardNav from './DashboardNav';
-import UserAuthInfos from './UserAuthInfos';
+import UserCommands from './UserCommands';
+import Panel from './Panel';
 
 const Profile = () => {
   const { path, url } = useRouteMatch();
@@ -31,19 +32,19 @@ const Profile = () => {
   );
 
   return (
-    <Container fluid className="px-2 mt-3 pt-3">
+    <Container fluid className="mt-3 pt-3">
       <Row>
-        <Col md={3} className="mb-3 mb-md-0">
+        <Col md={3} className="mb-3 mb-md-0 pl-3">
           <Avatar user={currentUser} />
           <DashboardNav url={url} />
         </Col>
         <Col md={9}>
-          <Switch>
+          <Switch style={{ padding: 0 }}>
             <Route exact path={path}>
-              <UserAuthInfos />
+              <UserCommands />
             </Route>
             <Route path={`${path}/:selectedPanel`}>
-              <Card />
+              <Panel />
             </Route>
           </Switch>
         </Col>
