@@ -4,7 +4,7 @@ import {
   Field, ErrorMessage, Form, Formik,
 } from 'formik';
 import {
-  Container, Row, Col, Card, Tabs, Tab, Button, FormGroup, ListGroup,
+  Container, Row, Col, Card, Button, FormGroup, ListGroup,
 } from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
