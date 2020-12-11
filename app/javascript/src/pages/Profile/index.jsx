@@ -6,9 +6,10 @@ import {
   Field, ErrorMessage, Form, Formik,
 } from 'formik';
 import {
-  Container, Row, Col, Card, Tabs, Tab, Button, FormGroup,
+  Container, Row, Col, Card, Tabs, Tab, Button, FormGroup, ListGroup,
 } from 'react-bootstrap';
 
+import { Link } from 'react-router-dom';
 import avatar from './avatar.png';
 import { find } from '../../api/api-manager';
 
@@ -45,7 +46,7 @@ const Profile = () => {
         <Col md={3} className="mb-3 mb-md-0">
           <img src={avatar} alt="Avatar" className="avatar" />
           <Card>
-            <Card.Body>
+            <Card.Header>
               {currentUser && (
                 <Card.Title>
                   {currentUser.profile.first_name}
@@ -53,7 +54,12 @@ const Profile = () => {
                   {currentUser.profile.last_name}
                 </Card.Title>
               )}
-            </Card.Body>
+            </Card.Header>
+            <ListGroup variant="flush">
+              <ListGroup.Item active>Tableau de bord</ListGroup.Item>
+              <ListGroup.Item action as={Link}>Dapibus ac facilisis in</ListGroup.Item>
+              <ListGroup.Item action as={Link}>Vestibulum at eros</ListGroup.Item>
+            </ListGroup>
           </Card>
         </Col>
         <Col md={9}>
