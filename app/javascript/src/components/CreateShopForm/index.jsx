@@ -32,9 +32,7 @@ const CreateShopFormComponent = () => {
             onChange={(event) => setNewshop({ ...newshop, name: event.target.value })}
           />
           ,
-
         </Form.Group>
-
       </Form.Row>
 
       <Form.Group controlId="exampleForm.ControlTextarea1">
