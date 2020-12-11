@@ -14,7 +14,7 @@ const TheMill = () => {
 
   const authUserIfAuthCookieExist = () => {
     const authCookie = getAuthCookie();
-    if (authCookie) dispatch(authSuccess(authCookie.currentUserId))
+    if (authCookie) dispatch(authSuccess(authCookie.currentUserId));
   };
 
   useEffect(

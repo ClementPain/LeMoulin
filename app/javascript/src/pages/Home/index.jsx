@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-import Hero from "../../components/Jumbotron"
+import Hero from '../../components/Jumbotron';
 
 const Home = () => (
   <div>
     <Hero />
   </div>
-)
+);
 
 export default Home;
