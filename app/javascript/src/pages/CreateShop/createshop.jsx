@@ -20,7 +20,6 @@ const CreateShopComponent = () => (
             <CreateShopFormComponent />
           </Card.Body>
         </Card>
-
       </Col>
     </Row>
   </Container>

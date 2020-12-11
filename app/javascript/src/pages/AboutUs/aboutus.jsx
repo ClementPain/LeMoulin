@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { Jumbotron, Container } from 'react-bootstrap';
-import Card from 'react-bootstrap/Card';
-import CardDeck from 'react-bootstrap/CardDeck';
+import { Container, Card, CardDeck } from 'react-bootstrap';
 
 const AboutUsComponent = () => (
 
-  <Jumbotron fluid>
+  <Container className="p-5">
     <Container>
       <h1>About us</h1>
       <p>
@@ -82,7 +80,7 @@ const AboutUsComponent = () => (
         </Card>
       </CardDeck>
     </Container>
-  </Jumbotron>
+  </Container>
 
 );
 
