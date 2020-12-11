@@ -32,8 +32,8 @@ const Shop = () => (
         </Container>
         <Col>
           <Card.Text>
-            <div className="card-title text-center text-primary mt-4"><h5>Description title</h5></div>
-            <div className="card-text text-center text-primary"><p>Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the Card's content.</p></div>
+            <h5 className="card-title text-center text-primary mt-4">Description title</h5>
+            <div className="card-text text-center text-primary">Some quick example text to build on the card title and make up the bulk of the content. Some quick example text to build on the card title and make up the bulk of the content.</div>
           </Card.Text>
           <Row>
             <Col className="card-title text-center text-primary mt-4">
