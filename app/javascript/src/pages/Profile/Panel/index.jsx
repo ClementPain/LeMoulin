@@ -20,7 +20,7 @@ const matchedPanels = {
     label: 'Mes commandes',
     page: <UserCommands />,
   },
-  my_card: {
+  my_cart: {
     label: 'Mon panier',
     page: <UserCart />,
   },
