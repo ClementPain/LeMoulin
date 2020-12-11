@@ -34,12 +34,12 @@ const Profile = () => {
   return (
     <Container fluid className="mt-3 pt-3">
       <Row>
-        <Col md={3} className="mb-3 mb-md-0">
+        <Col md={3} className="mb-3 mb-md-0 pl-3">
           <Avatar user={currentUser} />
           <DashboardNav url={url} />
         </Col>
         <Col md={9}>
-          <Switch>
+          <Switch style={{ padding: 0 }}>
             <Route exact path={path}>
               <UserCommands />
             </Route>
