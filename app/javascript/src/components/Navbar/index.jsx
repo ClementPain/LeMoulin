@@ -28,8 +28,8 @@ const NavBar = () => {
           !isAuthenticated
           && (
             <NavDropdown title="Rejoignez nous" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/register">Inscription</NavDropdown.Item>
-              <NavDropdown.Item href="/login">Connexion</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/register">Inscription</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/login">Connexion</NavDropdown.Item>
             </NavDropdown>
           )
         }
@@ -37,8 +37,8 @@ const NavBar = () => {
           isAuthenticated
           && (
             <NavDropdown title="Mon Compte" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/profile">Mon Profil</NavDropdown.Item>
-              <NavDropdown.Item href="/logout">Déconnexion</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/profile">Mon Profil</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/logout">Déconnexion</NavDropdown.Item>
             </NavDropdown>
           )
         }
