@@ -8,10 +8,6 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.3.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-<<<<<<< HEAD
-=======
-    "bootstrap": "4.5.3",
->>>>>>> master
     "bootswatch": "^4.5.3",
     "clean-webpack-plugin": "^3.0.0",
     "dayjs": "^1.9.7",
@@ -30,14 +26,6 @@
     "redux-thunk": "^2.3.0"
   },
   "version": "0.1.0",
-<<<<<<< HEAD
-  "engines": {
-    "node": "12.16.x",
-    "npm": "6.x",
-    "yarn": "1.x"
-  },
-=======
->>>>>>> master
   "devDependencies": {
     "eslint": "^7.15.0",
     "eslint-config-airbnb": "^18.2.1",
