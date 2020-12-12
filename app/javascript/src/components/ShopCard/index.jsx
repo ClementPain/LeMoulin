@@ -9,9 +9,7 @@ const ShopCard = ({ shop }) => (
           <Card.Title className="text-white text-center">{ shop.name }</Card.Title>
         </Col>
         <Col sm={6} className="text-white text-center">
-          {shop.shop_categories.map( (cat) => (
-            cat.title
-          ))}
+          {shop.shop_categories.map( (cat) => cat.title ).join(', ') }
         </Col>
       </Row>
     </Card.Header>
