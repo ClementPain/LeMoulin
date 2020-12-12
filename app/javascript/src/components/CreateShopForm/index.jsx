@@ -28,10 +28,7 @@ const CreateShopFormComponent = () => {
         shop: params,
       },
       onErrors: (errors) => console.log(errors),
-      onSuccess: (shop) => {
-        console.log(shop);
-        setShopId(shop.id);
-      },
+      onSuccess: (shop) => setShopId(shop.id),
     });
   };
 
