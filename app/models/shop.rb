@@ -30,7 +30,9 @@ class Shop < ApplicationRecord
   }
 
   scope :filter_by_categories, lambda { |categories|
-    select{ |shop| !( shop.shop_categories.map{ |cat| cat.title } & categories.split(',') ).empty? }
+    select{ |shop|
+      !( shop.shop_categories.map{ |cat| cat.title } & categories.split(',') ).empty?
+    }
   }
 
   # methodes
