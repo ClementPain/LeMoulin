@@ -12,7 +12,6 @@ const DashboardNav = ({ url }) => (
         ['perso_infos', 'Informations personnelles'],
         ['my_cmds', 'Mes commandes'],
         ['my_cart', 'Mon panier'],
-        // ['create_my_shop', 'Créer ma boutique'],
       ].map(([route, label], indx) => (
         <Nav.Item key={indx}>
           <Nav.Link as={Link} to={`${url}/${route}`}>{label}</Nav.Link>
