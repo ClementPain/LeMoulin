@@ -22,7 +22,7 @@ class User < ApplicationRecord
   private
 
   def create_my_profile
-    self.update(profile: Profile.new)
+    self.update(profile: Profile.new(zip_code: '00000'))
   end
 
 end

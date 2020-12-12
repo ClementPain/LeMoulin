@@ -18,7 +18,7 @@ ApplicationRecord.descendants.each { |model|
 puts 'All the tables was deleted !'
 
 5.times do
-  user = User.create! email: Faker::Internet.email, password: 'password'
+  user = User.create email: Faker::Internet.email, password: 'password'
   profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
   # profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, is_shopkeeper: false, user: user)
 end
