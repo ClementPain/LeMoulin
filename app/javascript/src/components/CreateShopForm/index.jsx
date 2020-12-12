@@ -1,29 +1,43 @@
-import React, { useState } from 'react';
+/* eslint-disable camelcase */
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import {
-  Col, Button,
+  Col, Button, Row,
 } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 
-import { create } from '../../api/api-manager';
+import { create, find } from '../../api/api-manager';
 
 const CreateShopFormComponent = () => {
-  const [shopId, setShopId] = useState(null);
+  const [categories, setCategories] = useState();
   const [newshop, setNewshop] = useState({
     name: '',
+    shop_category_ids: '',
+    siret: '',
     description: '',
     address: '',
     city: '',
     zip_code: '',
     is_active: false,
   });
+  const [shopId, setShopId] = useState(null);
 
   const handleNewShopCreation = (params) => {
     create('shops', {
-      data: params,
-      onSuccess: (result) => setShopId(result.id),
+      data: {
+        shop: params,
+      },
+      onErrors: (errors) => console.log(errors),
+      onSuccess: (shop) => setShopId(shop.id),
     });
   };
+
+  useEffect(
+    () => find('shop_categories', {
+      onSuccess: (shopCategories) => setCategories(shopCategories),
+    }),
+    [],
+  );
 
   if (shopId) return <Redirect to={`/shop/${shopId}`} />;
 
@@ -38,9 +52,39 @@ const CreateShopFormComponent = () => {
             value={newshop.name}
             onChange={(event) => setNewshop({ ...newshop, name: event.target.value })}
           />
-          ,
         </Form.Group>
       </Form.Row>
+
+      <Form.Group as={Row}>
+        <Col md={5}>
+          <Form.Label>Sélectionner des catégorries</Form.Label>
+          <Form.Control
+            as="select"
+            onChange={(event) => {
+              const { options } = event.target;
+              const shop_category_ids = [...options].reduce(
+                (acc, { selected, value }) => (selected ? [...acc, Number(value)] : acc), [],
+              ).join(',');
+              setNewshop({ ...newshop, shop_category_ids });
+            }}
+            multiple
+          >
+            {
+              categories && (
+                categories.map(({ id, title }) => <option key={id} value={id}>{title}</option>)
+              )
+            }
+          </Form.Control>
+        </Col>
+        <Col>
+          <Form.Label>Siret</Form.Label>
+          <Form.Control
+            placeholder=""
+            value={newshop.siret}
+            onChange={(event) => setNewshop({ ...newshop, siret: event.target.value })}
+          />
+        </Col>
+      </Form.Group>
 
       <Form.Group controlId="exampleForm.ControlTextarea1">
         <Form.Label>Description</Form.Label>

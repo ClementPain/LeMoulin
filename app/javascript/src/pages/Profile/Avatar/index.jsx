@@ -26,7 +26,7 @@ const Avatar = ({ user }) => (
     }
     {
       user && (
-        user.has_shop
+        user.has_a_shop
           ? <Button as={Link} to={`/shop/${user.shop.id}`} variant="primary" className="mt-3" block>Voir ma boutique</Button>
           : <Button as={Link} to="/create_my_shop" variant="primary" className="mt-3" block>Créer ma boutique</Button>
       )

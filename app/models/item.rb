@@ -24,11 +24,21 @@ class Item < ApplicationRecord
     }
   }
 
+  scope :filter_by_categories, lambda { |searched_categories|
+    select{ |item|
+      !( item.shop_categories.map{ |cat| cat.title } & searched_categories.split(',') ).empty?
+    }
+  }
+
   # methodes
   def self.search(params)
     items = Item.all
     items = items.filter_by_name(params[:keyword]).or(items.filter_by_description(params[:keyword])) if params[:keyword]
-    items = items.filter_by_category(params[:category]) if params[:category]
+    if params[:category]
+      items = items.filter_by_category(params[:category])
+    elsif params[:categories]
+      items = items.filter_by_categories(params[:categories])
+    end
 
     items
   end
