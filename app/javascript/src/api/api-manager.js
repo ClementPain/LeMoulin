@@ -4,14 +4,12 @@ const { setAuthCookie, getAuthCookie } = authCookieHandler;
 
 const root = '/api/v1/';
 
-const request = async (endpoint, options = {}) => {
-  const {
-    method = 'get',
-    authRequired = true,
-    data = null,
-    params = {},
-  } = options;
-
+const request = async (endpoint, {
+  method = 'get',
+  authRequired = true,
+  data = null,
+  params = {},
+} = {}) => {
   const queryString = Object.entries(params)
     .map(([key, value]) => `${key}=${encodeURIComponent(String(value).trim())}`).join('&');
 
@@ -38,15 +36,13 @@ const request = async (endpoint, options = {}) => {
   return response;
 };
 
-const find = async (endpoint, options = {}) => {
-  const {
-    authRequired = false,
-    params = {},
-    onError,
-    onErrors,
-    onSuccess,
-  } = options;
-
+const find = async (endpoint, {
+  authRequired = false,
+  params = {},
+  onError,
+  onErrors,
+  onSuccess,
+} = {}) => {
   const firstRequest = await request(endpoint, {
     authRequired,
     params,
@@ -65,15 +61,13 @@ const find = async (endpoint, options = {}) => {
   return result;
 };
 
-const create = async (endpoint, options = {}) => {
-  const {
-    authRequired = true,
-    data,
-    onError,
-    onErrors,
-    onSuccess,
-  } = options;
-
+const create = async (endpoint, {
+  authRequired = true,
+  data,
+  onError,
+  onErrors,
+  onSuccess,
+} = {}) => {
   const firstRequest = await request(endpoint, {
     method: 'post',
     authRequired,
@@ -93,14 +87,12 @@ const create = async (endpoint, options = {}) => {
   return result;
 };
 
-const update = async (endpoint, options = {}) => {
-  const {
-    data,
-    onError,
-    onErrors,
-    onSuccess,
-  } = options;
-
+const update = async (endpoint, {
+  data,
+  onError,
+  onErrors,
+  onSuccess,
+} = {}) => {
   const firstRequest = await request(endpoint, {
     method: 'put',
     data,
@@ -127,14 +119,12 @@ const remove = async (endpoint) => {
   return response;
 };
 
-const auth = async (endpoint, options) => {
-  const {
-    identifiers,
-    onError,
-    onErrors,
-    onSuccess,
-  } = options;
-
+const auth = async (endpoint, {
+  identifiers,
+  onError,
+  onErrors,
+  onSuccess,
+}) => {
   const firstRequest = await request(endpoint, {
     method: 'post',
     authRequired: false,

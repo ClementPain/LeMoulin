@@ -1,24 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Card, Col, Row, Container,
 } from 'react-bootstrap';
+
 import Image from 'react-bootstrap/Image';
 import ShopImage from './Page-Grise.jpg';
+import { find } from '../../api/api-manager';
 
-const Shop = () => (
-  <Container style={{ marginTop: 20 }}>
-    <Card>
-      <Card.Header style={{ backgroundColor: '#45B5AA' }}>
-        <Col sm={12}>
-          <Card.Title>
-            <h4 className="text-center text-white"> SHOP NAME</h4>
-          </Card.Title>
-        </Col>
-      </Card.Header>
-      <Col sm={12} className="align-items-end" />
-      <Card.Body>
-        <Container>
-          <Row>
+const Shop = () => {
+  const { id } = useParams();
+  const [shop, setShop] = useState(null);
+
+  useEffect(
+    () => find(`shops/${id}`, {
+      authRequired: true,
+      onError: (error) => console.log(error),
+      onErrors: (errors) => console.log(errors),
+      onSuccess: (result) => setShop(result),
+    }),
+    [],
+  );
+
+  return (
+    <Container style={{ marginTop: 20 }}>
+      <Card>
+        <Card.Header as="h4" style={{ backgroundColor: '#45B5AA' }} className="text-white text-center">
+          {
+            shop
+              ? shop.name
+              : 'Shop name'
+          }
+        </Card.Header>
+        <Card.Body className="text-primary">
+          <Row className="mb-5">
             <Col xs={6} md={4}>
               <Image src={ShopImage} className="Page-Grise.jpg/171x180" thumbnail />
             </Col>
@@ -29,27 +44,35 @@ const Shop = () => (
               <Image src={ShopImage} className="Page-Grise.jpg/171x180" thumbnail />
             </Col>
           </Row>
-        </Container>
-        <Col>
-          <Card.Text>
-            <h5 className="card-title text-center text-primary mt-4">Description title</h5>
-            <div className="card-text text-center text-primary">Some quick example text to build on the card title and make up the bulk of the content. Some quick example text to build on the card title and make up the bulk of the content.</div>
+          <Card.Title as="h5" className="text-center">Description title</Card.Title>
+          <Card.Text className="text-center">
+            {
+              shop
+                ? shop.description
+                : 'Shop description'
+            }
           </Card.Text>
           <Row>
-            <Col className="card-title text-center text-primary mt-4">
-              Shop address :
+            <Col className="text-center mt-4">
+              <p className="m-0">Shop address :</p>
+              <p className="m-0">
+                {shop?.address}
+                {' '}
+                {shop?.zip_code}
+              </p>
             </Col>
-            <Col className="card-title text-center text-primary mt-4">
-              Shop city :
+            <Col className="text-center mt-4">
+              <p className="m-0">Shop city :</p>
+              <p className="m-0">{shop?.city}</p>
             </Col>
-            <Col className="card-title text-center text-primary mt-4">
-              References  :
+            <Col className="text-center mt-4">
+              <p className="m-0">References :</p>
             </Col>
           </Row>
-        </Col>
-      </Card.Body>
-    </Card>
-  </Container>
-);
+        </Card.Body>
+      </Card>
+    </Container>
+  );
+};
 
 export default Shop;

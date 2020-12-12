@@ -10,7 +10,7 @@ import { find } from '../../api/api-manager';
 import Avatar from './Avatar';
 import DashboardNav from './DashboardNav';
 import UserCommands from './UserCommands';
-import Panel from './Panel';
+import Tab from './Tab';
 
 const Profile = () => {
   const { path, url } = useRouteMatch();
@@ -36,15 +36,15 @@ const Profile = () => {
       <Row>
         <Col md={3} className="mb-3 mb-md-0 pl-3">
           <Avatar user={currentUser} />
-          <DashboardNav url={url} />
         </Col>
         <Col md={9}>
+          <DashboardNav url={url} />
           <Switch style={{ padding: 0 }}>
             <Route exact path={path}>
               <UserCommands />
             </Route>
-            <Route path={`${path}/:selectedPanel`}>
-              <Panel />
+            <Route path={`${path}/:selectedTab`}>
+              <Tab />
             </Route>
           </Switch>
         </Col>

@@ -39,7 +39,7 @@ class Api::V1::ShopsController < Api::V1::BaseController
   end  
 
   #def shop_categories_params
-   # params.require(:shop_categories).permit(:id, :title)
+  # params.require(:shop_categories).permit(:id, :title)
   #end  
 end
 

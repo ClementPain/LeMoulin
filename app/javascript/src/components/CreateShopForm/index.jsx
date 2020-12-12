@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import {
   Col, Button,
 } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
+
 import { create } from '../../api/api-manager';
 
 const CreateShopFormComponent = () => {
+  const [shopId, setShopId] = useState(null);
   const [newshop, setNewshop] = useState({
     name: '',
     description: '',
@@ -16,9 +19,13 @@ const CreateShopFormComponent = () => {
   });
 
   const handleNewShopCreation = (params) => {
-    console.log('Fetch Handle: ', params);
-    create('shops', { data: params });
+    create('shops', {
+      data: params,
+      onSuccess: (result) => setShopId(result.id),
+    });
   };
+
+  if (shopId) return <Redirect to={`/shop/${shopId}`} />;
 
   return (
     <Form>
