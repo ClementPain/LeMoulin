@@ -14,9 +14,15 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
 
   # Instance methods
+  def has_shop?
+    return true if self.shop
+    return false
+  end
+
   private
 
   def create_my_profile
     self.update(profile: Profile.new)
   end
+
 end
