@@ -23,8 +23,14 @@ const Shop = () => {
   return (
     <Container style={{ marginTop: 20 }}>
       <Card>
-        <Card.Header as="h4" style={{ backgroundColor: '#45B5AA' }} className="text-white text-center">
-          { shop && shop.name}
+        <Card.Header style={{ backgroundColor: '#45B5AA' }} className="text-center p-2">
+          <h4 className="text-white">{ shop && shop.name}</h4>
+          <p className="text-white m-0">
+            {
+              shop && shop.shop_categories
+                && shop.shop_categories.map(({ title }) => title).join(' - ')
+            }
+          </p>
         </Card.Header>
         <Card.Body className="text-primary">
           <Row className="mb-5">
