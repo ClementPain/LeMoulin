@@ -15,14 +15,18 @@ ApplicationRecord.descendants.each { |model|
   # end
 }
 
+puts 'All the tables was deleted !'
+
 5.times do
   user = User.create! email: Faker::Internet.email, password: 'password'
-  profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, is_shopkeeper: false, user: user)
+  profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
+  # profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, is_shopkeeper: false, user: user)
 end
 
 3.times do
   user = User.create! email: Faker::Internet.email, password: 'password'
-  profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, is_shopkeeper: true, user: user)
+  profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
+  # profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, is_shopkeeper: false, user: user)
 end
 
 shop_category_1 = ShopCategory.create! title: "Epicerie"
@@ -46,8 +50,11 @@ shop1 = Shop.create!(
   city: 'Levallois-Perret', 
   siret: '000000000', 
   is_active: true, 
-  shopkeeper_id: Profile.select{ |profile| profile.is_shopkeeper === true}[shopId].user_id
+  shopkeeper: (User.select {|user| !user.has_a_shop}).sample
+  # shopkeeper_id: Profile.select{ |profile| profile.is_shopkeeper === true}[shopId].user_id
 )
+
+puts 'Create the first shop'
 
 ShopCategoriesJoin.create!( shop_id: shop1.id, shop_category_id: shop_category_1.id )
 
@@ -61,6 +68,8 @@ Item.create!(
   shop_id: shop1.id
 )
 
+puts 'Create the first item'
+
 Item.create!(
   name: 'Crème Parmesan Reggiano et truffe 80 gr',
   description: "C'est une crème raffinée au fromage Parmigiano DOP et à la truffe estivale (dite aussi truffe de Saint Jean). Le mariage parmesan/truffe est un régal à l'apéritif sur des Crostini ou Bruschette de pain mais également en accompagnement d'omelette, pâtes, risotto, etc.",
@@ -69,6 +78,8 @@ Item.create!(
   shop_id: shop1.id
 )
 
+puts 'Create the second item'
+  
 Item.create!(
   name: "Huile d'olive 'Bella di Cerignola' 50 cl",
   description: "Cette huile d'olive est rare : elle est extraite des olives de la variété ovale géante 'Bella di Cerignola' et de la variété Coratina, deux célèbres types d'olives de la région du Nord des Pouilles. Les olives sont cueillies à la main en novembre. C'est une huile fruitée, douce et équilibrée : parfaite pour toutes les spécialités de la gastronomie italienne.",
@@ -76,6 +87,8 @@ Item.create!(
   stock: 8,
   shop_id: shop1.id
 )
+
+puts 'Create the third item'
 
 shop2 = Shop.create!(
   name: 'Le Koncept',
@@ -85,8 +98,11 @@ shop2 = Shop.create!(
   city: 'Tours',
   siret: '0000000000',
   is_active: true,
-  shopkeeper_id: Profile.select{ |profile| profile.is_shopkeeper === true}[shopId].user_id
+  shopkeeper: (User.select {|user| !user.has_a_shop}).sample
+  # shopkeeper_id: Profile.select{ |profile| profile.is_shopkeeper === true}[shopId].user_id
 )
+
+puts 'Create the second shop'
 
 ShopCategoriesJoin.create!( shop_id: shop2.id, shop_category_id: shop_category_2.id )
 ShopCategoriesJoin.create!( shop_id: shop2.id, shop_category_id: shop_category_8.id )
@@ -102,6 +118,8 @@ Item.create!(
   shop_id: shop2.id
 )
 
+puts 'Create the fourth item'
+
 Item.create!(
   name: "Merapi",
   description: "C'est une sandale légère, agréable au pied et idéale pour une marche
@@ -112,6 +130,8 @@ Item.create!(
   shop_id: shop2.id
 )
 
+puts 'Create the fifth item'
+
 Item.create!(
   name: "Alzarine",
   description: "Nous présentons une adorable chaussure qui est une composition de différents tons de gris et qui porte sur l'extérieur quelques étoiles glitter … grises.
@@ -121,6 +141,8 @@ Item.create!(
   shop_id: shop2.id
 )
 
+puts 'Create the sixth item'
+
 shop3 = Shop.create!(
   name: 'Oxybul',
   description: "Oxybul vous propose des jouets d'éveil, jeux pour apprendre, jeux de société, jeux d'imagination, déguisements, articles de loisirs créatifs, jeux de plein air, livres et produits multimédias.",
@@ -129,8 +151,11 @@ shop3 = Shop.create!(
   city: 'Rennes', 
   siret: '000000000', 
   is_active: true, 
-  shopkeeper_id: Profile.select{ |profile| profile.is_shopkeeper === true}[shopId].user_id
+  shopkeeper: (User.select {|user| !user.has_a_shop}).sample
+  # shopkeeper_id: Profile.select{ |profile| profile.is_shopkeeper === true}[shopId].user_id
 )
+
+puts 'Create the third shop'
 
 ShopCategoriesJoin.create!( shop_id: shop3.id, shop_category_id: shop_category_3.id )
 
@@ -144,6 +169,8 @@ Item.create!(
   shop_id: shop3.id
 )
 
+puts 'Create the seventh item'
+
 Item.create!(
   name: "Déguisement Cléopatre 8-10 ans",
   description: "Vêtue de cette belle robe blanche à plastron, d'une ceinture dorée et pailletée, et aussi coiffée d'une couronne ornée de pierres précieuses, la petite Cléopâtre découvre l'Égypte Antique. Elle imagine les aventures vécues par la Reine du Nil.",
@@ -152,6 +179,8 @@ Item.create!(
   shop_id: shop3.id
 )
 
+puts 'Create the eighth item'
+
 Item.create!(
   name: "Jeu de société Le jeu du loup",
   description: "Le but du jeu est de partir en cueillette dans les bois et de finir avant que le loup ne soit tout habillé. Loup y es-tu ? Non, je mets ma chemise, etc. Le loup s'habille donc au fur et à mesure de la partie. Entre lui et les enfants, le gagnant sera le plus rapide. Pour jouer, il suffit de piocher à tour de rôle. Quand la tête du loup paraît, les enfants lui ajoutent un vêtement et entonnent la chanson : promenons-nous dans les bois... Le frisson s'installe. Un jeu convivial, à mener ensemble ou seul contre le loup.",
@@ -159,5 +188,7 @@ Item.create!(
   stock: 3,
   shop_id: shop3.id
 )
+
+puts 'Create the ninth item'
 
 puts "The database is filled with a few records !"

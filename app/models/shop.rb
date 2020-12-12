@@ -1,5 +1,9 @@
 class Shop < ApplicationRecord
 
+  # Callbacks
+  after_create :set_owner_is_shopkeeper
+  before_destroy :set_owner_is_not_shopkeeper
+  
   # Relationships
   belongs_to :shopkeeper, class_name: 'User', foreign_key: 'shopkeeper_id', validate: true
 
@@ -40,5 +44,15 @@ class Shop < ApplicationRecord
     shops = shops.filter_by_categories(params[:categories]) if params[:categories]
 
     shops
+  end
+
+  private
+
+  def set_owner_is_shopkeeper
+    self.shopkeeper.profile.update(is_shopkeeper: true)
+  end
+  
+  def set_owner_is_not_shopkeeper
+    self.shopkeeper.profile.update(is_shopkeeper: false)
   end
 end
