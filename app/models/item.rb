@@ -7,6 +7,12 @@ class Item < ApplicationRecord
   has_many :orders, through: :order_items
   has_many :shop_categories, through: :shop
 
+  # Validation
+  validates :name, :description, :price, :stock, presence: true
+  validates :name, length: { in: 3..80 }
+  validates :description, length: { in: 5..500 }
+  validates :price, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: {greater_than_or_equal_to: 0}
+
   #Scopes
   scope :filter_by_name, lambda { |keyword|
     where('lower(name) LIKE ? ', "%#{keyword.downcase}%")
