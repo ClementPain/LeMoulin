@@ -1,6 +1,7 @@
 class Api::V1::ShopsController < Api::V1::BaseController
   before_action :set_shop, only: %w[show]
   before_action :authenticate_user!, only: %w[create]
+  before_action :not_permit_to_create_more_than_one_shop, only: %w[create]
   
   def index
     @shops = Shop.search(params)
@@ -11,21 +12,17 @@ class Api::V1::ShopsController < Api::V1::BaseController
     render json: @shop, include: [:shop_categories]
   end
 
-
   def create
-    @user = current_user
-    if !@user.profile.is_shopkeeper
-      @shop = Shop.new(shop_params)
-      @shop.shopkeeper = current_user
+    shop_category_ids = shop_params[:shop_category_ids].split(',')
+    shop_full_params = shop_params.merge({
+      shopkeeper: current_user,
+      shop_category_ids: shop_category_ids,
+    })
 
-      #ShopCategoriesJoin.new( shop_id: @shop.id, shop_category_id: ShopCategory.last.id )
-      if @shop.save
-        render json: @shop
-      else
-        render json: @shop.errors   
-      end
-    end
+    @shop = Shop.create(shop_full_params)
+    render_resource(@shop)
 
+    #ShopCategoriesJoin.new( shop_id: @shop.id, shop_category_id: ShopCategory.last.id )
   end
 
   private
@@ -35,12 +32,25 @@ class Api::V1::ShopsController < Api::V1::BaseController
   end
 
   def shop_params
-    params.require(:shop).permit(:name, :description, :address, :zip_code, :city, :siret, :is_active)
-  end  
+    params.require(:shop).permit(:name, :shop_category_ids, :description, :address, :zip_code, :city, :siret, :is_active)
+  end
+
+  def not_permit_to_create_more_than_one_shop
+    if current_user_has_already_a_shop
+      render json: {
+        errors: [
+          {
+            status: '403',
+            title: 'Bad Request',
+            detail: 'You aren\'t allowed to create more than one shop',
+            code: '100'
+          }
+        ]
+      }, status: :bad_request
+    end
+  end
 
   #def shop_categories_params
   # params.require(:shop_categories).permit(:id, :title)
   #end  
 end
-
-

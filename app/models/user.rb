@@ -1,5 +1,6 @@
 class User < ApplicationRecord
 
+  # Callbacks
   after_create :create_my_profile
   
   # Include default devise modules. Others available are:
@@ -14,14 +15,14 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
   
   # Instance methods
-  def has_shop
+  def has_a_shop
     self.shop ? true : false
   end
 
   private
 
   def create_my_profile
-    self.update(profile: Profile.new)
+    self.update(profile: Profile.new(zip_code: '00000'))
   end
 
 end

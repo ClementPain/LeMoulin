@@ -15,8 +15,6 @@ const Shop = () => {
   useEffect(
     () => find(`shops/${id}`, {
       authRequired: true,
-      onError: (error) => console.log(error),
-      onErrors: (errors) => console.log(errors),
       onSuccess: (result) => setShop(result),
     }),
     [],
@@ -25,12 +23,14 @@ const Shop = () => {
   return (
     <Container style={{ marginTop: 20 }}>
       <Card>
-        <Card.Header as="h4" style={{ backgroundColor: '#45B5AA' }} className="text-white text-center">
-          {
-            shop
-              ? shop.name
-              : 'Shop name'
-          }
+        <Card.Header style={{ backgroundColor: '#45B5AA' }} className="text-center p-2">
+          <h4 className="text-white">{ shop && shop.name}</h4>
+          <p className="text-white m-0">
+            {
+              shop && shop.shop_categories
+                && shop.shop_categories.map(({ title }) => title).join(' - ')
+            }
+          </p>
         </Card.Header>
         <Card.Body className="text-primary">
           <Row className="mb-5">
@@ -44,10 +44,10 @@ const Shop = () => {
               <Image src={ShopImage} className="Page-Grise.jpg/171x180" thumbnail />
             </Col>
           </Row>
-          <Card.Title as="h5" className="text-center">Description title</Card.Title>
+          <Card.Title as="h5" className="text-center">Description</Card.Title>
           <Card.Text className="text-center">
             {
-              shop
+              shop && shop.description
                 ? shop.description
                 : 'Shop description'
             }
