@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  Container, Row, Col,
-} from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
 import { Route, useRouteMatch } from 'react-router-dom';
+
+import {
+  Container, Row, Col, Card,
+} from 'react-bootstrap';
 
 import { find } from '../../api/api-manager';
 import Avatar from './Avatar';
@@ -22,8 +23,6 @@ const Profile = () => {
       if (currentUserId) {
         find(`users/${currentUserId}`, {
           authRequired: true,
-          onError: (error) => console.log(error),
-          onErrors: (errors) => console.log(errors),
           onSuccess: (result) => setCurrentUser(result),
         });
       }
@@ -39,14 +38,18 @@ const Profile = () => {
         </Col>
         <Col md={9}>
           <DashboardNav url={url} />
-          <Switch style={{ padding: 0 }}>
-            <Route exact path={path}>
-              <UserCommands />
-            </Route>
-            <Route path={`${path}/:selectedTab`}>
-              <Tab />
-            </Route>
-          </Switch>
+          <Card className="mt-2">
+            <Card.Body>
+              <Switch style={{ padding: 0 }}>
+                <Route exact path={path}>
+                  <UserCommands />
+                </Route>
+                <Route path={`${path}/:selectedTab`}>
+                  <Tab user={currentUser} />
+                </Route>
+              </Switch>
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </Container>

@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  private
+
   def validation_error(resource)
     render json: {
       errors: [

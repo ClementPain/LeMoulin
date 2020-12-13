@@ -25,7 +25,7 @@ const Auth = ({ type }) => {
   const [alert, setAlert] = useState(null);
 
   const handleSubmit = (values) => {
-    dispatch(handleAuth(endpoints[type], values));
+    dispatch(handleAuth(endpoints[type], { user: values }));
   };
 
   const handleOnInput = () => setAlert(null);
@@ -63,13 +63,13 @@ const Auth = ({ type }) => {
                   } else if (
                     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
                   ) {
-                    formErrors.email = 'Invalid email address';
+                    formErrors.email = 'Adresse email invalide';
                   }
 
                   if (!values.password) {
-                    formErrors.password = 'Required';
+                    formErrors.password = 'Obligatoire';
                   } else if (values.password.length < 6) {
-                    formErrors.password = 'Must be 6 characters or more';
+                    formErrors.password = 'Doit avoir 6 caractères ou plus';
                   }
 
                   return formErrors;
@@ -87,8 +87,8 @@ const Auth = ({ type }) => {
                         Email
                       </FormLabel>
                       <Field name="email" type="email" placeholder="Enter email" className="form-control" />
-                      <ErrorMessage name="email" component="div" className="alert alert-danger" />
-                      { alert?.errors && alert.errors.email && (<div className="alert alert-danger">{alert.errors.email.join(', ')}</div>) }
+                      <ErrorMessage name="email" component="div" className="text-danger" />
+                      { alert?.errors && alert.errors.email && (<div className="text-danger">{alert.errors.email.join(', ')}</div>) }
                     </FormGroup>
 
                     <FormGroup>
@@ -96,8 +96,8 @@ const Auth = ({ type }) => {
                         Password
                       </FormLabel>
                       <Field name="password" type="password" placeholder="Enter password" className="form-control" />
-                      <ErrorMessage name="password" component="div" className="alert alert-danger" />
-                      { alert?.errors && alert.errors.password && (<div className="alert alert-danger">{alert.errors.password.join(', ')}</div>) }
+                      <ErrorMessage name="password" component="div" className="text-danger" />
+                      { alert?.errors && alert.errors.password && (<div className="text-danger">{alert.errors.password.join(', ')}</div>) }
                     </FormGroup>
 
                     <FormGroup className="text-center">

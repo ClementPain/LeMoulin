@@ -63,7 +63,7 @@ const CreateShopFormComponent = () => {
             onChange={(event) => {
               const { options } = event.target;
               const shop_category_ids = [...options].reduce(
-                (acc, { selected, value }) => (selected ? [...acc, Number(value)] : acc), [],
+                (acc, { selected, value }) => (selected ? [...acc, value] : acc), [],
               ).join(',');
               setNewshop({ ...newshop, shop_category_ids });
             }}

@@ -1,7 +1,9 @@
-import React from 'react'
-import { Tab, Row, Col, Nav } from 'react-bootstrap'
+import React from 'react';
+import {
+  Tab, Row, Col, Nav,
+} from 'react-bootstrap';
 
-const TabsMoreInformation = ({item}) => (
+const TabsMoreInformation = ({ item }) => (
   <Tab.Container defaultActiveKey="item_description">
     <Row>
       <Col sm={3}>
@@ -19,10 +21,10 @@ const TabsMoreInformation = ({item}) => (
       </Col>
       <Col sm={9}>
         <Tab.Content>
-          <Tab.Pane eventKey="item_description" className='align-text-center'>
-          <p className="long_text">{ item.description }</p>
+          <Tab.Pane eventKey="item_description" className="align-text-center">
+            <p className="long_text">{ item.description }</p>
           </Tab.Pane>
-          <Tab.Pane eventKey="shop_description" className='align-text-center'>
+          <Tab.Pane eventKey="shop_description" className="align-text-center">
             <p className="long_text">{ item.shop?.description }</p>
           </Tab.Pane>
           <Tab.Pane eventKey="address">
@@ -30,13 +32,17 @@ const TabsMoreInformation = ({item}) => (
               { item.shop?.address }
             </Row>
             <Row>
-              { item.shop?.zip_code } - { item.shop?.city }
+              { item.shop?.zip_code }
+              {' '}
+              -
+              {' '}
+              { item.shop?.city }
             </Row>
           </Tab.Pane>
         </Tab.Content>
       </Col>
     </Row>
   </Tab.Container>
-)
+);
 
-export default TabsMoreInformation
+export default TabsMoreInformation;
