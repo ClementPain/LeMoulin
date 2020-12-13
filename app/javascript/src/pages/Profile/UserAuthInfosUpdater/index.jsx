@@ -13,7 +13,7 @@ import { accountUpdate } from '../../../api/api-manager';
 
 const UserAuthInfosUpdater = () => {
   const [alert, setAlert] = useState(null);
-  const [updateSuccess, setUpdateSuccess] = useState(null);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
   const handleOnInput = () => setAlert(null);
 
   const handleSubmit = (values) => {
@@ -22,7 +22,13 @@ const UserAuthInfosUpdater = () => {
         user: values,
       },
       onErrors: (errors) => console.log(errors),
-      onSuccess: () => console.log('success'),
+      onSuccess: () => {
+        setUpdateSuccess(true);
+        setTimeout(
+          () => setUpdateSuccess(false),
+          300,
+        );
+      },
     });
   };
 
@@ -75,6 +81,7 @@ const UserAuthInfosUpdater = () => {
         >
           {({ isSubmitting }) => (
             <Form onInput={handleOnInput}>
+              { updateSuccess && (<div className="alert alert-succès">Informations mis à jour avec success</div>) }
               { alert && alert.error && (<div className="alert alert-danger">{ alert.error }</div>) }
               <FormGroup>
                 <Field name="email" type="email" placeholder="Email" className="form-control" />
