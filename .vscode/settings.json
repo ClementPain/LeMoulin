@@ -1,3 +1,4 @@
 {
+  "eslint.enable": true,
   "i18n-ally.localesPaths": "config/locales"
 }

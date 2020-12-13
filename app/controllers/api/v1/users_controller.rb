@@ -4,7 +4,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   before_action :set_user, only: [:show]
 
   def show
-    render json: @user, include: [:profile, :shop => {only: :id}], methods: :has_shop
+    render json: @user, include: [:profile, :shop => {only: :id}], methods: :has_a_shop
   end
 
   private
