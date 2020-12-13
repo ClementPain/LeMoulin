@@ -66,29 +66,29 @@ const UserAuthInfos = () => {
               { alert && alert.error && (<div className="alert alert-danger">{ alert.error }</div>) }
               <FormGroup>
                 <Field name="email" type="email" placeholder="Email" className="form-control" />
-                <ErrorMessage name="email" component="div" className="alert alert-danger" />
-                { alert?.errors && alert.errors.email && (<div className="alert alert-danger">{alert.errors.email.join(', ')}</div>) }
+                <ErrorMessage name="email" component="div" className="text-danger" />
+                { alert?.errors && alert.errors.email && (<div className="text-danger">{alert.errors.email.join(', ')}</div>) }
               </FormGroup>
 
               <FormGroup>
                 <Field name="password" type="password" placeholder="Mot de passe" className="form-control" />
-                <ErrorMessage name="password" component="div" className="alert alert-danger" />
-                { alert?.errors && alert.errors.password && (<div className="alert alert-danger">{alert.errors.password.join(', ')}</div>) }
+                <ErrorMessage name="password" component="div" className="text-danger" />
+                { alert?.errors && alert.errors.password && (<div className="text-danger">{alert.errors.password.join(', ')}</div>) }
               </FormGroup>
 
               <FormGroup>
                 <Field name="password_confirmation" type="password" placeholder="Confirmation de mot de passe" className="form-control" />
-                <ErrorMessage name="password_confirmation" component="div" className="alert alert-danger" />
-                { alert?.errors && alert.errors.password && (<div className="alert alert-danger">{alert.errors.password.join(', ')}</div>) }
+                <ErrorMessage name="password_confirmation" component="div" className="text-danger" />
+                { alert?.errors && alert.errors.password && (<div className="text-danger">{alert.errors.password.join(', ')}</div>) }
               </FormGroup>
 
               <FormGroup>
                 <Field name="current_password" type="password" placeholder="Mot de passe actuel" className="form-control" />
-                <ErrorMessage name="current_password" component="div" className="alert alert-danger" />
-                { alert?.errors && alert.errors.password && (<div className="alert alert-danger">{alert.errors.password.join(', ')}</div>) }
+                <ErrorMessage name="current_password" component="div" className="text-danger" />
+                { alert?.errors && alert.errors.password && (<div className="text-danger">{alert.errors.password.join(', ')}</div>) }
               </FormGroup>
               <FormGroup className="text-center">
-                <Button variant="primary" type="submit" disabled={isSubmitting}>
+                <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
                   Mettre à jour
                 </Button>
               </FormGroup>
