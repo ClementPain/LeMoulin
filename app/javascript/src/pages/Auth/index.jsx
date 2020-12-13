@@ -63,13 +63,13 @@ const Auth = ({ type }) => {
                   } else if (
                     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
                   ) {
-                    formErrors.email = 'Invalid email address';
+                    formErrors.email = 'Adresse email invalide';
                   }
 
                   if (!values.password) {
-                    formErrors.password = 'Required';
+                    formErrors.password = 'Obligatoire';
                   } else if (values.password.length < 6) {
-                    formErrors.password = 'Must be 6 characters or more';
+                    formErrors.password = 'Doit avoir 6 caractères ou plus';
                   }
 
                   return formErrors;

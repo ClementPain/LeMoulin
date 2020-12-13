@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  Container, Row, Col,
-} from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
 import { Route, useRouteMatch } from 'react-router-dom';
+
+import {
+  Container, Row, Col, Card,
+} from 'react-bootstrap';
 
 import { find } from '../../api/api-manager';
 import Avatar from './Avatar';

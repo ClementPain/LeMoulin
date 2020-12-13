@@ -27,7 +27,9 @@ const Tab = () => {
   const { page } = matchedTabs[selectedTab];
 
   return (
-    { page }
+    <>
+      { page }
+    </>
   );
 };
 
