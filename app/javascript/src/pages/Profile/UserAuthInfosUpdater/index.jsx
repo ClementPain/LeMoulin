@@ -26,7 +26,7 @@ const UserAuthInfosUpdater = () => {
         setUpdateSuccess(true);
         setTimeout(
           () => setUpdateSuccess(false),
-          300,
+          3000,
         );
       },
     });
@@ -81,7 +81,7 @@ const UserAuthInfosUpdater = () => {
         >
           {({ isSubmitting }) => (
             <Form onInput={handleOnInput}>
-              { updateSuccess && (<div className="alert alert-succès">Informations mis à jour avec success</div>) }
+              { updateSuccess && (<div className="alert alert-success">Informations mis à jour avec succès</div>) }
               { alert && alert.error && (<div className="alert alert-danger">{ alert.error }</div>) }
               <FormGroup>
                 <Field name="email" type="email" placeholder="Email" className="form-control" />
