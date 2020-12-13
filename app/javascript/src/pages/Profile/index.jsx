@@ -7,6 +7,7 @@ import {
   Container, Row, Col, Card,
 } from 'react-bootstrap';
 
+import CurrentUserContext from './context';
 import { find } from '../../api/api-manager';
 import Avatar from './Avatar';
 import DashboardNav from './DashboardNav';
@@ -23,7 +24,7 @@ const Profile = () => {
       if (currentUserId) {
         find(`users/${currentUserId}`, {
           authRequired: true,
-          onSuccess: (result) => setCurrentUser(result),
+          onSuccess: (user) => setCurrentUser(user),
         });
       }
     },
@@ -31,28 +32,34 @@ const Profile = () => {
   );
 
   return (
-    <Container fluid className="mt-3 pt-3">
-      <Row>
-        <Col md={3} className="mb-3 mb-md-0 pl-3">
-          <Avatar user={currentUser} />
-        </Col>
-        <Col md={9}>
-          <DashboardNav url={url} />
-          <Card className="mt-2">
-            <Card.Body>
-              <Switch style={{ padding: 0 }}>
-                <Route exact path={path}>
-                  <UserCommands />
-                </Route>
-                <Route path={`${path}/:selectedTab`}>
-                  <Tab user={currentUser} />
-                </Route>
-              </Switch>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+    <CurrentUserContext.Provider value={{
+      currentUser,
+    }}
+    >
+      <Container fluid className="mt-3 pt-3">
+        <Row>
+          <Col md={3} className="mb-3 mb-md-0 pl-3">
+            <Avatar />
+          </Col>
+          <Col md={9}>
+            <DashboardNav url={url} />
+            <Card className="mt-2">
+              <Card.Body>
+                <Switch style={{ padding: 0 }}>
+                  <Route exact path={path}>
+                    <UserCommands />
+                  </Route>
+                  <Route path={`${path}/:selectedTab`}>
+                    <Tab user={currentUser} />
+                  </Route>
+                </Switch>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+
+    </CurrentUserContext.Provider>
   );
 };
 
