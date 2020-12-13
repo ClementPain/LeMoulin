@@ -39,14 +39,18 @@ const Profile = () => {
         </Col>
         <Col md={9}>
           <DashboardNav url={url} />
-          <Switch style={{ padding: 0 }}>
-            <Route exact path={path}>
-              <UserCommands />
-            </Route>
-            <Route path={`${path}/:selectedTab`}>
-              <Tab />
-            </Route>
-          </Switch>
+          <Card className="mt-2">
+            <Card.Body>
+              <Switch style={{ padding: 0 }}>
+                <Route exact path={path}>
+                  <UserCommands />
+                </Route>
+                <Route path={`${path}/:selectedTab`}>
+                  <Tab />
+                </Route>
+              </Switch>
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </Container>

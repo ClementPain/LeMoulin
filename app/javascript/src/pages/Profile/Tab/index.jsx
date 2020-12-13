@@ -27,11 +27,7 @@ const Tab = () => {
   const { page } = matchedTabs[selectedTab];
 
   return (
-    <Card className="mt-2">
-      <Card.Body>
-        {page}
-      </Card.Body>
-    </Card>
+    { page }
   );
 };
 
