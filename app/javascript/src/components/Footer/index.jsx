@@ -1,12 +1,8 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const Footer = () => (
-  <>
-    <br />
-    <br />
-    <br />
-    <br />
+  <Container style={{ marginTop: '20px' }}>
     <footer className="fixed-bottom bg-primary text-white text-center p-3">
       <Row>
         <Col>
@@ -20,7 +16,7 @@ const Footer = () => (
         </Col>
       </Row>
     </footer>
-  </>
+  </Container>
   // <div className="fixed-bottom">
   //   <nav className="navbar navbar-expand-lg bg-primary text-white text-center">
   //     <div className="col">

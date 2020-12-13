@@ -25,7 +25,7 @@ const Auth = ({ type }) => {
   const [alert, setAlert] = useState(null);
 
   const handleSubmit = (values) => {
-    dispatch(handleAuth(endpoints[type], values));
+    dispatch(handleAuth(endpoints[type], { user: values }));
   };
 
   const handleOnInput = () => setAlert(null);

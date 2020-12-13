@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 
@@ -8,19 +9,30 @@ import {
   FormGroup, Button, Row, Col,
 } from 'react-bootstrap';
 
-const UserAuthInfos = () => {
+import { accountUpdate } from '../../../api/api-manager';
+
+const UserAuthInfosUpdater = () => {
   const [alert, setAlert] = useState(null);
+  const [updateSuccess, setUpdateSuccess] = useState(null);
   const handleOnInput = () => setAlert(null);
 
   const handleSubmit = (values) => {
-    console.log(values);
+    accountUpdate('signup', {
+      data: {
+        user: values,
+      },
+      onErrors: (errors) => console.log(errors),
+      onSuccess: () => console.log('success'),
+    });
   };
 
   return (
     <Row>
       <Col md={{ span: 6, offset: 3 }}>
         <Formik
-          initialValues={{ email: '', password: '', password_confirmation: '' }}
+          initialValues={{
+            email: '', password: '', password_confirmation: '', current_password: '',
+          }}
           validate={(values) => {
             const formErrors = {};
 
@@ -44,14 +56,14 @@ const UserAuthInfos = () => {
               formErrors.password_confirmation = 'Doit avoir 6 caractères ou plus';
             }
 
+            if (values.password !== values.password_confirmation) {
+              formErrors.password_confirmation = 'Ne correspond pas au champ mot de passe';
+            }
+
             if (!values.current_password) {
               formErrors.current_password = 'Obligatoire';
             } else if (values.current_password.length < 6) {
               formErrors.current_password = 'Doit avoir 6 caractères ou plus';
-            }
-
-            if (values.current_password !== values.password_confirmation) {
-              formErrors.password_confirmation = 'Ne correspond pas au champ mot de passe';
             }
 
             return formErrors;
@@ -87,6 +99,7 @@ const UserAuthInfos = () => {
                 <ErrorMessage name="current_password" component="div" className="text-danger" />
                 { alert?.errors && alert.errors.password && (<div className="text-danger">{alert.errors.password.join(', ')}</div>) }
               </FormGroup>
+
               <FormGroup className="text-center">
                 <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
                   Mettre à jour
@@ -100,4 +113,4 @@ const UserAuthInfos = () => {
   );
 };
 
-export default UserAuthInfos;
+export default UserAuthInfosUpdater;

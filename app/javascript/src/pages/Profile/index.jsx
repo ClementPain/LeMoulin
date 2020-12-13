@@ -23,8 +23,6 @@ const Profile = () => {
       if (currentUserId) {
         find(`users/${currentUserId}`, {
           authRequired: true,
-          onError: (error) => console.log(error),
-          onErrors: (errors) => console.log(errors),
           onSuccess: (result) => setCurrentUser(result),
         });
       }
@@ -47,7 +45,7 @@ const Profile = () => {
                   <UserCommands />
                 </Route>
                 <Route path={`${path}/:selectedTab`}>
-                  <Tab />
+                  <Tab user={currentUser} />
                 </Route>
               </Switch>
             </Card.Body>
