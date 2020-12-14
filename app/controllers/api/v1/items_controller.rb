@@ -15,10 +15,7 @@ class Api::V1::ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.shop = @shop if @shop
-    puts '$$$$$$$$$$$$$$$$'
-    puts @shop
-    puts current_user.id
-    puts '$$$$$$$$$$$$$$$$$$$'
+
     if @item.save
       render json: @item, status: :created
     else
