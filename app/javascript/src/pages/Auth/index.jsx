@@ -84,12 +84,18 @@ const Auth = ({ type }) => {
                   <Form onInput={handleOnInput}>
                     { alert && alert.error && (<div className="alert alert-danger">{ alert.error }</div>) }
                     <MyTextInput
+                      label="Email"
                       name="email"
                       type="email"
                       placeholder="Enter email"
                       alert={alert?.errors}
                     />
 
+                    <MyTextInput
+                      name="password"
+                      type="password"
+                      placeholder="Enter password"
+                    />
                     <FormGroup>
                       <FormLabel htmlFor="password">
                         Password
