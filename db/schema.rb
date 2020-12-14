@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_12_162841) do
+ActiveRecord::Schema.define(version: 2020_12_14_150715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2020_12_12_162841) do
     t.boolean "is_shopkeeper", default: false
     t.string "address"
     t.string "zip_code"
+    t.string "avatar", default: "https://res.cloudinary.com/dhtysnpro/image/upload/v1607957682/samples/animals/cat.jpg"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 

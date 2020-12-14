@@ -4,6 +4,8 @@ import { Card, Button } from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
 
+import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
+
 import avatar from './avatar.png';
 import CurrentcurrentUserContext from '../context';
 
@@ -12,7 +14,9 @@ const Avatar = () => {
 
   return (
     <div>
-      <img src={avatar} alt="Avatar" className="avatar" />
+      {/* <img src={avatar} alt="Avatar" className="avatar" /> */}
+      <Image publicId= {currentUser?.profile.avatar} cloudName="dhtysnpro" className="img-fluid rounded-circle" height="300" width='300'crop="scale" >
+      </Image>
       {
         currentUser && (
           <Card className="text-center">
