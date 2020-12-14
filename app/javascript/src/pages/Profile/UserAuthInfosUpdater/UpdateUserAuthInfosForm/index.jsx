@@ -1,12 +1,14 @@
 import React, { useContext, useState } from 'react';
 
 import {
-  Formik, Form, Field, ErrorMessage,
+  Formik, Form,
 } from 'formik';
 import { FormGroup, Button } from 'react-bootstrap';
 
 import CurrentUserContext from '../../context';
 import { accountUpdate } from '../../../../api/api-manager';
+import { MyTextInput } from '../../../../tools/formik-manager';
+import validate from './config/validate';
 
 const UpdateUserAuthInfosForm = () => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -20,7 +22,7 @@ const UpdateUserAuthInfosForm = () => {
       data: {
         user: values,
       },
-      onErrors: (errors) => console.log(errors),
+      onErrors: (errors) => setAlert(errors),
       onSuccess: () => {
         setUpdateSuccess(true);
         setTimeout(
@@ -31,46 +33,17 @@ const UpdateUserAuthInfosForm = () => {
     });
   };
 
+  const initialValues = {
+    email: currentUser ? currentUser.email : '',
+    password: '',
+    password_confirmation: '',
+    current_password: '',
+  };
+
   return (
     <Formik
-      initialValues={{
-        email: currentUser?.email, password: '', password_confirmation: '', current_password: '',
-      }}
-      validate={(values) => {
-        const formErrors = {};
-
-        if (!values.email) {
-          formErrors.email = 'Obligatoire';
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-          formErrors.email = 'Adresse email invalide';
-        }
-
-        if (!values.password) {
-          formErrors.password = 'Obligatoire';
-        } else if (values.password.length < 6) {
-          formErrors.password = 'Doit avoir 6 caractères ou plus';
-        }
-
-        if (!values.password_confirmation) {
-          formErrors.password_confirmation = 'Obligatoire';
-        } else if (values.password_confirmation.length < 6) {
-          formErrors.password_confirmation = 'Doit avoir 6 caractères ou plus';
-        }
-
-        if (values.password !== values.password_confirmation) {
-          formErrors.password_confirmation = 'Ne correspond pas au champ mot de passe';
-        }
-
-        if (!values.current_password) {
-          formErrors.current_password = 'Obligatoire';
-        } else if (values.current_password.length < 6) {
-          formErrors.current_password = 'Doit avoir 6 caractères ou plus';
-        }
-
-        return formErrors;
-      }}
+      initialValues={initialValues}
+      validate={validate}
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(false);
         handleSubmit(values);
@@ -79,30 +52,33 @@ const UpdateUserAuthInfosForm = () => {
       {({ isSubmitting }) => (
         <Form onInput={handleOnInput}>
           { updateSuccess && (<div className="alert alert-success">Informations mis à jour avec succès</div>) }
-          { alert && alert.error && (<div className="alert alert-danger">{ alert.error }</div>) }
-          <FormGroup>
-            <Field name="email" type="email" placeholder="Email" className="form-control" />
-            <ErrorMessage name="email" component="div" className="text-danger" />
-            { alert?.errors && alert.errors.email && (<div className="text-danger">{alert.errors.email.join(', ')}</div>) }
-          </FormGroup>
+          <MyTextInput
+            name="email"
+            type="email"
+            placeholder="Email"
+            alert={alert}
+          />
 
-          <FormGroup>
-            <Field name="password" type="password" placeholder="Mot de passe" className="form-control" />
-            <ErrorMessage name="password" component="div" className="text-danger" />
-            { alert?.errors && alert.errors.password && (<div className="text-danger">{alert.errors.password.join(', ')}</div>) }
-          </FormGroup>
+          <MyTextInput
+            name="password"
+            type="password"
+            placeholder="Mot de passe"
+            alert={alert}
+          />
 
-          <FormGroup>
-            <Field name="password_confirmation" type="password" placeholder="Confirmation de mot de passe" className="form-control" />
-            <ErrorMessage name="password_confirmation" component="div" className="text-danger" />
-            { alert?.errors && alert.errors.password && (<div className="text-danger">{alert.errors.password.join(', ')}</div>) }
-          </FormGroup>
+          <MyTextInput
+            name="password_confirmation"
+            type="password"
+            placeholder="Confirmation de mot de passe"
+            alert={alert}
+          />
 
-          <FormGroup>
-            <Field name="current_password" type="password" placeholder="Mot de passe actuel" className="form-control" />
-            <ErrorMessage name="current_password" component="div" className="text-danger" />
-            { alert?.errors && alert.errors.password && (<div className="text-danger">{alert.errors.password.join(', ')}</div>) }
-          </FormGroup>
+          <MyTextInput
+            name="current_password"
+            type="password"
+            placeholder="Mot de passe actuel"
+            alert={alert}
+          />
 
           <FormGroup className="text-center">
             <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
