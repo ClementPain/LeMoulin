@@ -1,15 +1,23 @@
 import React from 'react';
+import { Row, Col, Image } from 'react-bootstrap';
 import Icon1 from './Facebook.png';
 import Icon2 from './Instagram.png';
 import Icon3 from './Linkedin.png';
 
-
 const Icons = () => (
-	<Row>
-  <img src={Icon1} className="icon1" alt="Icon1" />
-	<img src={Icon2} className="icon2" alt="Icon2" />
-	<img src={Icon3} className="logoicon3" alt="Icon3" />
-	</Row>
+  <Row>
+    <Col className="text-center m-2">
+      <a href="https://www.facebook.com">
+        <Image src={Icon1} className="m-2" style={{ height: 30 }} alt="Icon1" />
+      </a>
+      <a href="https://www.instagram.com">
+        <Image src={Icon2} className="m-2" style={{ height: 30 }} alt="Icon2" />
+      </a>
+      <a href="https://www.linkedin.com">
+        <Image src={Icon3} className="m-2" style={{ height: 30 }} alt="Icon3" />
+      </a>
+    </Col>
+  </Row>
 );
 
 export default Icons;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import Icons from '../Social-icons/index';
 
 const Footer = () => (
   <Container style={{ paddingTop: '70px' }}>
@@ -9,7 +10,7 @@ const Footer = () => (
           <div className="title">Title1</div>
         </Col>
         <Col>
-          <div className="title">Title2</div>
+          <Icons />
         </Col>
         <Col>
           <div className="title">Title3</div>
@@ -17,19 +18,6 @@ const Footer = () => (
       </Row>
     </footer>
   </Container>
-  // <div className="fixed-bottom">
-  //   <nav className="navbar navbar-expand-lg bg-primary text-white text-center">
-  //     <div className="col">
-  //       <div className="title">Title1</div>
-  //     </div>
-  //     <div className="col">
-  //       <div className="title">Title2</div>
-  //     </div>
-  //     <div className="col">
-  //       <div className="title">Title3</div>
-  //     </div>
-  //   </nav>
-  // </div>
 );
 
 export default Footer;
