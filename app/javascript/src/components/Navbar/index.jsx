@@ -49,15 +49,15 @@ const NavBar = () => {
           && (
             <NavDropdown title="Mon Compte" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/profile">Mon Profil</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/cart">
+              {/* <NavDropdown.Item as={Link} to="/cart">
                 Panier
                 {nbItemInCart > 0 ? `(${nbItemInCart})` : ''}
-              </NavDropdown.Item>
+              </NavDropdown.Item> */}
               <NavDropdown.Item as={Link} to="/logout">Déconnexion</NavDropdown.Item>
             </NavDropdown>
           )
         }
-          <Navbar.Brand href="/">
+          <Navbar.Brand as={Link} to="/cart">
             <CaddyIcon />
           </Navbar.Brand>
         </Nav>
