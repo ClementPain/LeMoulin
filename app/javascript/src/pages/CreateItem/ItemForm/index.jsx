@@ -5,7 +5,7 @@ import { Formik, Form } from 'formik';
 import { Button, Row } from 'react-bootstrap';
 
 import {
-  MyTextField, MyNumberField, MyCheckboxField, validation,
+  MyTextField, MyTextareaField, MyNumberField, MyCheckboxField, validation,
 } from './formik_helpers';
 
 import { create } from '../../../api/api-manager';
@@ -43,7 +43,7 @@ const ItemForm = () => {
       {({ values, errors, isSubmitting }) => (
         <Form>
           <MyTextField type="text" name="name" placeholder="Nom du produit" />
-          <MyTextField type="textarea" name="description" placeholder="Description" />
+          <MyTextareaField row={3} name="description" placeholder="Description" />
           <MyNumberField
             type="number"
             name="price"

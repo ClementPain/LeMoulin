@@ -16,6 +16,18 @@ const MyTextField = ({ placeholder, type, ...props }) => {
   );
 };
 
+const MyTextareaField = ({ placeholder, row, ...props }) => {
+  const [field, meta] = useField(props);
+  const errorText = meta.error && meta.touched ? meta.error : '';
+
+  return (
+    <FormGroup className="m-3">
+      <Form.Control as="textarea" row={row} placeholder={placeholder} {...field} />
+      <ErrorMessage {...field} className="alert alert-danger" />
+    </FormGroup>
+  );
+};
+
 const MyNumberField = ({
   type, min, max, label, ...props
 }) => {
@@ -96,5 +108,5 @@ const validation = (values) => {
 };
 
 export {
-  validation, MyTextField, MyNumberField, MyCheckboxField,
+  validation, MyTextField, MyTextareaField, MyNumberField, MyCheckboxField,
 };

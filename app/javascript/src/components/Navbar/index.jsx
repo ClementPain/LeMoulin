@@ -15,16 +15,18 @@ const NavBar = () => {
   const [nbItemInCart, setNbItemInCart] = useState(0);
 
   useEffect(() => {
-    Object.keys(Cookie.get('cart')).map( (shop_id) => {
-      Object.keys(Cookie.get('cart')[shop_id]).map( () => {
-        setNbItemInCart(nbItemInCart);
+    if (Cookie.get('cart')) {
+      Object.keys(Cookie.get('cart')).map( (shop_id) => {
+        Object.keys(Cookie.get('cart')[shop_id]).map( () => {
+          setNbItemInCart(nbItemInCart);
+        })
       })
-    })
+    }
   }, [Cookie.get('cart')])
 
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
-      <Navbar.Brand href="/">
+      <Navbar.Brand as={Link} to="/">
         <Logo />
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
