@@ -22,7 +22,7 @@ const matchedTabs = {
   },
 };
 
-const Tab = () => {
+const Panel = () => {
   const { selectedTab } = useParams();
   const { page } = matchedTabs[selectedTab];
 
@@ -33,4 +33,4 @@ const Tab = () => {
   );
 };
 
-export default Tab;
+export default Panel;

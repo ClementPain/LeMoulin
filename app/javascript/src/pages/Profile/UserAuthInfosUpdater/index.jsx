@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import {
   Formik, Field, ErrorMessage, Form,
@@ -10,12 +10,17 @@ import {
 } from 'react-bootstrap';
 
 import { accountUpdate } from '../../../api/api-manager';
+import CurrentUserContext from '../context';
 
 const UserAuthInfosUpdater = () => {
+  const { currentUser } = useContext(CurrentUserContext);
+
+  console.log('update');
+
   const [alert, setAlert] = useState(null);
   const [updateSuccess, setUpdateSuccess] = useState(false);
-  const handleOnInput = () => setAlert(null);
 
+  const handleOnInput = () => setAlert(null);
   const handleSubmit = (values) => {
     accountUpdate('signup', {
       data: {
@@ -37,7 +42,7 @@ const UserAuthInfosUpdater = () => {
       <Col md={{ span: 6, offset: 3 }}>
         <Formik
           initialValues={{
-            email: '', password: '', password_confirmation: '', current_password: '',
+            email: currentUser?.email, password: '', password_confirmation: '', current_password: '',
           }}
           validate={(values) => {
             const formErrors = {};
