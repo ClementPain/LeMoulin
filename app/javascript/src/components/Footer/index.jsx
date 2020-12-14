@@ -14,7 +14,7 @@ const Footer = () => (
               <h6 className="text-white">Inscrivez-vous </h6>
             </li>
             <li className="list-inline-item  text-white">
-              <Button type="submit" className="btn_success_sass" variant="outline-success">Register</Button>
+              <Button type="submit" className="btn_success_sass" variant="outline-success" size="sm">Register</Button>
             </li>
           </ul>
         </Col>
