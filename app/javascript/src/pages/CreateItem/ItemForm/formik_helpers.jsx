@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useField, ErrorMessage } from 'formik';
@@ -74,7 +75,6 @@ const validation = (values) => {
   }
 
   if (!values.price) {
-    console.log(values.price);
     formErrors.price = "Votre produit n'a pas de prix !";
   } else if (values.price < 0) {
     formErrors.price = 'Le prix est négatif !';
