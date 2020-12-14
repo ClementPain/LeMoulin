@@ -8,7 +8,7 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import SearchBar from './SearchBar';
 
 import Logo from '../Logo';
-import Image from './Panier.png';
+import CaddyIcon from '../Caddy/index';
 
 const NavBar = () => {
   const { isAuthenticated } = useSelector((state) => state);
@@ -49,19 +49,17 @@ const NavBar = () => {
           && (
             <NavDropdown title="Mon Compte" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/profile">Mon Profil</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/cart">Panier {nbItemInCart > 0 ? `(${nbItemInCart})` : ''}</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/cart">
+                Panier
+                {nbItemInCart > 0 ? `(${nbItemInCart})` : ''}
+              </NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/logout">Déconnexion</NavDropdown.Item>
             </NavDropdown>
           )
         }
           <Navbar.Brand href="/">
-                <img
-                  src="/Panier.png"
-                  width="30"
-                  height="30"
-                  className="align-top"
-                />
-              </Navbar.Brand>
+            <CaddyIcon />
+          </Navbar.Brand>
         </Nav>
         <SearchBar />
       </Navbar.Collapse>
