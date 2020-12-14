@@ -5,7 +5,6 @@ const { setAuthCookie, getAuthCookie } = authCookieHandler;
 const ApiBase = '/api/v1/';
 
 const request = async (endpoint, {
-  rootIncluded = false,
   method = 'get',
   authRequired = true,
   data = null,
@@ -15,8 +14,6 @@ const request = async (endpoint, {
     .map(([key, value]) => `${key}=${encodeURIComponent(String(value).trim())}`).join('&');
 
   let url = `${ApiBase}${endpoint}`;
-  if (rootIncluded) { url = endpoint; }
-
   if (queryString) { url += `?${queryString}`; }
 
   const authorizaton = authRequired
@@ -40,7 +37,6 @@ const request = async (endpoint, {
 };
 
 const find = async (endpoint, {
-  rootIncluded = false,
   authRequired = false,
   params = {},
   onError,
@@ -48,7 +44,6 @@ const find = async (endpoint, {
   onSuccess,
 } = {}) => {
   const firstRequest = await request(endpoint, {
-    rootIncluded,
     authRequired,
     params,
   });
@@ -69,7 +64,6 @@ const find = async (endpoint, {
 };
 
 const create = async (endpoint, {
-  rootIncluded = false,
   authRequired = true,
   data,
   onError,
@@ -77,7 +71,6 @@ const create = async (endpoint, {
   onSuccess,
 } = {}) => {
   const firstRequest = await request(endpoint, {
-    rootIncluded,
     method: 'post',
     authRequired,
     data,
@@ -99,14 +92,12 @@ const create = async (endpoint, {
 };
 
 const update = async (endpoint, {
-  rootIncluded = false,
   data,
   onError,
   onErrors,
   onSuccess,
 } = {}) => {
   const firstRequest = await request(endpoint, {
-    rootIncluded,
     method: 'put',
     data,
   });

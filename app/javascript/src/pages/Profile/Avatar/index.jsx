@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
 
 import { Button, Card } from 'react-bootstrap';
-import CurrentcurrentUserContext from '../context';
 
-import { update, create } from '../../../api/api-manager';
+import CurrentcurrentUserContext from '../context';
+import { update } from '../../../api/api-manager';
 
 const Avatar = () => {
   const { currentUser, updateCurrentUser } = useContext(CurrentcurrentUserContext);
@@ -17,15 +17,10 @@ const Avatar = () => {
     data.append('file', files[0]);
     data.append('upload_preset', 'images_le_moulin');
 
-    if (!currentUser) {
-      return;
-    }
-
-    create()('https://api.cloudinary.com/v1_1/dhtysnpro/image/upload',
-      {
-        method: 'POST',
-        body: data,
-      });
+    const response = await fetch('https://api.cloudinary.com/v1_1/dhtysnpro/image/upload', {
+      method: 'post',
+      body: data,
+    });
 
     const file = await response.json();
 
@@ -48,13 +43,15 @@ const Avatar = () => {
 
   return (
     <div>
-      <Image publicId={currentUser?.profile.avatar} cloudName="dhtysnpro" className="avatar" width="300" crop="scale" />
-      <input
-        type="file"
-        name="file"
-        placeholder="Mettre à jour avatar"
-        onChange={uploadAvatar}
-      />
+      <Image publicId={currentUser?.profile.avatar} cloudName="dhtysnpro" className="avatar" crop="scale" />
+      <div className="Upload">
+        <input
+          type="file"
+          name="file"
+          placeholder="Upload your avatar"
+          onChange={uploadAvatar}
+        />
+      </div>
       {
         currentUser && (
           <Card className="text-center">
