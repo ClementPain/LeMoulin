@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  Container, Row, Col,
-} from 'react-bootstrap';
 import Switch from 'react-bootstrap/esm/Switch';
 import { Route, useRouteMatch } from 'react-router-dom';
 
+import {
+  Container, Row, Col, Card,
+} from 'react-bootstrap';
+
+import CurrentUserContext from './context';
 import { find } from '../../api/api-manager';
 import Avatar from './Avatar';
 import DashboardNav from './DashboardNav';
 import UserCommands from './UserCommands';
-import Tab from './Tab';
+import Panel from './Panel';
 
 const Profile = () => {
   const { path, url } = useRouteMatch();
@@ -22,9 +24,7 @@ const Profile = () => {
       if (currentUserId) {
         find(`users/${currentUserId}`, {
           authRequired: true,
-          onError: (error) => console.log(error),
-          onErrors: (errors) => console.log(errors),
-          onSuccess: (result) => setCurrentUser(result),
+          onSuccess: (user) => setCurrentUser(user),
         });
       }
     },
@@ -32,24 +32,34 @@ const Profile = () => {
   );
 
   return (
-    <Container fluid className="mt-3 pt-3">
-      <Row>
-        <Col md={3} className="mb-3 mb-md-0 pl-3">
-          <Avatar user={currentUser} />
-        </Col>
-        <Col md={9}>
-          <DashboardNav url={url} />
-          <Switch style={{ padding: 0 }}>
-            <Route exact path={path}>
-              <UserCommands />
-            </Route>
-            <Route path={`${path}/:selectedTab`}>
-              <Tab />
-            </Route>
-          </Switch>
-        </Col>
-      </Row>
-    </Container>
+    <CurrentUserContext.Provider value={{
+      currentUser,
+    }}
+    >
+      <Container fluid className="mt-3 pt-3">
+        <Row>
+          <Col md={3} className="mb-3 mb-md-0 pl-3">
+            <Avatar />
+          </Col>
+          <Col md={9}>
+            <DashboardNav url={url} />
+            <Card className="mt-2">
+              <Card.Body>
+                <Switch style={{ padding: 0 }}>
+                  <Route exact path={path}>
+                    <UserCommands />
+                  </Route>
+                  <Route path={`${path}/:selectedTab`}>
+                    <Panel />
+                  </Route>
+                </Switch>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+
+    </CurrentUserContext.Provider>
   );
 };
 

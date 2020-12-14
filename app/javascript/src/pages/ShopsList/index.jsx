@@ -3,9 +3,8 @@ import {
   Container, Row, Col, Form,
 } from 'react-bootstrap';
 
-import ShopCard from '../../components/ShopCard';
-
 import { Link } from 'react-router-dom';
+import ShopCard from '../../components/ShopCard';
 
 import { find, setUrl } from '../../api/api-manager';
 import useDebounce from '../../tools/useDebounce';

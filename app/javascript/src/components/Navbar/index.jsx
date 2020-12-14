@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import Cookie from 'js-cookie';
 
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import SearchBar from './SearchBar';
@@ -9,6 +11,16 @@ import Logo from '../Logo';
 
 const NavBar = () => {
   const { isAuthenticated } = useSelector((state) => state);
+
+  const [nbItemInCart, setNbItemInCart] = useState(0);
+
+  useEffect(() => {
+    Object.keys(Cookie.get('cart')).map( (shop_id) => {
+      Object.keys(Cookie.get('cart')[shop_id]).map( () => {
+        setNbItemInCart(nbItemInCart);
+      })
+    })
+  }, [Cookie.get('cart')])
 
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
@@ -37,6 +49,7 @@ const NavBar = () => {
           && (
             <NavDropdown title="Mon Compte" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/profile">Mon Profil</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/cart">Panier {nbItemInCart > 0 ? `(${nbItemInCart})` : ''}</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/logout">Déconnexion</NavDropdown.Item>
             </NavDropdown>
           )

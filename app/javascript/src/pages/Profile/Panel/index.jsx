@@ -1,18 +1,18 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Card } from 'react-bootstrap';
 
-import UserAuthInfos from '../UserAuthInfos';
-import UserPersoInfos from '../UserPersoInfos';
+import UserAuthInfosUpdater from '../UserAuthInfosUpdater';
+import UserPersoInfosUpdater from '../UserPersoInfosUpdater';
 import UserCommands from '../UserCommands';
 import UserCart from '../UserCart';
 
 const matchedTabs = {
   auth_infos: {
-    page: <UserAuthInfos />,
+    page: <UserAuthInfosUpdater />,
   },
   perso_infos: {
-    page: <UserPersoInfos />,
+    page: <UserPersoInfosUpdater />,
   },
   my_cmds: {
     page: <UserCommands />,
@@ -22,17 +22,15 @@ const matchedTabs = {
   },
 };
 
-const Tab = () => {
+const Panel = () => {
   const { selectedTab } = useParams();
   const { page } = matchedTabs[selectedTab];
 
   return (
-    <Card className="mt-2">
-      <Card.Body>
-        {page}
-      </Card.Body>
-    </Card>
+    <>
+      { page }
+    </>
   );
 };
 
-export default Tab;
+export default Panel;
