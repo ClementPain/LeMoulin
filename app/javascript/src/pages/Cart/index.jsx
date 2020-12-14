@@ -8,7 +8,7 @@ import Cookie from 'js-cookie';
 import { create } from '../../api/api-manager';
 
 const Cart = () => {
-  const cart = {};
+  let cart = {};
   if (Cookie.get('cart')) cart = JSON.parse(Cookie.get('cart'));
   
   const [itemsInCart, setItemsInCart] = useState({});
