@@ -19,21 +19,31 @@ const Profile = () => {
   const { currentUserId } = useSelector((state) => state);
   const [currentUser, setCurrentUser] = useState(null);
 
+  const updateCurrentUser = (callback) => {
+    if (!currentUserId) {
+      return;
+    }
+
+    find(`users/${currentUserId}`, {
+      authRequired: true,
+      onSuccess: (user) => {
+        setCurrentUser(user);
+        if (callback) {
+          callback(user);
+        }
+      },
+    });
+  };
+
   useEffect(
-    () => {
-      if (currentUserId) {
-        find(`users/${currentUserId}`, {
-          authRequired: true,
-          onSuccess: (user) => setCurrentUser(user),
-        });
-      }
-    },
+    updateCurrentUser,
     [currentUserId],
   );
 
   return (
     <CurrentUserContext.Provider value={{
       currentUser,
+      updateCurrentUser,
     }}
     >
       <Container fluid className="mt-3 pt-3">
