@@ -69,8 +69,8 @@ const validation = (values) => {
     formErrors.description = "Votre produit a besoin d'une description !";
   } else if (values.description.length < 5) {
     formErrors.description = 'Le nom de votre produit fait moins de 5 caractères';
-  } else if (values.description.length > 500) {
-    formErrors.description = 'Le nom de votre produit fait plus de 500 caractères';
+  } else if (values.description.length > 800) {
+    formErrors.description = 'Le nom de votre produit fait plus de 800 caractères';
   }
 
   if (!values.price) {
