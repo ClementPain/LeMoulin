@@ -10,7 +10,7 @@ import {
 import { create } from '../../../api/api-manager';
 
 const ItemForm = () => {
-  const [creationSuccess, setCreationSucces] = useState(false);
+  const [redirect, setRedirect] = useState(null);
   const { shop_id } = useParams();
   const initialValues = {
     name: '',
@@ -23,9 +23,11 @@ const ItemForm = () => {
   const handleSubmit = (data) => {
     create('items', {
       data,
-      onSuccess: () => <Redirect to={`/shop/${shop_id}`} />,
+      onSuccess: () => setRedirect(`/shop/${shop_id}`),
     });
   };
+
+  if (redirect) return <Redirect to={redirect} />;
 
   return (
     <Formik
