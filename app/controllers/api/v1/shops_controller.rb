@@ -21,8 +21,6 @@ class Api::V1::ShopsController < Api::V1::BaseController
 
     @shop = Shop.create(shop_full_params)
     render_resource(@shop)
-
-    #ShopCategoriesJoin.new( shop_id: @shop.id, shop_category_id: ShopCategory.last.id )
   end
 
   private
@@ -49,8 +47,4 @@ class Api::V1::ShopsController < Api::V1::BaseController
       }, status: :bad_request
     end
   end
-
-  #def shop_categories_params
-  # params.require(:shop_categories).permit(:id, :title)
-  #end  
 end

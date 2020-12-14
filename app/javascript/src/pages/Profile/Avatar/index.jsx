@@ -1,14 +1,19 @@
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react';
-import { Card, Button } from 'react-bootstrap';
-
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+import { Card, Button } from 'react-bootstrap';
 
 import avatar from './avatar.png';
 import CurrentcurrentUserContext from '../context';
 
 const Avatar = () => {
-  const { currentUser } = useContext(CurrentcurrentUserContext);
+  const { currentUser, updateCurrentUser } = useContext(CurrentcurrentUserContext);
+
+  useEffect(
+    updateCurrentUser,
+    [],
+  );
 
   return (
     <div>
