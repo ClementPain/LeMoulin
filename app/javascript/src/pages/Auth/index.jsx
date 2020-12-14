@@ -11,6 +11,7 @@ import {
 } from 'react-bootstrap';
 
 import { handleAuth, eraseErrors } from '../../redux-config';
+import { MyTextInput } from '../../tools/formik-manager';
 
 const endpoints = {
   signup: 'signup',
@@ -82,14 +83,12 @@ const Auth = ({ type }) => {
                 {({ isSubmitting }) => (
                   <Form onInput={handleOnInput}>
                     { alert && alert.error && (<div className="alert alert-danger">{ alert.error }</div>) }
-                    <FormGroup>
-                      <FormLabel htmlFor="email">
-                        Email
-                      </FormLabel>
-                      <Field name="email" type="email" placeholder="Enter email" className="form-control" />
-                      <ErrorMessage name="email" component="div" className="text-danger" />
-                      { alert?.errors && alert.errors.email && (<div className="text-danger">{alert.errors.email.join(', ')}</div>) }
-                    </FormGroup>
+                    <MyTextInput
+                      name="email"
+                      type="email"
+                      placeholder="Enter email"
+                      alert={alert?.errors}
+                    />
 
                     <FormGroup>
                       <FormLabel htmlFor="password">
