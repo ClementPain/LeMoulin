@@ -2,6 +2,9 @@ import React from 'react';
 
 import { Container, Card, CardDeck } from 'react-bootstrap';
 
+import {Image, Transformation, CloudinaryContext} from 'cloudinary-react';
+
+
 const AboutUsComponent = () => (
 
   <Container className="p-5">
@@ -26,6 +29,7 @@ const AboutUsComponent = () => (
     <Container>
       <CardDeck>
         <Card>
+          <Image cloudName="dhtysnpro" publicId="sample" width="300" crop="scale" />
           <Card.Img variant="top" src="holder.js/100px160" />
           <Card.Body>
             <Card.Title>Brahim</Card.Title>

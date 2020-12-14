@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :users, only: %w[show]
-      resources :profiles, only: %w[update]
+      resources :profiles, only: %w[show update]
       resources :shops, only: %w[index show create]
       resources :shop_categories, only: %w[index]
       resources :items, only: %w[index show create]
