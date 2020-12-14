@@ -1,39 +1,24 @@
 class Api::V1::ProfilesController < Api::V1::BaseController
   
   before_action :authenticate_user!
-  before_action :set_profile, only: %i[show update]
   before_action :do_not_allow_to_updating_a_profile_other_your_own, only: [:update]
-
-  def show
-    render_resource(@profile)
-  end
 
   def update
     @profile = current_user.profile
-    if avatar_param
-      @profile.update(avatar_param)
-    else 
-      @profile.update(profile_params)
-    end
+    @profile.update(profile_params)
+    
     render_resource(@profile)
   end
-
+  
   private
-
-  def avatar_param
-    params.require(:profile).permit(:avatar)
-  end
-
-  def set_profile
-    @profile = Profile.find(params[:id])
-  end
-
+  
   def profile_params
-    params.require(:profile).permit(:last_name, :first_name, :address, :zip_code)  
+    params.require(:profile).permit(:last_name, :first_name, :address, :zip_code, :avatar)  
   end
 
   def do_not_allow_to_updating_a_profile_other_your_own
     @profile = Profile.find(params[:id])
+
     if @profile.user =! current_user
       render json: {
         errors: [

@@ -5,7 +5,7 @@ import {
 import Icons from '../Social-icons/index';
 
 const Footer = () => (
-  <Container style={{ paddingTop: '70px' }}>
+  <Container style={{ paddingTop: '120px' }}>
     <footer className="fixed-bottom bg-primary text-white text-center p-3">
       <Row>
         <Col>
