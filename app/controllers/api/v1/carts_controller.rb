@@ -7,10 +7,10 @@ class Api::V1::CartsController < ApplicationController
       @items_in_cart[shop]['shop'] = Shop.find(shop.to_i)
       @items_in_cart[shop]['items'] = {}
 
-      items.each do |item, nb|
+      items.each do |item, nb_in_cart|
         @items_in_cart[shop]['items'][item] = {}
         @items_in_cart[shop]['items'][item]['data'] = Item.find(item.to_i)
-        @items_in_cart[shop]['items'][item]['in_cart'] = nb
+        @items_in_cart[shop]['items'][item]['in_cart'] = nb_in_cart
       end
     end
 

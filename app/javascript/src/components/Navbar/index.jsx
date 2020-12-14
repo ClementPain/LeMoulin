@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { find } from '../../api/api-manager';
 
 import Cookie from 'js-cookie';
 
@@ -12,6 +13,18 @@ import CaddyIcon from '../Caddy/index';
 
 const NavBar = () => {
   const { isAuthenticated } = useSelector((state) => state);
+  const { currentUserId } = useSelector((state) => state);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(
+    () => {
+      if (currentUserId) {
+        find(`users/${currentUserId}`, {
+          authRequired: true,
+          onSuccess: (user) => setCurrentUser(user)
+        });
+      }
+    }, [currentUserId]);
 
   const [nbItemInCart, setNbItemInCart] = useState(0);
 
@@ -49,10 +62,11 @@ const NavBar = () => {
           && (
             <NavDropdown title="Mon Compte" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/profile">Mon Profil</NavDropdown.Item>
-              {/* <NavDropdown.Item as={Link} to="/cart">
-                Panier
-                {nbItemInCart > 0 ? `(${nbItemInCart})` : ''}
-              </NavDropdown.Item> */}
+              { currentUser?.shop && (
+                <NavDropdown.Item as={Link} to={`/shop/${currentUser.shop.id}`}>
+                  Ma boutique
+                </NavDropdown.Item>
+              )}
               <NavDropdown.Item as={Link} to="/logout">Déconnexion</NavDropdown.Item>
             </NavDropdown>
           )
