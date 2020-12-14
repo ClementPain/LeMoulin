@@ -16,13 +16,15 @@ const SearchBar = () => {
   useEffect(() => {
     find('shop_categories', {
       onSuccess: (response) => {
-        response?.map((category) => setShopCategoriesList((previousArray) => [category, ...previousArray]));
+        response?.map((category) => {
+          setShopCategoriesList((previousArray) => [category, ...previousArray]);
+        });
       },
     });
   }, []);
 
-  const handleSearch = () => {
-    event.preventDefault()
+  const handleSearch = (event) => {
+    event.preventDefault();
     history.push({
       pathname: '/itemslist/search',
       search: setUrl('', search),
@@ -30,13 +32,14 @@ const SearchBar = () => {
   };
 
   return (
-    <Form inline
-      onSubmit={(event) => handleSearch()}
+    <Form
+      inline
+      onSubmit={(event) => handleSearch(event)}
     >
       <Form.Control
         as="select"
-        className="mr-sm-2"
-        onChange={(event) => setSearch({ ...search, category: event.target.value }) }
+        className="mr-sm-2 text-center"
+        onChange={(event) => setSearch({ ...search, category: event.target.value })}
       >
         <option value="" key={0}>
           Toute catégorie
@@ -50,9 +53,9 @@ const SearchBar = () => {
       <FormControl
         type="text"
         placeholder="Rechercher un produit"
-        className="mr-sm-2"
+        className="mr-sm-1"
         value={search.keyword}
-        onChange={(event) => setSearch({ ...search, keyword: event.target.value }) }
+        onChange={(event) => setSearch({ ...search, keyword: event.target.value })}
       />
       <Button type="submit" className="btn_success_sass" variant="outline-success">Ok</Button>
     </Form>
