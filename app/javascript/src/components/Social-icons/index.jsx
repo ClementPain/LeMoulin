@@ -8,13 +8,13 @@ const Icons = () => (
   <Row>
     <Col className="text-center m-2">
       <a href="https://www.facebook.com">
-        <Image src={Icon1} className="m-2" style={{ height: 30 }} alt="Icon1" />
+        <Image src={Icon1} className="m-1" style={{ height: 40 }} alt="Icon1" />
       </a>
       <a href="https://www.instagram.com">
-        <Image src={Icon2} className="m-2" style={{ height: 30 }} alt="Icon2" />
+        <Image src={Icon2} className="m-1" style={{ height: 40 }} alt="Icon2" />
       </a>
       <a href="https://www.linkedin.com">
-        <Image src={Icon3} className="m-2" style={{ height: 30 }} alt="Icon3" />
+        <Image src={Icon3} className="m-1" style={{ height: 40 }} alt="Icon3" />
       </a>
     </Col>
   </Row>
