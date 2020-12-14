@@ -8,6 +8,7 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import SearchBar from './SearchBar';
 
 import Logo from '../Logo';
+import Image from './Panier.png';
 
 const NavBar = () => {
   const { isAuthenticated } = useSelector((state) => state);
@@ -34,7 +35,6 @@ const NavBar = () => {
           <Nav.Link as={Link} to="/shopslist">Boutiques</Nav.Link>
           <Nav.Link as={Link} to="/itemslist">Produits</Nav.Link>
           <Nav.Link as={Link} to="/aboutus">About us</Nav.Link>
-
           {
           !isAuthenticated
           && (
@@ -54,6 +54,14 @@ const NavBar = () => {
             </NavDropdown>
           )
         }
+          <Navbar.Brand href="/">
+                <img
+                  src="/Panier.png"
+                  width="30"
+                  height="30"
+                  className="align-top"
+                />
+              </Navbar.Brand>
         </Nav>
         <SearchBar />
       </Navbar.Collapse>
