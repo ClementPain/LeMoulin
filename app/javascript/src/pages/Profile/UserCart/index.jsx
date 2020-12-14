@@ -1,7 +1,8 @@
 import React from 'react';
+import Cart from './Cart';
 
 const UserCart = () => (
-  <div>UserCart</div>
+  <Cart />
 );
 
 export default UserCart;

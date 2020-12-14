@@ -44,20 +44,24 @@ const ItemForm = () => {
         <Form>
           <MyTextField type="text" name="name" placeholder="Nom du produit" />
           <MyTextareaField row={3} name="description" placeholder="Description" />
-          <MyNumberField
-            type="number"
-            name="price"
-            label="Prix"
-            min={0}
-            max={9999999.99}
-          />
-          <MyNumberField
-            type="number"
-            name="stock"
-            label="Nombre de produits en stock"
-            min={0}
-            max={9999999}
-          />
+          <Row >
+            <Col >
+              <MyNumberField
+                type="number"
+                name="price"
+                label="Prix"
+                min={0}
+                max={9999999.99}
+              />
+            </Col>
+            <MyNumberField
+              type="number"
+              name="stock"
+              label="Nombre de produits en stock"
+              min={0}
+              max={9999999}
+            />
+          </Row>
           <MyCheckboxField
             type="checkbox"
             checked={values.is_available_for_sale}

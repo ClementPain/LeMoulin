@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 
 const DashboardNav = ({ url }) => (
-  <Nav variant="pills" defaultActiveKey={`${url}/my_cmds`}>
+  <Nav variant="pills" defaultActiveKey={`${url}/my_cart`}>
     {
       [
-        ['my_cmds', 'Mes commandes'],
         ['my_cart', 'Mon panier'],
-        ['auth_infos', 'Informations de connexion'],
-        ['perso_infos', 'Informations personnelles'],
+        ['my_cmds', 'Mes commandes'],
+        ['perso_infos', 'Modifier mon profil'],
+        ['auth_infos', 'Pamètres de connexion'],
       ].map(([route, label], indx) => (
         <Nav.Item key={indx}>
           <Nav.Link as={Link} to={`${url}/${route}`} href={`${url}/${route}`}>{label}</Nav.Link>
