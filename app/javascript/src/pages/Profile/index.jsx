@@ -12,7 +12,7 @@ import { find } from '../../api/api-manager';
 import Avatar from './Avatar';
 import DashboardNav from './DashboardNav';
 import UserCommands from './UserCommands';
-import Tab from './Tab';
+import Panel from './Panel';
 
 const Profile = () => {
   const { path, url } = useRouteMatch();
@@ -50,7 +50,7 @@ const Profile = () => {
                     <UserCommands />
                   </Route>
                   <Route path={`${path}/:selectedTab`}>
-                    <Tab user={currentUser} />
+                    <Panel />
                   </Route>
                 </Switch>
               </Card.Body>
