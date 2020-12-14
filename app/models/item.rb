@@ -14,6 +14,10 @@ class Item < ApplicationRecord
   validates :price, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: {greater_than_or_equal_to: 0}
 
   #Scopes
+  scope :select_active_items, lambda { 
+    where(is_available_for_sale: true).where('stock > ?', 0)
+  }
+
   scope :filter_by_name, lambda { |keyword|
     where('lower(name) LIKE ? ', "%#{keyword.downcase}%")
   }
@@ -38,7 +42,7 @@ class Item < ApplicationRecord
 
   # methodes
   def self.search(params)
-    items = Item.all
+    items = Item.all.select_active_items
     items = items.filter_by_name(params[:keyword]).or(items.filter_by_description(params[:keyword])) if params[:keyword]
     if params[:category]
       items = items.filter_by_category(params[:category])

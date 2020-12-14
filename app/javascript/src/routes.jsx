@@ -16,6 +16,7 @@ import ShopsList from './pages/ShopsList';
 import CreateShop from './pages/CreateShop';
 import Shop from './pages/Shop/index';
 import CreateItem from './pages/CreateItem';
+import Cart from './pages/Cart'
 
 const Routes = () => (
   <Switch>
@@ -31,6 +32,7 @@ const Routes = () => (
     <Route exact path="/shop/:id" component={Shop} />
     <Route path="/shop/:shop_id/item/:item_id" component={Item} />
     <Route path="/shop/:shop_id/create_an_item" component={CreateItem} />
+    <Route path="/cart" component={Cart} />
   </Switch>
 );
 
