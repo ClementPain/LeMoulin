@@ -71,7 +71,7 @@ const NavBar = () => {
             </NavDropdown>
           )
         }
-          <Navbar.Brand as={Link} to="/cart">
+          <Navbar.Brand as={Link} to="/profile">
             <CaddyIcon />
           </Navbar.Brand>
         </Nav>
