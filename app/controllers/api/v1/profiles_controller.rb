@@ -10,8 +10,8 @@ class Api::V1::ProfilesController < Api::V1::BaseController
 
   def update
     @profile = current_user.profile
-    if params{:avatar}
-      puts params{:avatar}
+    if avatar_param
+      @profile.update(avatar_param)
     else 
       @profile.update(profile_params)
     end
@@ -19,6 +19,10 @@ class Api::V1::ProfilesController < Api::V1::BaseController
   end
 
   private
+
+  def avatar_param
+    params.require(:profile).permit(:avatar)
+  end
 
   def set_profile
     @profile = Profile.find(params[:id])
