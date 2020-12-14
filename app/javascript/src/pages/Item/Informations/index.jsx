@@ -15,18 +15,17 @@ const ItemInformations = ({item}) => {
   const handleCart = () => {
     event.preventDefault();
     Cookie.set('cart', JSON.stringify(handleCartCookie()))
-    console.log(JSON.parse(Cookie.get('cart'))[item.id])
   }
 
   const handleCartCookie = () => {
     let cartCookie = Cookie.get('cart') ? JSON.parse(Cookie.get('cart')) : {}
-    console.log(Object.keys(cartCookie))
 
     if (Object.keys(cartCookie)?.includes(item.shop.id.toString())) {
       console.log("shop already there")
       if (Object.keys(cartCookie[item.shop.id])?.includes(item.id.toString())) {
         console.log("item already there")
-        cartCookie[item.shop.id][1] += nbItemToAddToCart;
+        cartCookie[item.shop.id][item.id] = parseInt(cartCookie[item.shop.id][item.id]) + parseInt(nbItemToAddToCart);
+        console.log(cartCookie[item.shop.id][item.id])
       } else {
         console.log("new item")
         cartCookie[item.shop.id][item.id] = nbItemToAddToCart;

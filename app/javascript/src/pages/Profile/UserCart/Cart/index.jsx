@@ -9,8 +9,9 @@ import Cookie from 'js-cookie';
 import { create } from '../../../../api/api-manager';
 
 const Cart = () => {
-  let cart = {};
-  if (Cookie.get('cart')) cart = JSON.parse(Cookie.get('cart'));
+  const [cart, setCart] = useState({});
+  
+  useEffect(() => {if (Cookie.get('cart')) setCart(JSON.parse(Cookie.get('cart'))) }, []);
   
   const [itemsInCart, setItemsInCart] = useState({});
 
@@ -21,9 +22,9 @@ const Cart = () => {
         onSuccess: (response) => setItemsInCart(response)
       })
     }
-  }, [])
+  }, [cart])
 
-  if (!Cookie.get('cart') || cart.length === 0) return (
+  if (Object.entries(cart).length === 0) return (
     <Container fluid>
       <p>Votre panier est vide</p>
     </Container>
@@ -31,10 +32,26 @@ const Cart = () => {
 
   return (
     <Container fluid>
+      <Row className='border-bottom'>
+        <Col sm={6}>
+          <p>Articles</p>
+        </Col>
+        <Col sm={2} className='text-right pr-2'>
+          <p>Quantité</p>
+        </Col>
+        <Col sm={3} className='text-right pr-2'>
+          <p>Total TTC</p>
+        </Col>
+        <Col sm={1}></Col>
+      </Row>
       { Object.keys(itemsInCart).map((shop_id) => (
-        <Container key={shop_id}>
-          <ShopCard shop={itemsInCart[shop_id].shop} items={itemsInCart[shop_id].items}/>
-        </Container>
+        <div key={shop_id}>
+          <ShopCard
+            shop={itemsInCart[shop_id].shop}
+            items={itemsInCart[shop_id].items}
+            cart_state={setCart}
+          />
+        </div>
       ))}
     </Container>
   )
