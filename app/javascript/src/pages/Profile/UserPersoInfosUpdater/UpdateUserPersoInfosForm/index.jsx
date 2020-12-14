@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useContext, useState, useEffect } from 'react';
 
 import {
@@ -16,78 +17,90 @@ const UpdateUserAuthInfosForm = () => {
   const [alert, setAlert] = useState(null);
   const [updateSuccessFlag, setUpdateSuccessFlag] = useState(false);
 
+  useEffect(
+    updateCurrentUser,
+    [],
+  );
+
   const handleOnInput = () => setAlert(null);
-  const handleSubmit = (values) => {
-    accountUpdate('signup', {
+
+  const handleSubmit = (values, resetForm) => {
+    accountUpdate(`profiles/${currentUser.profile.id}`, {
       data: {
-        user: values,
+        profile: values,
       },
       onErrors: (errors) => setAlert(errors),
       onSuccess: () => {
+        updateCurrentUser((user) => { resetForm({ values: user?.profile }); });
         setUpdateSuccessFlag(true);
         setTimeout(
-          () => setUpdateSuccessFlag(false),
+          () => { setUpdateSuccessFlag(false); },
           3000,
         );
       },
     });
   };
 
-  useEffect(
-    updateCurrentUser,
-    [],
-  );
+  const getInitialValues = () => {
+    const {
+      last_name,
+      first_name,
+      address,
+      zip_code,
+    } = currentUser?.profile || {};
 
-  const initialValues = {
-    email: currentUser ? currentUser.email : '',
-    password: '',
-    password_confirmation: '',
-    current_password: '',
+    return {
+      last_name: last_name || '',
+      first_name: first_name || '',
+      address: address || '',
+      zip_code: zip_code || '',
+    };
   };
+
+  console.log(getInitialValues());
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={getInitialValues()}
       validate={validate}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         setSubmitting(false);
-        handleSubmit(values);
-        resetForm();
+        handleSubmit(values, resetForm);
       }}
     >
       {({ isSubmitting }) => (
         <Form onInput={handleOnInput}>
-          <Card.Title>Modifier le mot de passe / Email</Card.Title>
+          <Card.Title>Mettre à jour les informations personnelles</Card.Title>
           { updateSuccessFlag && (<div className="alert alert-success">Informations mis à jour avec succès</div>) }
           <MyTextInput
-            label="Email actuel"
-            name="email"
-            type="email"
-            placeholder="Email"
+            label="Nom"
+            name="last_name"
+            type="text"
+            placeholder="Entrez votre nom"
             alert={alert}
           />
 
           <MyTextInput
-            label="Mot de passe actuel"
-            name="current_password"
-            type="password"
-            placeholder="Mot de passe actuel"
+            label="Prénom"
+            name="first_name"
+            type="text"
+            placeholder="Entrez votre prénom"
             alert={alert}
           />
 
           <MyTextInput
-            label="Nouveau mot de passe"
-            name="password"
-            type="password"
-            placeholder="Entrez un nouveau mot de passe"
+            label="Adresse"
+            name="address"
+            type="text"
+            placeholder="Entrez votre adresse"
             alert={alert}
           />
 
           <MyTextInput
-            label="Confirmation de mot de passe"
-            name="password_confirmation"
-            type="password"
-            placeholder="Confirmez le nouveau mot de passe"
+            label="Code postal"
+            name="zip_code"
+            type="text"
+            placeholder="Entrez votre code postal"
             alert={alert}
           />
 
