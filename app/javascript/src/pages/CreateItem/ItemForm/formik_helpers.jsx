@@ -74,7 +74,6 @@ const validation = (values) => {
   }
 
   if (!values.price) {
-    console.log(values.price);
     formErrors.price = "Votre produit n'a pas de prix !";
   } else if (values.price < 0) {
     formErrors.price = 'Le prix est négatif !';
