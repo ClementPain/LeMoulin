@@ -6,45 +6,40 @@ import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react'
 import avatar from './avatar.png';
 import CurrentcurrentUserContext from '../context';
 
-import { FormGroup, Button } from 'react-bootstrap';
+import { FormGroup, Button, Card } from 'react-bootstrap';
 import { update } from '../../../api/api-manager';
 
 
 const Avatar = () => {
   const { currentUser, updateCurrentUser } = useContext(CurrentcurrentUserContext);
 
-  const [loading, setLoading] = useState(false)
-  const [image, setImage] = useState("")
 
   const uploadAvatar = async e => {
     const files = e.target.files
     const data = new FormData()
     data.append('file', files[0])
     data.append('upload_preset', 'images_le_moulin')
-    setLoading(true)
-
-    const response = await fetch("https://api.cloudinary.com/v1_1/dhtysnpro/image/upload", 
-    {
-      method: 'POST',
-      body: data
-    })
-
-    const file = await response.json()
-    console.log(file)
-
-    update(`profiles/${currentUser.profile.id}`, {
-      data: {
-        profile: {
-          avatar: file.secure_url
-        }
-      }, onSuccess:(result) => {
-          console.log(result)
-        }
+    if (!currentUser){
+      return 
       }
-    );
+      const response = await fetch("https://api.cloudinary.com/v1_1/dhtysnpro/image/upload", 
+      {
+        method: 'POST',
+        body: data
+      })
 
-    setImage(file.secure_url)
-    setLoading(false)
+      const file = await response.json()
+
+      update(`profiles/${currentUser.profile.id}`, {
+        data: {
+          profile: {
+            avatar: file.secure_url
+          }
+        }, onSuccess: () => {
+            updateCurrentUser()
+          }
+        }
+      );
   }
 
   useEffect(
@@ -54,16 +49,12 @@ const Avatar = () => {
 
   return (
     <div>
-      {/* <img src={avatar} alt="Avatar" className="avatar" /> */}
       <Image publicId= {currentUser?.profile.avatar} cloudName="dhtysnpro" className="img-fluid rounded-circle" height="300" width='300'crop="scale" >
       </Image>
       <div className = "Upload">
-        <h1>Upload Avatar</h1>
         <input type="file" name="file" placeholder="Upload your avatar"
         onChange={uploadAvatar}/>
       </div>
-      
-
       {
         currentUser && (
           <Card className="text-center">
