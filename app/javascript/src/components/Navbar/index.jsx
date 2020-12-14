@@ -8,21 +8,20 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import SearchBar from './SearchBar';
 
 import Logo from '../Logo';
+import CaddyIcon from '../Caddy/index';
 
 const NavBar = () => {
   const { isAuthenticated } = useSelector((state) => state);
 
   const [nbItemInCart, setNbItemInCart] = useState(0);
 
-  useEffect(() => {
-    if (Cookie.get('cart')) {
-      Object.keys(Cookie.get('cart')).map( (shop_id) => {
-        Object.keys(Cookie.get('cart')[shop_id]).map( () => {
-          setNbItemInCart(nbItemInCart);
-        })
-      })
-    }
-  }, [Cookie.get('cart')])
+  // useEffect(() => {
+  //   Object.keys(Cookie.get('cart')).map( (shop_id) => {
+  //     Object.keys(Cookie.get('cart')[shop_id]).map( () => {
+  //       setNbItemInCart(nbItemInCart);
+  //     })
+  //   })
+  // }, [Cookie.get('cart')])
 
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
@@ -36,7 +35,6 @@ const NavBar = () => {
           <Nav.Link as={Link} to="/shopslist">Boutiques</Nav.Link>
           <Nav.Link as={Link} to="/itemslist">Produits</Nav.Link>
           <Nav.Link as={Link} to="/aboutus">About us</Nav.Link>
-
           {
           !isAuthenticated
           && (
@@ -51,11 +49,17 @@ const NavBar = () => {
           && (
             <NavDropdown title="Mon Compte" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/profile">Mon Profil</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/cart">Panier {nbItemInCart > 0 ? `(${nbItemInCart})` : ''}</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/cart">
+                Panier
+                {nbItemInCart > 0 ? `(${nbItemInCart})` : ''}
+              </NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/logout">Déconnexion</NavDropdown.Item>
             </NavDropdown>
           )
         }
+          <Navbar.Brand href="/">
+            <CaddyIcon />
+          </Navbar.Brand>
         </Nav>
         <SearchBar />
       </Navbar.Collapse>
