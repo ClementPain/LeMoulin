@@ -11,7 +11,7 @@ import {
 } from 'react-bootstrap';
 
 import { handleAuth, eraseErrors } from '../../redux-config';
-import { MyTextInput, MySelect } from '../../tools/formik-manager';
+import { MyTextInput } from '../../tools/formik-manager';
 import validate from './config/validate';
 
 const endpoints = {
