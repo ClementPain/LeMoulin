@@ -1,20 +1,23 @@
 /* eslint-disable camelcase */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { Formik, Form } from 'formik';
-import { Button, Row, Col, FormCheck } from 'react-bootstrap';
+import { Button, Row, Col, FormCheck, FormControl } from 'react-bootstrap';
 
 import validation_item_form from './validate_item_form';
 
-import { MyTextInput, MyTextArea, MyNumberInput, MyCheckbox } from '../../../tools/formik-manager';
+import { MyTextInput, MyTextArea, MyNumberInput, MyCheckbox, MyFileUploader } from '../../../tools/formik-manager';
 
-import { create } from '../../../api/api-manager';
+import { create, update } from '../../../api/api-manager';
 
 const ItemForm = ({reloadPageProp = false}) => {
   const [redirect, setRedirect] = useState(null);
   const [reloadPage, setReloadPage] = useState(reloadPageProp);
   const [alert, setAlert] = useState(null);
+  const [itemImage, setItemImage] = useState(null);
   const { shop_id } = useParams();
+
+  useEffect(() => console.log(itemImage), [itemImage])
 
   const initialValues = {
     name: '',
@@ -22,32 +25,59 @@ const ItemForm = ({reloadPageProp = false}) => {
     price: 0.00,
     stock: 0,
     is_available_for_sale: true,
+    image_url: '',
   };
+
+  const uploadItemImage = async (item_id) => {
+    console.log(item_id)
+    const { files } = itemImage;
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'images_le_moulin');
+
+    const response = await fetch('https://api.cloudinary.com/v1_1/dhtysnpro/image/upload', {
+      method: 'post',
+      body: data,
+    });
+
+    const file = await response.json();
+
+    console.log('item_loaded')
+
+    update(`items/${item_id}`, {
+      data: {
+        item: {
+          images: file.secure_url,
+        },
+      },
+      onSuccess: (response) => console.log(response)
+    });
+  }
 
   const handleSubmit = (data) => {
     create('items', {
       data,
-      onSuccess: () => {
-        reloadPage ? setRedirect(`/shop/${shop_id}/create_an_item`) : setRedirect(`/shop/${shop_id}`)
+      onSuccess: (response) => {
+        console.log(response.id)
+        uploadItemImage(response.id)
+        setRedirect(`/shop/${shop_id}`)
       },
       onError: (error) => setAlert(error),
-      onErrors: (errors) => {
-        setAlert(errors)
-        console.log(errors)
-      }
+      onErrors: (errors) => setAlert(errors)
     });
   };
 
-  if (redirect) return <Redirect to={redirect} reloadPageProp={reloadPage} />;
+  if (!reloadPage && redirect) return <Redirect to={redirect} reloadPageProp={reloadPage} />;
 
   return (
     <Formik
       initialValues={initialValues}
       validate={validation_item_form}
-      onSubmit={(data, { setSubmitting }) => {
+      onSubmit={(data, { setSubmitting, resetForm }) => {
         setSubmitting(true);
         handleSubmit(data);
         setSubmitting(false);
+        if (!redirect) resetForm();
       }}
     >
       {({ values, isSubmitting }) => (
@@ -93,6 +123,12 @@ const ItemForm = ({reloadPageProp = false}) => {
             label="Disponible immédiatement à la vente"
             alert={alert}
           />
+
+          <FormControl
+            type="file" 
+            name="image_url"
+            onChange={(e) => setItemImage(e.target)}
+          />
           <Row className="justify-content-center mt-4">
             <Button
               disabled={isSubmitting}
@@ -108,7 +144,7 @@ const ItemForm = ({reloadPageProp = false}) => {
               checked={reloadPage}
               name="redirect_item_form"
               label="Créer plusieurs produits à la suite"
-              onChange={() => setReloadPage(!reloadPage)}
+              onChange={(e) => setReloadPage(!reloadPage)}
             />
           </Row>
         </Form>

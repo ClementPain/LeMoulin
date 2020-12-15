@@ -1,7 +1,7 @@
 class Api::V1::ItemsController < ApplicationController
   before_action :authenticate_user!, only: %w[create]
   before_action :find_shop, only: %w[create]
-  before_action :set_item, only: %w[show]
+  before_action :find_item, only: %w[show update]
 
   def index
     @items = Item.search(params)
@@ -23,9 +23,19 @@ class Api::V1::ItemsController < ApplicationController
     end
   end
 
+  def update
+    @item.update(item_params)
+    puts '§§§§§§§§§§§§§§'
+    puts params[:item][:images]
+    puts '§§§§§§§§§§§§§§'
+    @item.update(images: @item.images.push(params[:item][:images]))
+    
+    render_resource(@item)
+  end
+
   private
 
-  def set_item
+  def find_item
     @item = Item.find(params[:id])
   end
 
