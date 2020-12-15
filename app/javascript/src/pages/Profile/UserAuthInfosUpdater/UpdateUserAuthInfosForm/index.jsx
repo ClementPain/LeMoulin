@@ -103,7 +103,6 @@ const UpdateUserAuthInfosForm = () => {
                 alert={alert}
               />
 
-<<<<<<< HEAD
               <FormGroup className="text-center">
                 <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
                   Mettre à jour
@@ -111,13 +110,6 @@ const UpdateUserAuthInfosForm = () => {
               </FormGroup>
             </Card.Body>
           </Card>
-=======
-          <FormGroup className="text-center">
-            <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
-              Mettre à jour
-            </Button>
-          </FormGroup>
->>>>>>> develop
         </Form>
       )}
     </Formik>
