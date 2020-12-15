@@ -12,11 +12,13 @@ const CreateShopComponent = () => (
     <Row>
       <Col md={{ span: 8, offset: 2 }}>
         <Card>
+          <Card.Header className="bg-primary">
+            <h5 className="text-white text-center">Créer votre boutique</h5>
+          </Card.Header>
           <Card.Body>
-            <h1>Create a shop</h1>
-            <p>
+            <Card.Text>
               Please fill all the fields
-            </p>
+            </Card.Text>
             <CreateShopFormComponent />
           </Card.Body>
         </Card>

@@ -15,8 +15,8 @@ import { MyTextInput } from '../../tools/formik-manager';
 import validate from './config/validate';
 
 const endpoints = {
-  signup: 'signup',
-  login: 'login',
+  inscription: 'signup',
+  connexion: 'login',
 };
 
 const Auth = ({ type }) => {
