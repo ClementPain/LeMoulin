@@ -8,11 +8,9 @@
 
 Rails.application.eager_load!
 ApplicationRecord.descendants.each { |model|
-  # unless model == User
-    model.delete_all
-    ActiveRecord::Base.connection.reset_pk_sequence!(model.table_name)
-    puts "The table #{model.table_name} is deleted !"
-  # end
+  model.delete_all
+  ActiveRecord::Base.connection.reset_pk_sequence!(model.table_name)
+  puts "The table #{model.table_name} is deleted !"
 }
 
 puts 'All the tables was deleted !'
@@ -20,13 +18,11 @@ puts 'All the tables was deleted !'
 5.times do
   user = User.create email: Faker::Internet.email, password: 'password'
   profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
-  # profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, is_shopkeeper: false, user: user)
 end
 
 3.times do
   user = User.create! email: Faker::Internet.email, password: 'password'
   profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
-  # profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, is_shopkeeper: false, user: user)
 end
 
 shop_category_1 = ShopCategory.create! title: "Epicerie"
@@ -51,7 +47,6 @@ shop1 = Shop.create!(
   siret: '000000000', 
   is_active: true, 
   shopkeeper: (User.select {|user| !user.has_a_shop}).sample
-  # shopkeeper_id: Profile.select{ |profile| profile.is_shopkeeper === true}[shopId].user_id
 )
 
 puts 'Create the first shop'
@@ -99,7 +94,6 @@ shop2 = Shop.create!(
   siret: '0000000000',
   is_active: true,
   shopkeeper: (User.select {|user| !user.has_a_shop}).sample
-  # shopkeeper_id: Profile.select{ |profile| profile.is_shopkeeper === true}[shopId].user_id
 )
 
 puts 'Create the second shop'
@@ -152,7 +146,6 @@ shop3 = Shop.create!(
   siret: '000000000', 
   is_active: true, 
   shopkeeper: (User.select {|user| !user.has_a_shop}).sample
-  # shopkeeper_id: Profile.select{ |profile| profile.is_shopkeeper === true}[shopId].user_id
 )
 
 puts 'Create the third shop'
