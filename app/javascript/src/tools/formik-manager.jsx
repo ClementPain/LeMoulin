@@ -32,6 +32,63 @@ const MyTextInput = (props) => {
   );
 };
 
+const MyTextArea = (props) => {
+  const [field, meta] = useField(props);
+
+  const {
+    label,
+    row,
+    name,
+    placeholder,
+    alert,
+  } = props;
+
+  return (
+    <FormGroup>
+      {label && <Form.Label htmlFor={name}>{label}</Form.Label>}
+      <Form.Control as='textarea' row={row} className="text-input" {...field} name={name} placeholder={placeholder} />
+      {
+        meta.touched && meta.error
+          ? (<div className="text-danger">{meta.error}</div>)
+          : null
+      }
+      {
+        alert && alert[name]
+        && (<div className="text-danger">{alert[name].join(', ')}</div>)
+      }
+    </FormGroup>
+  );
+}
+
+const MyNumberInput = (props) => {
+  const [field, meta] = useField(props);
+
+  const {
+    type,
+    label,
+    min,
+    max,
+    name,
+    alert,
+  } = props;
+
+  return (
+    <FormGroup>
+      {label && <Form.Label htmlFor={name}>{label}</Form.Label>}
+      <Form.Control type={type} min={min} max={max} className="text-input" {...field} name={name} />
+      {
+        meta.touched && meta.error
+          ? (<div className="text-danger">{meta.error}</div>)
+          : null
+      }
+      {
+        alert && alert[name]
+        && (<div className="text-danger">{alert[name].join(', ')}</div>)
+      }
+    </FormGroup>
+  );
+}
+
 const MySelect = (props) => {
   const {
     label,
@@ -41,9 +98,9 @@ const MySelect = (props) => {
 
   const [field, meta] = useField(props);
   return (
-    <div>
-      <label htmlFor={name}>{label}</label>
-      <select {...field} {...props} />
+    <FormGroup>
+      <Form.Label htmlFor={name}>{label}</Form.Label>
+      <Form.Control as='select' {...field} {...props} />
       {
         meta.touched && meta.error
           ? (<div className="error">{meta.error}</div>)
@@ -53,8 +110,62 @@ const MySelect = (props) => {
         alert && alert[name]
         && (<div className="text-danger">{alert[name].join(', ')}</div>)
       }
-    </div>
+    </FormGroup>
   );
 };
 
-export { MyTextInput, MySelect };
+const MyCheckbox = (props) => {
+  const [field, meta] = useField(props);
+
+  const {
+    type,
+    label,
+    checked,
+    name,
+    alert,
+  } = props;
+
+  return (
+    <FormGroup>
+      <Form.Check type={type} label={label} className="text-input" {...field} name={name} />
+      {
+        meta.touched && meta.error
+          ? (<div className="text-danger">{meta.error}</div>)
+          : null
+      }
+      {
+        alert && alert[name]
+        && (<div className="text-danger">{alert[name].join(', ')}</div>)
+      }
+    </FormGroup>
+  );
+}
+
+const MyFileUploader = (props) => {
+  const [field, meta] = useField(props);
+
+  const {
+    type,
+    label,
+    checked,
+    name,
+    alert,
+  } = props;
+
+  return (
+    <FormGroup>
+      <Form.Check type={type} label={label} className="text-input" {...field} name={name} />
+      {
+        meta.touched && meta.error
+          ? (<div className="text-danger">{meta.error}</div>)
+          : null
+      }
+      {
+        alert && alert[name]
+        && (<div className="text-danger">{alert[name].join(', ')}</div>)
+      }
+    </FormGroup>
+  );
+}
+
+export { MyTextInput, MyTextArea, MyNumberInput, MySelect, MyCheckbox };
