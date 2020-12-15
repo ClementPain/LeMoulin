@@ -147,14 +147,14 @@ const MyFileUploader = (props) => {
   const {
     type,
     label,
-    checked,
     name,
     alert,
   } = props;
 
   return (
     <FormGroup>
-      <Form.Check type={type} label={label} className="text-input" {...field} name={name} />
+      {label && <Form.Label htmlFor={name}>{label}</Form.Label>}
+      <Form.Control type={type} className="text-input" {...field} name={name} />
       {
         meta.touched && meta.error
           ? (<div className="text-danger">{meta.error}</div>)
@@ -168,4 +168,4 @@ const MyFileUploader = (props) => {
   );
 }
 
-export { MyTextInput, MyTextArea, MyNumberInput, MySelect, MyCheckbox };
+export { MyTextInput, MyTextArea, MyNumberInput, MySelect, MyCheckbox, MyFileUploader };
