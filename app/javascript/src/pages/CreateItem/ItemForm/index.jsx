@@ -15,9 +15,9 @@ import validationItemForm from './validate_item_form';
 
 import { create } from '../../../api/api-manager';
 
-const ItemForm = ({ reloadPageProp = false }) => {
+const ItemForm = () => {
   const [redirect, setRedirect] = useState(null);
-  const [reloadPage, setReloadPage] = useState(reloadPageProp);
+  const [multipleAdd, setMultipleAdd] = useState(false);
   const [alert, setAlert] = useState(null);
   const { shop_id } = useParams();
 
@@ -32,27 +32,23 @@ const ItemForm = ({ reloadPageProp = false }) => {
   const handleSubmit = (data) => {
     create('items', {
       data,
-      onSuccess: () => {
-        reloadPage ? setRedirect(`/shop/${shop_id}/create_an_item`) : setRedirect(`/shop/${shop_id}`);
-      },
+      onSuccess: () => { if (!multipleAdd) setRedirect(`/shop/${shop_id}`); },
       onError: (error) => setAlert(error),
-      onErrors: (errors) => {
-        setAlert(errors);
-        console.log(errors);
-      },
+      onErrors: (errors) => { setAlert(errors); },
     });
   };
 
-  if (redirect) return <Redirect to={redirect} reloadPageProp={reloadPage} />;
+  if (redirect) return <Redirect to={redirect} />;
 
   return (
     <Formik
       initialValues={initialValues}
       validate={validationItemForm}
-      onSubmit={(data, { setSubmitting }) => {
+      onSubmit={(data, { setSubmitting, resetForm }) => {
         setSubmitting(true);
         handleSubmit(data);
         setSubmitting(false);
+        resetForm();
       }}
     >
       {({ values, isSubmitting }) => (
@@ -113,10 +109,10 @@ const ItemForm = ({ reloadPageProp = false }) => {
           </Row>
           <Row className="justify-content-end">
             <FormCheck
-              checked={reloadPage}
+              checked={multipleAdd}
               name="redirect_item_form"
               label="Créer plusieurs produits à la suite"
-              onChange={() => setReloadPage(!reloadPage)}
+              onChange={() => setMultipleAdd(!multipleAdd)}
             />
           </Row>
         </Form>
