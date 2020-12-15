@@ -7,8 +7,8 @@ import ItemCard from './ItemCard'
 const ShopCard = ({shop, items, cart_state}) => (
   <div className='mb-2'>
     <Row className='p-3'>
-      <Link to={`/shop/${shop.id}`} className="cardlinks-black">
-        <h5>
+      <Link to={`/shop/${shop.id}`}>
+        <h5 className="cardlinks cardlinks-black">
           Vos articles auprès de { shop.name } ({ shop.zip_code } - { shop.city })          
         </h5>
       </Link>
