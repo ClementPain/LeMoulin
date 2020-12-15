@@ -15,7 +15,7 @@ const UserCommands = () => {
       return;
     }
 
-    find('');
+    console.log('');
   };
 
   useEffect(

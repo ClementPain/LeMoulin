@@ -5,7 +5,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   def index
     @orders = current_user_orders
 
-    render json: @orders
+    render :json => @orders.to_json(:include=>{:order_items=> {:include=> :item}})
   end
   
   def create
