@@ -5,7 +5,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   def index
     @orders = current_user_orders
 
-    render_resource(@orders, include: :items)
+    render json: @orders
   end
   
   def create
