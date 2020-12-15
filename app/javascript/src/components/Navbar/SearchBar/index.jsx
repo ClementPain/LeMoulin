@@ -37,8 +37,9 @@ const SearchBar = () => {
       onSubmit={(event) => handleSearch(event)}
     >
       <Form.Control
+        style={{ backgroundColor: '#45B5AA' }}
         as="select"
-        className="mr-sm-2 text-center"
+        className="mr-sm-2 text-center text-white"
         onChange={(event) => setSearch({ ...search, category: event.target.value })}
       >
         <option value="" key={0}>

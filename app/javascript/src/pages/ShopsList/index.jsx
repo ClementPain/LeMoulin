@@ -87,7 +87,7 @@ const ShopsList = () => {
 
         <Col sm={9}>
           <Row className="justify-content-center m-4">
-            <h4>Voici la liste des boutiques</h4>
+            <h4 className="text-center">Voici la liste des boutiques</h4>
           </Row>
 
           <Container>
