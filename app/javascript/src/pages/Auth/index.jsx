@@ -85,7 +85,7 @@ const Auth = ({ type }) => {
                     />
 
                     <FormGroup className="text-center">
-                      <Button variant="outline-success" type="submit" disabled={isSubmitting}>
+                      <Button variant="primary" type="submit" disabled={isSubmitting}>
                         Valider
                       </Button>
                     </FormGroup>
