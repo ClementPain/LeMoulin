@@ -1,7 +1,31 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 
-const UserCommands = () => (
-  <div>UserCommands</div>
-);
+import CurrentUserContext from '../context';
+
+const UserCommands = () => {
+  const { currentUser, updateCurrentUser } = useContext(CurrentUserContext);
+
+  useEffect(
+    updateCurrentUser,
+    [],
+  );
+
+  const getCurrentUserCommands = () => {
+    if (!currentUser) {
+      return;
+    }
+
+    find('');
+  };
+
+  useEffect(
+    getCurrentUserCommands,
+    [currentUser],
+  );
+
+  return (
+    <div>UserCommands</div>
+  );
+};
 
 export default UserCommands;

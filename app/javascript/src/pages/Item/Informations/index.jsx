@@ -14,7 +14,6 @@ const ItemInformations = ({ item }) => {
 
   const handleCart = () => {
     event.preventDefault();
-    console.log(Object.entries(handleCartCookie()));
     Cookie.set('cart', JSON.stringify(handleCartCookie()));
   };
 

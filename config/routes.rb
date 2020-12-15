@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :shop_categories, only: %w[index]
       resources :items, only: %w[index show create]
       resources :carts, only: %w[create] 
+      resources :orders, only: %w[index] 
     end
   end
 
