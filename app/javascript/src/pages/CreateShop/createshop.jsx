@@ -8,7 +8,7 @@ import CreateShopFormComponent from '../../components/CreateShopForm';
 
 const CreateShopComponent = () => (
 
-  <Container fluid className="mt-3">
+  <Container fluid className="mt-5">
     <Row>
       <Col md={{ span: 8, offset: 2 }}>
         <Card>

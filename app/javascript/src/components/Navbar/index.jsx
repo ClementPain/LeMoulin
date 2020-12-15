@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { find } from '../../api/api-manager';
 
 import Cookie from 'js-cookie';
 
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+
+import { find } from '../../api/api-manager';
 import SearchBar from './SearchBar';
 
 import Logo from '../Logo';
@@ -21,10 +22,11 @@ const NavBar = () => {
       if (currentUserId) {
         find(`users/${currentUserId}`, {
           authRequired: true,
-          onSuccess: (user) => setCurrentUser(user)
+          onSuccess: (user) => setCurrentUser(user),
         });
       }
-    }, [currentUserId]);
+    }, [currentUserId],
+  );
 
   const [nbItemInCart, setNbItemInCart] = useState(0);
 
