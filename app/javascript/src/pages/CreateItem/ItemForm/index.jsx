@@ -1,16 +1,21 @@
 /* eslint-disable camelcase */
 import React, { useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
+
 import { Formik, Form } from 'formik';
-import { Button, Row, Col, FormCheck } from 'react-bootstrap';
+import {
+  Button, Row, Col, FormCheck,
+} from 'react-bootstrap';
 
-import validation_item_form from './validate_item_form';
+import {
+  MyTextInput, MyTextArea, MyNumberInput, MyCheckbox,
+} from '../../../tools/formik-manager';
 
-import { MyTextInput, MyTextArea, MyNumberInput, MyCheckbox } from '../../../tools/formik-manager';
+import validationItemForm from './validate_item_form';
 
 import { create } from '../../../api/api-manager';
 
-const ItemForm = ({reloadPageProp = false}) => {
+const ItemForm = ({ reloadPageProp = false }) => {
   const [redirect, setRedirect] = useState(null);
   const [reloadPage, setReloadPage] = useState(reloadPageProp);
   const [alert, setAlert] = useState(null);
@@ -28,13 +33,13 @@ const ItemForm = ({reloadPageProp = false}) => {
     create('items', {
       data,
       onSuccess: () => {
-        reloadPage ? setRedirect(`/shop/${shop_id}/create_an_item`) : setRedirect(`/shop/${shop_id}`)
+        reloadPage ? setRedirect(`/shop/${shop_id}/create_an_item`) : setRedirect(`/shop/${shop_id}`);
       },
       onError: (error) => setAlert(error),
       onErrors: (errors) => {
-        setAlert(errors)
-        console.log(errors)
-      }
+        setAlert(errors);
+        console.log(errors);
+      },
     });
   };
 
@@ -43,7 +48,7 @@ const ItemForm = ({reloadPageProp = false}) => {
   return (
     <Formik
       initialValues={initialValues}
-      validate={validation_item_form}
+      validate={validationItemForm}
       onSubmit={(data, { setSubmitting }) => {
         setSubmitting(true);
         handleSubmit(data);
@@ -55,13 +60,16 @@ const ItemForm = ({reloadPageProp = false}) => {
           { alert && alert.error && (<div className="alert alert-danger">{ alert.error }</div>) }
           <MyTextInput
             label="Nom de votre produit"
-            type="text" name="name"
+            type="text"
+            name="name"
             placeholder="Moulin de qualité supérieur..."
             alert={alert}
           />
           <MyTextArea
             label="Description"
-            row={3} name="description" placeholder="Ce moulin ne tombe jamais en panne..."
+            row={3}
+            name="description"
+            placeholder="Ce moulin ne tombe jamais en panne..."
             alert={alert}
           />
           <Row>
