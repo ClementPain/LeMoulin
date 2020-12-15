@@ -52,7 +52,7 @@ shop1 = Shop.create!(
 
 # ShopCategoriesJoin.create!( shop_id: shop1.id, shop_category_id: shop_category_1.id )
 
-puts 'Create the first shop'
+puts 'A shop is created'
 
 shopId += 1
 
@@ -64,7 +64,7 @@ Item.create!(
   shop_id: shop1.id
 )
 
-puts 'Create the first item'
+puts 'An item is created'
 
 Item.create!(
   name: 'Crème Parmesan Reggiano et truffe 80 gr',
@@ -74,7 +74,7 @@ Item.create!(
   shop_id: shop1.id
 )
 
-puts 'Create the second item'
+puts 'An item is created'
   
 Item.create!(
   name: "Huile d'olive 'Bella di Cerignola' 50 cl",
@@ -84,7 +84,7 @@ Item.create!(
   shop_id: shop1.id
 )
 
-puts 'Create the third item'
+puts 'An item is created'
 
 shop2 = Shop.create!(
   name: 'Le Koncept',
@@ -101,7 +101,7 @@ shop2 = Shop.create!(
 # ShopCategoriesJoin.create!( shop_id: shop2.id, shop_category_id: shop_category_2.id )
 # ShopCategoriesJoin.create!( shop_id: shop2.id, shop_category_id: shop_category_8.id )
 
-puts 'Create the second shop'
+puts 'A shop is created'
 
 shopId += 1
 
@@ -126,7 +126,7 @@ Item.create!(
   shop_id: shop2.id
 )
 
-puts 'Create the fifth item'
+puts 'An item is created'
 
 Item.create!(
   name: "Alzarine",
@@ -137,7 +137,7 @@ Item.create!(
   shop_id: shop2.id
 )
 
-puts 'Create the sixth item'
+puts 'An item is created'
 
 shop3 = Shop.create!(
   name: 'Oxybul',
@@ -153,7 +153,7 @@ shop3 = Shop.create!(
 
 # ShopCategoriesJoin.create!( shop_id: shop3.id, shop_category_id: shop_category_3.id )
 
-puts 'Create the third shop'
+puts 'A shop is created'
 
 shopId += 1
 
@@ -165,7 +165,7 @@ Item.create!(
   shop_id: shop3.id
 )
 
-puts 'Create the seventh item'
+puts 'An item is created'
 
 Item.create!(
   name: "Déguisement Cléopatre 8-10 ans",
@@ -175,7 +175,7 @@ Item.create!(
   shop_id: shop3.id
 )
 
-puts 'Create the eighth item'
+puts 'An item is created'
 
 Item.create!(
   name: "Jeu de société Le jeu du loup",
@@ -185,6 +185,25 @@ Item.create!(
   shop_id: shop3.id
 )
 
-puts 'Create the ninth item'
+puts 'An item is created'
 
-puts "The database is filled with a few records !"
+
+
+user = User.create(email: 'wazo@yahoo.fr', password: '123456')
+puts "Create some orders for #{user.email}"
+
+['in_progress', 'prepared', 'validated', 'canceled'].each do |status|
+  3.times do
+    shop = Shop.all.sample
+    items = shop.items
+    
+    order_items = []
+    3.times do
+      order_items << OrderItem.new(item: items.sample, quantity: Faker::Number.within(range: 1..10))
+    end
+    
+    Order.create(customer: user, shop: shop, order_items: order_items, status: status)
+  end
+end
+
+puts "The database is filled with a few records with success !"
