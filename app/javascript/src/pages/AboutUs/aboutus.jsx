@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { Jumbotron, Container } from 'react-bootstrap';
-import Card from 'react-bootstrap/Card';
-import CardDeck from 'react-bootstrap/CardDeck';
+import { Container, Card, CardDeck } from 'react-bootstrap';
+
+import { Image } from 'cloudinary-react';
 
 const AboutUsComponent = () => (
 
-  <Jumbotron fluid>
+  <Container className="p-5">
     <Container>
       <h1>About us</h1>
       <p>
@@ -28,6 +28,7 @@ const AboutUsComponent = () => (
     <Container>
       <CardDeck>
         <Card>
+          <Image cloudName="dhtysnpro" publicId="sample" width="300" crop="scale" />
           <Card.Img variant="top" src="holder.js/100px160" />
           <Card.Body>
             <Card.Title>Brahim</Card.Title>
@@ -82,7 +83,7 @@ const AboutUsComponent = () => (
         </Card>
       </CardDeck>
     </Container>
-  </Jumbotron>
+  </Container>
 
 );
 

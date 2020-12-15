@@ -1,15 +1,28 @@
-import React from 'react';
-import { Card, ListGroup } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
 
-const DashboardNav = () => (
-  <Card>
-    <ListGroup variant="flush">
-      <ListGroup.Item active>Tableau de bord</ListGroup.Item>
-      <ListGroup.Item action as={Link} to="#">Informations de connexion</ListGroup.Item>
-      <ListGroup.Item action as={Link} to="#">Informations personnelles</ListGroup.Item>
-    </ListGroup>
-  </Card>
+import { Nav } from 'react-bootstrap';
+
+const DashboardNav = ({ url }) => (
+  <Nav
+    variant="pills"
+    defaultActiveKey={`${url}/my_cart`}
+  >
+    {
+      [
+        ['my_cart', 'Mon panier'],
+        ['my_cmds', 'Mes commandes'],
+        ['perso_infos', 'Modifier mon profil'],
+        ['auth_infos', 'Pamètres de connexion'],
+      ].map(([route, label], indx) => (
+        <Nav.Item key={indx}>
+          <Nav.Link as={Link} to={`${url}/${route}`} href={`${url}/${route}`}>{label}</Nav.Link>
+        </Nav.Item>
+      ))
+    }
+  </Nav>
 );
 
 export default DashboardNav;

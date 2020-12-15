@@ -1,0 +1,29 @@
+.cardlinks {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.cardlinks-green {
+  color:  #45B5AA;
+}
+
+.cardlinks-black {
+  &:hover {
+    color: #45B5AA;
+  }
+}
+
+.btn_success_sass {
+  border-color: #45B5AA;
+  color:  #45B5AA;
+  outline: 0;
+  outline: none;
+  &:hover, :focus, :active, ::after{
+    border-color: #45B5AA;
+    background-color: #45B5AA;
+    outline: 0;
+    outline: none;
+    text-decoration: none;
+  }
+}

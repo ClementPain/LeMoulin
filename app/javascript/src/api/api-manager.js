@@ -2,21 +2,19 @@ import { authCookieHandler } from '../tools';
 
 const { setAuthCookie, getAuthCookie } = authCookieHandler;
 
-const root = '/api/v1/';
+const ApiBase = '/api/v1/';
 
-const request = async (endpoint, options = {}) => {
-  const {
-    method = 'get',
-    authRequired = true,
-    data = null,
-    params = {},
-  } = options;
-
+const request = async (endpoint, {
+  method = 'get',
+  authRequired = true,
+  data = null,
+  params = {},
+} = {}) => {
   const queryString = Object.entries(params)
     .map(([key, value]) => `${key}=${encodeURIComponent(String(value).trim())}`).join('&');
 
-  let url = `${root}${endpoint}`;
-  if (queryString.length > 0) { url += `?${queryString}`; }
+  let url = `${ApiBase}${endpoint}`;
+  if (queryString) { url += `?${queryString}`; }
 
   const authorizaton = authRequired
     ? { Authorization: `Bearer ${getAuthCookie().token}` }
@@ -38,15 +36,13 @@ const request = async (endpoint, options = {}) => {
   return response;
 };
 
-const find = async (endpoint, options = {}) => {
-  const {
-    authRequired = false,
-    params = {},
-    onError,
-    onErrors,
-    onSuccess,
-  } = options;
-
+const find = async (endpoint, {
+  authRequired = false,
+  params = {},
+  onError,
+  onErrors,
+  onSuccess,
+} = {}) => {
   const firstRequest = await request(endpoint, {
     authRequired,
     params,
@@ -60,20 +56,20 @@ const find = async (endpoint, options = {}) => {
     onError(error);
   } else if (errors && onErrors) {
     onErrors(errors);
-  } else { onSuccess(result); }
+  } else {
+    onSuccess(result);
+  }
 
   return result;
 };
 
-const create = async (endpoint, options = {}) => {
-  const {
-    authRequired = true,
-    data,
-    onError,
-    onErrors,
-    onSuccess,
-  } = options;
-
+const create = async (endpoint, {
+  authRequired = true,
+  data,
+  onError,
+  onErrors,
+  onSuccess,
+} = {}) => {
   const firstRequest = await request(endpoint, {
     method: 'post',
     authRequired,
@@ -88,19 +84,19 @@ const create = async (endpoint, options = {}) => {
     onError(error);
   } else if (errors && onErrors) {
     onErrors(errors);
-  } else { onSuccess(result); }
+  } else {
+    onSuccess(result);
+  }
 
   return result;
 };
 
-const update = async (endpoint, options = {}) => {
-  const {
-    data,
-    onError,
-    onErrors,
-    onSuccess,
-  } = options;
-
+const update = async (endpoint, {
+  data,
+  onError,
+  onErrors,
+  onSuccess,
+} = {}) => {
   const firstRequest = await request(endpoint, {
     method: 'put',
     data,
@@ -114,7 +110,9 @@ const update = async (endpoint, options = {}) => {
     onError(error);
   } else if (errors && onErrors) {
     onErrors(errors);
-  } else { onSuccess(result); }
+  } else {
+    onSuccess();
+  }
 
   return result;
 };
@@ -127,20 +125,16 @@ const remove = async (endpoint) => {
   return response;
 };
 
-const auth = async (endpoint, options) => {
-  const {
-    identifiers,
-    onError,
-    onErrors,
-    onSuccess,
-  } = options;
-
+const auth = async (endpoint, {
+  identifiers,
+  onError,
+  onErrors,
+  onSuccess,
+}) => {
   const firstRequest = await request(endpoint, {
     method: 'post',
     authRequired: false,
-    data: {
-      user: identifiers,
-    },
+    data: identifiers,
   });
 
   const token = firstRequest.headers.get('Authorization');
@@ -154,13 +148,46 @@ const auth = async (endpoint, options) => {
     onError(error);
   } else if (errors && onErrors) {
     onErrors(errors);
-  } else { onSuccess(result); }
+  } else {
+    onSuccess(result);
+  }
 
   return result;
 };
 
 const deauth = () => {
   remove('logout');
+};
+
+const accountUpdate = async (endpoint, {
+  data,
+  onError,
+  onErrors,
+  onSuccess,
+} = {}) => {
+  const firstRequest = await request(endpoint, {
+    method: 'put',
+    data,
+  });
+
+  if (firstRequest.ok) {
+    onSuccess();
+    return 0;
+  }
+
+  const result = await firstRequest.json();
+
+  const { error, errors } = result;
+
+  if (error && onError) {
+    onError(error);
+  } else if (errors && onErrors) {
+    onErrors(errors);
+  } else {
+    onSuccess();
+  }
+
+  return result;
 };
 
 const checkForFirstParameter = (noParameter) => {
@@ -196,5 +223,5 @@ const setUrl = (url, params = {}) => {
 };
 
 export {
-  auth, deauth, find, create, update, remove, setUrl,
+  auth, deauth, accountUpdate, find, create, update, remove, setUrl,
 };

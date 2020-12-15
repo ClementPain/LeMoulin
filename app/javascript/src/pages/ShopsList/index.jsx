@@ -3,9 +3,11 @@ import {
   Container, Row, Col, Form,
 } from 'react-bootstrap';
 
+import { Link } from 'react-router-dom';
 import ShopCard from '../../components/ShopCard';
 
 import { find, setUrl } from '../../api/api-manager';
+import useDebounce from '../../tools/useDebounce';
 
 const ShopsList = () => {
   const [shopsArray, setShopsArray] = useState([]);
@@ -14,6 +16,7 @@ const ShopsList = () => {
     keyword: '',
     categories: [],
   });
+  const debouncedSearch = useDebounce(search, 500);
 
   useEffect(() => {
     find('shop_categories', {
@@ -26,7 +29,7 @@ const ShopsList = () => {
   }, []);
 
   useEffect(() => {
-    const url = setUrl('/shops', search);
+    const url = setUrl('shops', search);
 
     find(url, {
       onSuccess: (response) => {
@@ -34,7 +37,7 @@ const ShopsList = () => {
         response?.map((shop) => setShopsArray((previousArray) => [shop, ...previousArray]));
       },
     });
-  }, [search]);
+  }, [debouncedSearch]);
 
   const setArray = (array, target) => {
     const newArray = array;
@@ -85,9 +88,11 @@ const ShopsList = () => {
 
           <Container>
             { shopsArray.map((shop) => (
-              <div className="mb-2" key={shop.id}>
-                <ShopCard shop={shop} />
-              </div>
+              <Link to={`shop/${shop.id}`} key={shop.id} className="cardlinks">
+                <div className="mb-2">
+                  <ShopCard shop={shop} />
+                </div>
+              </Link>
             ))}
           </Container>
         </Col>

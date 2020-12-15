@@ -1,1 +1,7 @@
-@import '../src/pages/Profile';
+@import './global_scss';
+@import '../src/components/Logo';
+@import '../src/components/Navbar/SearchBar';
+@import '../src/pages/Profile/Avatar';
+@import '../src/pages/Item/Informations/TabsMoreInformations';
+@import '../src/pages/Item/Informations';
+@import '../src/pages/Profile/UserCart/Cart/ShopCard/ItemCard';

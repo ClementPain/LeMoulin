@@ -4,17 +4,19 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import {
-  Formik, Form, Field, ErrorMessage,
+  Formik, Form,
 } from 'formik';
 import {
-  Container, Row, Col, Card, FormGroup, FormLabel, Button,
+  Container, Row, Col, Card, FormGroup, Button,
 } from 'react-bootstrap';
 
 import { handleAuth, eraseErrors } from '../../redux-config';
+import { MyTextInput, MySelect } from '../../tools/formik-manager';
+import validate from './config/validate';
 
 const endpoints = {
-  signup: 'signup',
-  login: 'login',
+  inscription: 'signup',
+  connexion: 'login',
 };
 
 const Auth = ({ type }) => {
@@ -25,7 +27,7 @@ const Auth = ({ type }) => {
   const [alert, setAlert] = useState(null);
 
   const handleSubmit = (values) => {
-    dispatch(handleAuth(endpoints[type], values));
+    dispatch(handleAuth(endpoints[type], { user: values }));
   };
 
   const handleOnInput = () => setAlert(null);
@@ -44,6 +46,8 @@ const Auth = ({ type }) => {
 
   if (isAuthenticated) return <Redirect to="/" />;
 
+  const initialValues = { email: '', password: '' };
+
   return (
     <Container className="mt-5">
       <Row>
@@ -54,26 +58,8 @@ const Auth = ({ type }) => {
             </Card.Header>
             <Card.Body className="px-4">
               <Formik
-                initialValues={{ email: '', password: '' }}
-                validate={(values) => {
-                  const formErrors = {};
-
-                  if (!values.email) {
-                    formErrors.email = 'Required';
-                  } else if (
-                    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                  ) {
-                    formErrors.email = 'Invalid email address';
-                  }
-
-                  if (!values.password) {
-                    formErrors.password = 'Required';
-                  } else if (values.password.length < 6) {
-                    formErrors.password = 'Must be 6 characters or more';
-                  }
-
-                  return formErrors;
-                }}
+                initialValues={initialValues}
+                validate={validate}
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(false);
                   handleSubmit(values);
@@ -82,27 +68,25 @@ const Auth = ({ type }) => {
                 {({ isSubmitting }) => (
                   <Form onInput={handleOnInput}>
                     { alert && alert.error && (<div className="alert alert-danger">{ alert.error }</div>) }
-                    <FormGroup>
-                      <FormLabel htmlFor="email">
-                        Email
-                      </FormLabel>
-                      <Field name="email" type="email" placeholder="Enter email" className="form-control" />
-                      <ErrorMessage name="email" component="div" className="alert alert-danger" />
-                      { alert?.errors && alert.errors.email && (<div className="alert alert-danger">{alert.errors.email.join(', ')}</div>) }
-                    </FormGroup>
+                    <MyTextInput
+                      label="Email"
+                      name="email"
+                      type="email"
+                      placeholder="Entrez l'email"
+                      alert={alert?.errors}
+                    />
 
-                    <FormGroup>
-                      <FormLabel htmlFor="password">
-                        Password
-                      </FormLabel>
-                      <Field name="password" type="password" placeholder="Enter password" className="form-control" />
-                      <ErrorMessage name="password" component="div" className="alert alert-danger" />
-                      { alert?.errors && alert.errors.password && (<div className="alert alert-danger">{alert.errors.password.join(', ')}</div>) }
-                    </FormGroup>
+                    <MyTextInput
+                      label="Mot de passe"
+                      name="password"
+                      type="password"
+                      placeholder="Entrez le mot de passe"
+                      alert={alert?.errors}
+                    />
 
                     <FormGroup className="text-center">
-                      <Button variant="primary" type="submit" disabled={isSubmitting}>
-                        Submit
+                      <Button variant="outline-success" type="submit" disabled={isSubmitting}>
+                        Valider
                       </Button>
                     </FormGroup>
                   </Form>

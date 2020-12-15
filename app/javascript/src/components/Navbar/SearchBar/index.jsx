@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, FormControl, Button } from 'react-bootstrap';
 import { find, setUrl } from '../../../api/api-manager';
+import './index.scss';
 
 const SearchBar = () => {
   const history = useHistory();
@@ -15,12 +16,15 @@ const SearchBar = () => {
   useEffect(() => {
     find('shop_categories', {
       onSuccess: (response) => {
-        response?.map((category) => setShopCategoriesList((previousArray) => [category, ...previousArray]));
+        response?.map((category) => {
+          setShopCategoriesList((previousArray) => [category, ...previousArray]);
+        });
       },
     });
   }, []);
 
-  const handleSearch = () => {
+  const handleSearch = (event) => {
+    event.preventDefault();
     history.push({
       pathname: '/itemslist/search',
       search: setUrl('', search),
@@ -28,10 +32,13 @@ const SearchBar = () => {
   };
 
   return (
-    <Form inline>
+    <Form
+      inline
+      onSubmit={(event) => handleSearch(event)}
+    >
       <Form.Control
         as="select"
-        className="mr-sm-2"
+        className="mr-sm-2 text-center"
         onChange={(event) => setSearch({ ...search, category: event.target.value })}
       >
         <option value="" key={0}>
@@ -46,23 +53,11 @@ const SearchBar = () => {
       <FormControl
         type="text"
         placeholder="Rechercher un produit"
-        className="mr-sm-2"
+        className="mr-sm-1"
         value={search.keyword}
         onChange={(event) => setSearch({ ...search, keyword: event.target.value })}
-        onKeyDown={(event) => {
-          if (event.key === 'Enter') {
-            event.preventDefault();
-            handleSearch(search);
-          }
-        }}
       />
-      <Button
-        onClick={(event) => handleSearch(search)}
-        variant="outline-success"
-      >
-        Ok
-
-      </Button>
+      <Button type="submit" className="btn_success_sass" variant="outline-success">Ok</Button>
     </Form>
   );
 };

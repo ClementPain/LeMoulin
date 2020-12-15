@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
 
+  include Api::V1::UsersHelper
+  
   skip_before_action :verify_authenticity_token
   
   def render_resource(resource)
@@ -9,6 +11,8 @@ class ApplicationController < ActionController::Base
       validation_error(resource)
     end
   end
+
+  private
 
   def validation_error(resource)
     render json: {

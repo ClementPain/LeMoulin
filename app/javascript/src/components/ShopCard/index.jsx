@@ -3,15 +3,13 @@ import { Card, Row, Col } from 'react-bootstrap'
 
 const ShopCard = ({ shop }) => (
   <Card>
-    <Card.Header>
+    <Card.Header style={{ backgroundColor: '#45B5AA' }}>
       <Row>
         <Col sm={6}>
-          <Card.Title>{ shop.name }</Card.Title>
+          <Card.Title className="text-white text-center">{ shop.name }</Card.Title>
         </Col>
-        <Col sm={6} className="align-items-end">
-          {shop.shop_categories.map( (cat) => (
-            cat.title
-          ))}
+        <Col sm={6} className="text-white text-center">
+          {shop.shop_categories.map( (cat) => cat.title ).join(', ') }
         </Col>
       </Row>
     </Card.Header>
