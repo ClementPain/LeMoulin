@@ -1,7 +1,6 @@
 import React from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Button, Link } from 'react-bootstrap';
 import bgimage from './BackgroundImage.jpg';
 
 const Hero = () => (

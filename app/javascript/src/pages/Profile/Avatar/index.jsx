@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
 
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Container } from 'react-bootstrap';
 
 import CurrentcurrentUserContext from '../context';
 import { update } from '../../../api/api-manager';
@@ -42,9 +42,9 @@ const Avatar = () => {
   );
 
   return (
-    <div>
+    <Container>
       <Image publicId={currentUser?.profile.avatar} cloudName="dhtysnpro" className="avatar" crop="scale" />
-      <div className="Upload">
+      <div className="Upload text-center mt-3 mb-3">
         <input
           type="file"
           name="file"
@@ -55,15 +55,15 @@ const Avatar = () => {
       {
         currentUser && (
           <Card className="text-center">
-            <Card.Body>
-              <Card.Title>
+            <Card.Body style={{ backgroundColor: '#45B5AA' }}>
+              <Card.Title className="text-white">
                 {currentUser.profile.first_name}
                 {' '}
                 {currentUser.profile.last_name}
               </Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">{currentUser.email}</Card.Subtitle>
-              <Card.Text>{currentUser.profile.address}</Card.Text>
-              <Card.Text>{currentUser.profile.zip_code}</Card.Text>
+              <Card.Text className="mb-2 text-primary">{currentUser.profile.address}</Card.Text>
+              <Card.Text className="text-primary">{currentUser.profile.zip_code}</Card.Text>
+              <Card.Subtitle className="mb-2 mt-2">{currentUser.email}</Card.Subtitle>
             </Card.Body>
           </Card>
         )
@@ -75,7 +75,7 @@ const Avatar = () => {
           : <Button as={Link} to="/create_my_shop" variant="primary" className="mt-3" block>Créer ma boutique</Button>
       )
     }
-    </div>
+    </Container>
   );
 };
 
