@@ -8,11 +8,9 @@
 
 Rails.application.eager_load!
 ApplicationRecord.descendants.each { |model|
-  # unless model == User
-    model.delete_all
-    ActiveRecord::Base.connection.reset_pk_sequence!(model.table_name)
-    puts "The table #{model.table_name} is deleted !"
-  # end
+  model.delete_all
+  ActiveRecord::Base.connection.reset_pk_sequence!(model.table_name)
+  puts "The table #{model.table_name} is deleted !"
 }
 
 puts 'All the tables was deleted !'
@@ -20,13 +18,11 @@ puts 'All the tables was deleted !'
 5.times do
   user = User.create email: Faker::Internet.email, password: 'password'
   profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
-  # profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, is_shopkeeper: false, user: user)
 end
 
 3.times do
   user = User.create! email: Faker::Internet.email, password: 'password'
   profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
-  # profile = user.profile.update(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, is_shopkeeper: false, user: user)
 end
 
 shop_category_1 = ShopCategory.create! title: "Epicerie"
@@ -50,13 +46,13 @@ shop1 = Shop.create!(
   city: 'Levallois-Perret', 
   siret: '000000000', 
   is_active: true, 
-  shopkeeper: (User.select {|user| !user.has_a_shop}).sample
-  # shopkeeper_id: Profile.select{ |profile| profile.is_shopkeeper === true}[shopId].user_id
+  shopkeeper: (User.select {|user| !user.has_a_shop}).sample,
+  shop_categories: [shop_category_1] 
 )
 
-puts 'Create the first shop'
+# ShopCategoriesJoin.create!( shop_id: shop1.id, shop_category_id: shop_category_1.id )
 
-ShopCategoriesJoin.create!( shop_id: shop1.id, shop_category_id: shop_category_1.id )
+puts 'Create the first shop'
 
 shopId += 1
 
@@ -98,14 +94,14 @@ shop2 = Shop.create!(
   city: 'Tours',
   siret: '0000000000',
   is_active: true,
-  shopkeeper: (User.select {|user| !user.has_a_shop}).sample
-  # shopkeeper_id: Profile.select{ |profile| profile.is_shopkeeper === true}[shopId].user_id
+  shopkeeper: (User.select {|user| !user.has_a_shop}).sample,
+  shop_categories: [shop_category_2, shop_category_8]
 )
 
-puts 'Create the second shop'
+# ShopCategoriesJoin.create!( shop_id: shop2.id, shop_category_id: shop_category_2.id )
+# ShopCategoriesJoin.create!( shop_id: shop2.id, shop_category_id: shop_category_8.id )
 
-ShopCategoriesJoin.create!( shop_id: shop2.id, shop_category_id: shop_category_2.id )
-ShopCategoriesJoin.create!( shop_id: shop2.id, shop_category_id: shop_category_8.id )
+puts 'Create the second shop'
 
 shopId += 1
 
@@ -151,13 +147,13 @@ shop3 = Shop.create!(
   city: 'Rennes', 
   siret: '000000000', 
   is_active: true, 
-  shopkeeper: (User.select {|user| !user.has_a_shop}).sample
-  # shopkeeper_id: Profile.select{ |profile| profile.is_shopkeeper === true}[shopId].user_id
+  shopkeeper: (User.select {|user| !user.has_a_shop}).sample,
+  shop_categories: [shop_category_3]
 )
 
-puts 'Create the third shop'
+# ShopCategoriesJoin.create!( shop_id: shop3.id, shop_category_id: shop_category_3.id )
 
-ShopCategoriesJoin.create!( shop_id: shop3.id, shop_category_id: shop_category_3.id )
+puts 'Create the third shop'
 
 shopId += 1
 
