@@ -13,4 +13,3 @@ const UserPersoInfosUpdater = () => (
 );
 
 export default UserPersoInfosUpdater;
-

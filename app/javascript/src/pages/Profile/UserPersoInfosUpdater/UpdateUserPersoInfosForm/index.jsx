@@ -29,9 +29,9 @@ const UpdateUserAuthInfosForm = () => {
       data: {
         profile: values,
       },
-      onErrors: (errors) => setAlert(errors),
+      onErrors: (errors) => { setAlert(errors); },
       onSuccess: () => {
-        updateCurrentUser((user) => { resetForm({ values: user?.profile }); });
+        updateCurrentUser((user) => { resetForm({ values: user.profile }); });
         setUpdateSuccessFlag(true);
         setTimeout(
           () => { setUpdateSuccessFlag(false); },
@@ -41,27 +41,23 @@ const UpdateUserAuthInfosForm = () => {
     });
   };
 
-  const getInitialValues = () => {
-    const {
-      last_name,
-      first_name,
-      address,
-      zip_code,
-    } = currentUser?.profile || {};
+  const {
+    last_name,
+    first_name,
+    address,
+    zip_code,
+  } = currentUser?.profile || {};
 
-    return {
-      last_name: last_name || '',
-      first_name: first_name || '',
-      address: address || '',
-      zip_code: zip_code || '',
-    };
+  const initialValues = {
+    last_name: last_name || '',
+    first_name: first_name || '',
+    address: address || '',
+    zip_code: zip_code || '',
   };
-
-  console.log(getInitialValues());
 
   return (
     <Formik
-      initialValues={getInitialValues()}
+      initialValues={initialValues}
       validate={validate}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         setSubmitting(false);

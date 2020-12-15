@@ -2,8 +2,7 @@ import React from 'react';
 
 import { Container, Card, CardDeck } from 'react-bootstrap';
 
-import {Image, Transformation, CloudinaryContext} from 'cloudinary-react';
-
+import { Image } from 'cloudinary-react';
 
 const AboutUsComponent = () => (
 

@@ -1,46 +1,40 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
+import { Image } from 'cloudinary-react';
 
-import avatar from './avatar.png';
+import { Button, Card } from 'react-bootstrap';
+
 import CurrentcurrentUserContext from '../context';
-
-import { FormGroup, Button, Card } from 'react-bootstrap';
 import { update } from '../../../api/api-manager';
-
 
 const Avatar = () => {
   const { currentUser, updateCurrentUser } = useContext(CurrentcurrentUserContext);
 
+  const uploadAvatar = async (e) => {
+    const { files } = e.target;
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'images_le_moulin');
 
-  const uploadAvatar = async e => {
-    const files = e.target.files
-    const data = new FormData()
-    data.append('file', files[0])
-    data.append('upload_preset', 'images_le_moulin')
-    if (!currentUser){
-      return 
-      }
-      const response = await fetch("https://api.cloudinary.com/v1_1/dhtysnpro/image/upload", 
-      {
-        method: 'POST',
-        body: data
-      })
+    const response = await fetch('https://api.cloudinary.com/v1_1/dhtysnpro/image/upload', {
+      method: 'post',
+      body: data,
+    });
 
-      const file = await response.json()
+    const file = await response.json();
 
-      update(`profiles/${currentUser.profile.id}`, {
-        data: {
-          profile: {
-            avatar: file.secure_url
-          }
-        }, onSuccess: () => {
-            updateCurrentUser()
-          }
-        }
-      );
-  }
+    update(`profiles/${currentUser.profile.id}`, {
+      data: {
+        profile: {
+          avatar: file.secure_url,
+        },
+      },
+      onSuccess: () => {
+        updateCurrentUser();
+      },
+    });
+  };
 
   useEffect(
     updateCurrentUser,
@@ -49,11 +43,14 @@ const Avatar = () => {
 
   return (
     <div>
-      <Image publicId= {currentUser?.profile.avatar} cloudName="dhtysnpro" className="img-fluid rounded-circle" height="300" width='300'crop="scale" >
-      </Image>
-      <div className = "Upload">
-        <input type="file" name="file" placeholder="Upload your avatar"
-        onChange={uploadAvatar}/>
+      <Image publicId={currentUser?.profile.avatar} cloudName="dhtysnpro" className="avatar" crop="scale" />
+      <div className="Upload">
+        <input
+          type="file"
+          name="file"
+          placeholder="Upload your avatar"
+          onChange={uploadAvatar}
+        />
       </div>
       {
         currentUser && (

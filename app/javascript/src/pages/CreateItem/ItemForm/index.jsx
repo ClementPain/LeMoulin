@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { Formik, Form } from 'formik';
-import { Button, Row } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 
 import {
   MyTextField, MyTextareaField, MyNumberField, MyCheckboxField, validation,
@@ -44,8 +44,8 @@ const ItemForm = () => {
         <Form>
           <MyTextField type="text" name="name" placeholder="Nom du produit" />
           <MyTextareaField row={3} name="description" placeholder="Description" />
-          <Row >
-            <Col >
+          <Row>
+            <Col>
               <MyNumberField
                 type="number"
                 name="price"

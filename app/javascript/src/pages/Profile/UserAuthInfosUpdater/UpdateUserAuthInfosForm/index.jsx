@@ -17,16 +17,25 @@ const UpdateUserAuthInfosForm = () => {
   const [updateSuccessFlag, setUpdateSuccessFlag] = useState(false);
 
   const handleOnInput = () => setAlert(null);
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, resetForm) => {
     accountUpdate('signup', {
       data: {
         user: values,
       },
-      onErrors: (errors) => setAlert(errors),
+      onErrors: (errors) => { setAlert(errors); },
       onSuccess: () => {
+        updateCurrentUser((user) => resetForm({
+          values:
+          {
+            ...user,
+            current_password: '',
+            password: '',
+            password_confirmation: '',
+          },
+        }));
         setUpdateSuccessFlag(true);
         setTimeout(
-          () => setUpdateSuccessFlag(false),
+          () => { setUpdateSuccessFlag(false); },
           3000,
         );
       },
@@ -51,13 +60,12 @@ const UpdateUserAuthInfosForm = () => {
       validate={validate}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         setSubmitting(false);
-        handleSubmit(values);
-        resetForm();
+        handleSubmit(values, resetForm);
       }}
     >
       {({ isSubmitting }) => (
         <Form onInput={handleOnInput}>
-          <Card.Title>Modifier le mot de passe / Email</Card.Title>
+          <Card.Title>Modifier le mot de passe ou Email</Card.Title>
           { updateSuccessFlag && (<div className="alert alert-success">Informations mis à jour avec succès</div>) }
           <MyTextInput
             label="Email actuel"

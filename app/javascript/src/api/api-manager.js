@@ -2,7 +2,7 @@ import { authCookieHandler } from '../tools';
 
 const { setAuthCookie, getAuthCookie } = authCookieHandler;
 
-const root = '/api/v1/';
+const ApiBase = '/api/v1/';
 
 const request = async (endpoint, {
   method = 'get',
@@ -13,8 +13,8 @@ const request = async (endpoint, {
   const queryString = Object.entries(params)
     .map(([key, value]) => `${key}=${encodeURIComponent(String(value).trim())}`).join('&');
 
-  let url = `${root}${endpoint}`;
-  if (queryString.length > 0) { url += `?${queryString}`; }
+  let url = `${ApiBase}${endpoint}`;
+  if (queryString) { url += `?${queryString}`; }
 
   const authorizaton = authRequired
     ? { Authorization: `Bearer ${getAuthCookie().token}` }
