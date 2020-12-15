@@ -1,9 +1,10 @@
 import React from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import TemplateImage from './template.jpg';
 
 const ItemCard = ({ item }) => (
-  <Card className="bg-primary">
+  <Card style={{ backgroundColor: '#808080' }}>
     <Card.Img variant="top" />
     <Card.Body>
       <Link
@@ -12,11 +13,12 @@ const ItemCard = ({ item }) => (
       >
         <div className="mb-3 text-white">
           <Card.Title>{ item.name }</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">
+          <Card.Subtitle className="mb-2 text-black">
             { item.shop_categories.map((cat) => cat.title).join(', ') }
           </Card.Subtitle>
           <Card.Text>
-            { item.description.length <= 180 ? item.description : `${item.description.slice(0, 179)}...` }
+            {/* { item.description.length <= 180 ? item.description : `${item.description.slice(0, 179)}...` } */}
+            <img src={TemplateImage} className="template" alt="template"  style={{height:80}}/>
           </Card.Text>
         </div>
       </Link>
