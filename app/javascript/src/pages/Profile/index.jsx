@@ -9,10 +9,11 @@ import {
 
 import CurrentUserContext from './context';
 import { find } from '../../api/api-manager';
+
 import Avatar from './Avatar';
 import DashboardNav from './DashboardNav';
-import UserCommands from './UserCommands';
 import Panel from './Panel';
+import UserCart from './UserCart';
 
 const Profile = () => {
   const { path, url } = useRouteMatch();
@@ -57,7 +58,7 @@ const Profile = () => {
               <Card.Body>
                 <Switch style={{ padding: 0 }}>
                   <Route exact path={path}>
-                    <UserCommands />
+                    <UserCart />
                   </Route>
                   <Route path={`${path}/:selectedTab`}>
                     <Panel />
