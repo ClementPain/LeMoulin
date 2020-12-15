@@ -1,4 +1,4 @@
-class Api::V1OrdersController < Api::V1::BaseController
+class Api::V1::OrdersController < Api::V1::BaseController
   
   before_action :authenticate_user!, only: [:create]
   
