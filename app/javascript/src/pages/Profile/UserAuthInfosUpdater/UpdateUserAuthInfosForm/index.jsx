@@ -67,7 +67,7 @@ const UpdateUserAuthInfosForm = () => {
         <Form onInput={handleOnInput}>
           <Card>
             <Card.Header className="bg-primary px-4">
-              <Card.Title className="text-white text-center">Modifier le mot de passe ou Email</Card.Title>
+              <Card.Title className="text-white text-center mt-2">Modifier le mot de passe ou Email</Card.Title>
             </Card.Header>
             <Card.Body>
               { updateSuccessFlag && (<div className="alert alert-success">Informations mis à jour avec succès</div>) }

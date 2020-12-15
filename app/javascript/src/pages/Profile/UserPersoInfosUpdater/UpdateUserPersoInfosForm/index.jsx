@@ -68,7 +68,7 @@ const UpdateUserAuthInfosForm = () => {
         <Form onInput={handleOnInput}>
           <Card>
             <Card.Header className="bg-primary px-4">
-              <Card.Title className="text-white text-center">Mettre à jour les informations personnelles</Card.Title>
+              <Card.Title className="text-white text-center mt-2">Mettre à jour les informations personnelles</Card.Title>
             </Card.Header>
             <Card.Body>
               { updateSuccessFlag && (<div className="alert alert-success">Informations mis à jour avec succès</div>) }
