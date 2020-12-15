@@ -67,7 +67,7 @@ const UpdateUserAuthInfosForm = () => {
         <Form onInput={handleOnInput}>
           <Card>
             <Card.Header className="bg-primary px-4">
-              <Card.Title className="text-white text-center">Modifier le mot de passe ou Email</Card.Title>
+              <Card.Title className="text-white text-center mt-2">Modifier le mot de passe ou Email</Card.Title>
             </Card.Header>
             <Card.Body>
               { updateSuccessFlag && (<div className="alert alert-success">Informations mis à jour avec succès</div>) }
@@ -103,7 +103,6 @@ const UpdateUserAuthInfosForm = () => {
                 alert={alert}
               />
 
-<<<<<<< HEAD
               <FormGroup className="text-center">
                 <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
                   Mettre à jour
@@ -111,13 +110,6 @@ const UpdateUserAuthInfosForm = () => {
               </FormGroup>
             </Card.Body>
           </Card>
-=======
-          <FormGroup className="text-center">
-            <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
-              Mettre à jour
-            </Button>
-          </FormGroup>
->>>>>>> develop
         </Form>
       )}
     </Formik>
