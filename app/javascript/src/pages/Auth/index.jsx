@@ -11,12 +11,12 @@ import {
 } from 'react-bootstrap';
 
 import { handleAuth, eraseErrors } from '../../redux-config';
-import { MyTextInput } from '../../tools/formik-manager';
+import { MyTextInput, MySelect } from '../../tools/formik-manager';
 import validate from './config/validate';
 
 const endpoints = {
-  signup: 'signup',
-  login: 'login',
+  inscription: 'signup',
+  connexion: 'login',
 };
 
 const Auth = ({ type }) => {
@@ -85,8 +85,8 @@ const Auth = ({ type }) => {
                     />
 
                     <FormGroup className="text-center">
-                      <Button variant="primary" type="submit" disabled={isSubmitting}>
-                        Submit
+                      <Button variant="outline-success" type="submit" disabled={isSubmitting}>
+                        Valider
                       </Button>
                     </FormGroup>
                   </Form>

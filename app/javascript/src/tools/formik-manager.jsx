@@ -8,13 +8,17 @@ const MyTextInput = (props) => {
   const [field, meta] = useField(props);
 
   const {
-    id, name, label, alert,
+    label,
+    type,
+    name,
+    placeholder,
+    alert,
   } = props;
 
   return (
     <FormGroup>
-      {label && <Form.Label htmlFor={id || name}>{label}</Form.Label>}
-      <Form.Control className="text-input" {...field} {...props} />
+      {label && <Form.Label htmlFor={name}>{label}</Form.Label>}
+      <Form.Control className="text-input" {...field} type={type} name={name} placeholder={placeholder} />
       {
         meta.touched && meta.error
           ? (<div className="text-danger">{meta.error}</div>)
@@ -28,4 +32,29 @@ const MyTextInput = (props) => {
   );
 };
 
-export { MyTextInput };
+const MySelect = (props) => {
+  const {
+    label,
+    name,
+    alert,
+  } = props;
+
+  const [field, meta] = useField(props);
+  return (
+    <div>
+      <label htmlFor={name}>{label}</label>
+      <select {...field} {...props} />
+      {
+        meta.touched && meta.error
+          ? (<div className="error">{meta.error}</div>)
+          : null
+      }
+      {
+        alert && alert[name]
+        && (<div className="text-danger">{alert[name].join(', ')}</div>)
+      }
+    </div>
+  );
+};
+
+export { MyTextInput, MySelect };

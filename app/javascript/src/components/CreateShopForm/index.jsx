@@ -44,7 +44,7 @@ const CreateShopFormComponent = () => {
   return (
     <Form>
       <Form.Row>
-        <Form.Group as={Col} controlId="formGridName">
+        <Form.Group as={Col}>
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="name"
@@ -138,7 +138,7 @@ const CreateShopFormComponent = () => {
       </Form.Group>
 
       <Button
-        variant="primary"
+        variant="oultine-success"
         onClick={() => handleNewShopCreation(newshop)}
       >
         Submit
