@@ -59,8 +59,8 @@ const ShopsList = () => {
     <Container fluid>
       <Row className="justify-content-center m-4">
         <Card.Body className="px-2 pt-4">
-          <Col sm={9} className="bg-primary">
-            <h5 className="text-white pt-4">Filtrer les résultats</h5>
+          <Col style={{ backgroundColor: '#45B5AA' }}>
+            <h5 className="text-black pt-4">Filtrer les résultats</h5>
             <Form.Group className="text-white">
               <Form.Control
                 className="p-2"
