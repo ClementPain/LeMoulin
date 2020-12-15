@@ -44,7 +44,7 @@ const Avatar = () => {
   return (
     <Container>
       <Image publicId={currentUser?.profile.avatar} cloudName="dhtysnpro" className="avatar" crop="scale" />
-      <div className="Upload text-center mt-3 mb-3">
+      <div className="Upload text-center mt-3 mb-4">
         <input
           type="file"
           name="file"

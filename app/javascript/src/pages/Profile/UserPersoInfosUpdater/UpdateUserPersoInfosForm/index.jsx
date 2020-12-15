@@ -66,45 +66,51 @@ const UpdateUserAuthInfosForm = () => {
     >
       {({ isSubmitting }) => (
         <Form onInput={handleOnInput}>
-          <Card.Title>Mettre à jour les informations personnelles</Card.Title>
-          { updateSuccessFlag && (<div className="alert alert-success">Informations mis à jour avec succès</div>) }
-          <MyTextInput
-            label="Nom"
-            name="last_name"
-            type="text"
-            placeholder="Entrez votre nom"
-            alert={alert}
-          />
+          <Card>
+            <Card.Header className="bg-primary px-4">
+              <Card.Title className="text-white text-center">Mettre à jour les informations personnelles</Card.Title>
+            </Card.Header>
+            <Card.Body>
+              { updateSuccessFlag && (<div className="alert alert-success">Informations mis à jour avec succès</div>) }
+              <MyTextInput
+                label="Nom"
+                name="last_name"
+                type="text"
+                placeholder="Entrez votre nom"
+                alert={alert}
+              />
 
-          <MyTextInput
-            label="Prénom"
-            name="first_name"
-            type="text"
-            placeholder="Entrez votre prénom"
-            alert={alert}
-          />
+              <MyTextInput
+                label="Prénom"
+                name="first_name"
+                type="text"
+                placeholder="Entrez votre prénom"
+                alert={alert}
+              />
 
-          <MyTextInput
-            label="Adresse"
-            name="address"
-            type="text"
-            placeholder="Entrez votre adresse"
-            alert={alert}
-          />
+              <MyTextInput
+                label="Adresse"
+                name="address"
+                type="text"
+                placeholder="Entrez votre adresse"
+                alert={alert}
+              />
 
-          <MyTextInput
-            label="Code postal"
-            name="zip_code"
-            type="text"
-            placeholder="Entrez votre code postal"
-            alert={alert}
-          />
+              <MyTextInput
+                label="Code postal"
+                name="zip_code"
+                type="text"
+                placeholder="Entrez votre code postal"
+                alert={alert}
+              />
 
-          <FormGroup className="text-center">
-            <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
-              Mettre à jour
-            </Button>
-          </FormGroup>
+              <FormGroup className="text-center">
+                <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
+                  Mettre à jour
+                </Button>
+              </FormGroup>
+            </Card.Body>
+          </Card>
         </Form>
       )}
     </Formik>
