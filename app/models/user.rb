@@ -1,7 +1,7 @@
 class User < ApplicationRecord
 
   # Callbacks
-  after_create :create_my_profile
+  after_create :create_my_profile, :welcome_send
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -23,6 +23,10 @@ class User < ApplicationRecord
 
   def create_my_profile
     self.update(profile: Profile.new(zip_code: '00000'))
+  end
+
+  def welcome_send
+    UserMailer.welcome_email(self).deliver_now
   end
 
 end
