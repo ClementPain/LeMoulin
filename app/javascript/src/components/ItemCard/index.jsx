@@ -9,7 +9,7 @@ const ItemCard = ({ item }) => (
     <Card.Body>
       <Link
         className="cardlinks"
-        to={`shop/${item.shop.id}/item/${item.id}`}
+        to={`/shop/${item.shop.id}/item/${item.id}`}
       >
         <div className="mb-3 text-white">
           <Card.Title>{ item.name }</Card.Title>
@@ -27,7 +27,7 @@ const ItemCard = ({ item }) => (
           <footer className="blockquote-footer">
             <Link
               className="cardlinks cardlinks-green"
-              to={`shop/${item.shop.id}/item/${item.id}`}
+              to={`/shop/${item.shop.id}/item/${item.id}`}
             >
               {item.shop.name}
               {' '}
@@ -41,7 +41,7 @@ const ItemCard = ({ item }) => (
         <Col sm={3}>
           <Link
             className="cardlinks cardlinks-green"
-            to={`shop/${item.shop.id}/item/${item.id}`}
+            to={`/shop/${item.shop.id}/item/${item.id}`}
           >
             Voir plus
           </Link>

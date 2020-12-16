@@ -7,7 +7,7 @@ import ItemForm from '../../../components/ItemForm';
 
 const UpdateItem = () => {
   const { item_id } = useParams();
-  const [item, setItem] = useState({});
+  const [item, setItem] = useState(null);
 
   useEffect(() => {
     find(`items/${item_id}`, {
@@ -18,11 +18,11 @@ const UpdateItem = () => {
     });
   }, []);
 
-  const handleSubmit = (data, uploadItemImage, setRedirect, shop_id, setAlert) => {  
+  const handleSubmit = (data, uploadItemImage, setRedirect, shop_id, setAlert, itemImage) => {  
     update(`items/${item_id}`, {
       data,
       onSuccess: (response) => {
-        if (itemImage.length > 0) uploadItemImage(response?.id)
+        if (itemImage) uploadItemImage(response.id)
         setRedirect(`/shop/${shop_id}/item/${item_id}`)
       },
       onError: (error) => setAlert(error),
@@ -36,12 +36,14 @@ const UpdateItem = () => {
       description: item.description,
       price: item.price,
       stock: item.stock,
-      is_available_for_sale: item.is_available_for_sale,
+      is_available_for_sale: item.is_available_for_sale || false,
       image_url: ''
     }
   
     return initial_values
   };
+
+  if (!item) return <p>Chargement</p> 
 
   return (
   <Container fluid className="mt-5">
