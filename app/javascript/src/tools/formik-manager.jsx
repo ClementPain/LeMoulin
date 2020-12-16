@@ -18,7 +18,11 @@ const MyTextInput = (props) => {
   return (
     <FormGroup>
       {label && <Form.Label htmlFor={name}>{label}</Form.Label>}
-      <Form.Control className="text-input" {...field} type={type} name={name} placeholder={placeholder} />
+      <Form.Control
+        className="text-input"
+        type={type} name={name} placeholder={placeholder}
+        {...field}
+      />
       {
         meta.touched && meta.error
           ? (<div className="text-danger">{meta.error}</div>)

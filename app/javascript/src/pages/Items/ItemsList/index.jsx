@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 
-import ItemCard from '../../components/ItemCard';
+import ItemCard from '../../../components/ItemCard';
 
 const ItemsList = () => {
   const history = useHistory();

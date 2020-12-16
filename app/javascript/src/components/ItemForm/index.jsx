@@ -6,31 +6,23 @@ import { Button, Row, Col, FormCheck, FormControl } from 'react-bootstrap';
 
 import validation_item_form from './validate_item_form';
 
-import { MyTextInput, MyTextArea, MyNumberInput, MyCheckbox, MyFileUploader } from '../../../tools/formik-manager';
+import { MyTextInput, MyTextArea, MyNumberInput, MyCheckbox } from '../../tools/formik-manager';
 
-import { create, update } from '../../../api/api-manager';
+import { update } from '../../api/api-manager';
 
-const ItemForm = ({reloadPageProp = false}) => {
+const ItemForm = ({handleSubmit, initialValues}) => {
   const [redirect, setRedirect] = useState(null);
-  const [reloadPage, setReloadPage] = useState(reloadPageProp);
+  const [reloadPage, setReloadPage] = useState(false);
   const [alert, setAlert] = useState(null);
   const [itemImage, setItemImage] = useState(null);
   const { shop_id } = useParams();
 
-  useEffect(() => console.log(itemImage), [itemImage])
-
-  const initialValues = {
-    name: '',
-    description: '',
-    price: 0.00,
-    stock: 0,
-    is_available_for_sale: true,
-    image_url: '',
-  };
+  useEffect( () => console.log(itemImage), [itemImage])
 
   const uploadItemImage = async (item_id) => {
-    console.log(item_id)
     const { files } = itemImage;
+    console.log('itemImage : ', itemImage)
+    console.log('files : ', files)
     const data = new FormData();
     data.append('file', files[0]);
     data.append('upload_preset', 'images_le_moulin');
@@ -42,7 +34,7 @@ const ItemForm = ({reloadPageProp = false}) => {
 
     const file = await response.json();
 
-    console.log('item_loaded')
+    console.log('file : ', file)
 
     update(`items/${item_id}`, {
       data: {
@@ -50,32 +42,23 @@ const ItemForm = ({reloadPageProp = false}) => {
           images: file.secure_url,
         },
       },
-      onSuccess: (response) => console.log(response)
+      onSuccess: (response) => console.log('reponse', response),
+      onError: (error) => console.log('error', error),
+      onErrors: (errors) => console.log('errors', errors)
     });
   }
 
-  const handleSubmit = (data) => {
-    create('items', {
-      data,
-      onSuccess: (response) => {
-        console.log(response.id)
-        uploadItemImage(response.id)
-        setRedirect(`/shop/${shop_id}`)
-      },
-      onError: (error) => setAlert(error),
-      onErrors: (errors) => setAlert(errors)
-    });
-  };
-
-  if (!reloadPage && redirect) return <Redirect to={redirect} reloadPageProp={reloadPage} />;
+  if (!reloadPage && redirect) return <Redirect to={redirect} />;
 
   return (
     <Formik
+      enableReinitialize={true}
       initialValues={initialValues}
+      setValues={initialValues}
       validate={validation_item_form}
       onSubmit={(data, { setSubmitting, resetForm }) => {
         setSubmitting(true);
-        handleSubmit(data);
+        handleSubmit(data, uploadItemImage, setRedirect, shop_id, setAlert, itemImage);
         setSubmitting(false);
         if (!redirect) resetForm();
       }}
@@ -128,6 +111,7 @@ const ItemForm = ({reloadPageProp = false}) => {
             type="file" 
             name="image_url"
             onChange={(e) => setItemImage(e.target)}
+            multiple
           />
           <Row className="justify-content-center mt-4">
             <Button
