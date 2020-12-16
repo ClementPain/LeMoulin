@@ -1,25 +1,36 @@
 /* eslint-disable camelcase */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 
 import { Formik, Form } from 'formik';
+<<<<<<< HEAD
 import {
   Button, Row, Col, FormCheck,
 } from 'react-bootstrap';
+=======
+import { Button, Row, Col, FormCheck, FormControl } from 'react-bootstrap';
+>>>>>>> develop
 
 import {
   MyTextInput, MyTextArea, MyNumberInput, MyCheckbox,
 } from '../../../tools/formik-manager';
 
+<<<<<<< HEAD
 import validationItemForm from './validate_item_form';
+=======
+import { MyTextInput, MyTextArea, MyNumberInput, MyCheckbox, MyFileUploader } from '../../../tools/formik-manager';
+>>>>>>> develop
 
-import { create } from '../../../api/api-manager';
+import { create, update } from '../../../api/api-manager';
 
 const ItemForm = () => {
   const [redirect, setRedirect] = useState(null);
   const [multipleAdd, setMultipleAdd] = useState(false);
   const [alert, setAlert] = useState(null);
+  const [itemImage, setItemImage] = useState(null);
   const { shop_id } = useParams();
+
+  useEffect(() => console.log(itemImage), [itemImage])
 
   const initialValues = {
     name: '',
@@ -27,12 +38,43 @@ const ItemForm = () => {
     price: 0.00,
     stock: 0,
     is_available_for_sale: true,
+    image_url: '',
   };
+
+  const uploadItemImage = async (item_id) => {
+    console.log(item_id)
+    const { files } = itemImage;
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'images_le_moulin');
+
+    const response = await fetch('https://api.cloudinary.com/v1_1/dhtysnpro/image/upload', {
+      method: 'post',
+      body: data,
+    });
+
+    const file = await response.json();
+
+    console.log('item_loaded')
+
+    update(`items/${item_id}`, {
+      data: {
+        item: {
+          images: file.secure_url,
+        },
+      },
+      onSuccess: (response) => console.log(response)
+    });
+  }
 
   const handleSubmit = (data) => {
     create('items', {
       data,
-      onSuccess: () => { if (!multipleAdd) setRedirect(`/shop/${shop_id}`); },
+      onSuccess: () => { 
+        console.log(response.id)
+        uploadItemImage(response.id)
+        if (!multipleAdd) setRedirect(`/shop/${shop_id}`); 
+      },
       onError: (error) => setAlert(error),
       onErrors: (errors) => { setAlert(errors); },
     });
@@ -96,6 +138,12 @@ const ItemForm = () => {
             name="is_available_for_sale"
             label="Disponible immédiatement à la vente"
             alert={alert}
+          />
+
+          <FormControl
+            type="file" 
+            name="image_url"
+            onChange={(e) => setItemImage(e.target)}
           />
           <Row className="justify-content-center mt-4">
             <Button

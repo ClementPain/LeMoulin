@@ -12,6 +12,10 @@ class Item < ApplicationRecord
   validates :name, length: { in: 3..80 }
   validates :description, length: { in: 5..800 }
   validates :price, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: {greater_than_or_equal_to: 0}
+  validates :images, length: {
+    maximum: 5,
+    message: 'Vous ne pouvez pas avoir plus de 5 photos par produit'
+  }
 
   #Scopes
   scope :select_active_items, lambda { 
