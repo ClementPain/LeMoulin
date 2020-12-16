@@ -21,7 +21,7 @@ const ItemCard = ({ item, shop_id, cart_state }) => {
   return (
     <>
       <Col sm={6}>
-        <Link to={`/shop/${shop_id}/item/${item.data.id}`} className="cardlinks cardlinks-black">
+        <Link to={`/shop/${shop_id}/item/${item.data.id}`} className="cardlinks cardlinks-black text-decoration-none">
           { item.data.name }
         </Link>
       </Col>
