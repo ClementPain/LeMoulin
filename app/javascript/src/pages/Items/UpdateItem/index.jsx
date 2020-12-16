@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Card, Col } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import { find, update } from '../../../api/api-manager';
+import { DeleteItemButton } from '../../../components/ItemCard/ItemButtons';
 
 import ItemForm from '../../../components/ItemForm';
 
 const UpdateItem = () => {
   const { item_id } = useParams();
   const [item, setItem] = useState(null);
+  const [redirect, setRedirect] = useState(null);
 
   useEffect(() => {
     find(`items/${item_id}`, {
@@ -19,12 +21,11 @@ const UpdateItem = () => {
   }, []);
 
   const handleSubmit = (data, uploadItemImage, setRedirect, shop_id, setAlert, itemImage) => { 
-    console.log('début', data)
     update(`items/${item_id}`, {
       data,
       onSuccess: () => {
-        if (itemImage) uploadItemImage(item_id)
-        setRedirect(`/shop/${shop_id}/item/${item_id}`)
+        if (itemImage) uploadItemImage(item_id, item.shop_id, setRedirect)
+        if (!itemImage) setRedirect(`/shop/${shop_id}/item/${item_id}`)
       },
       onError: (error) => setAlert(error),
       onErrors: (errors) => setAlert(errors)
@@ -44,7 +45,8 @@ const UpdateItem = () => {
     return initial_values
   };
 
-  if (!item) return <p>Chargement</p> 
+  if (!item) return <p>Chargement</p>
+  if (redirect) return <Redirect to={redirect} />;
 
   return (
   <Container fluid className="mt-5">
@@ -56,6 +58,9 @@ const UpdateItem = () => {
           </Card.Header>
           <Card.Body className="px-4">
             <ItemForm handleSubmit={handleSubmit} initialValues={initialValues(item)} createItem={false} />
+            <Row className='justify-content-end'>
+              <DeleteItemButton item={item} redirection={() => setRedirect(`/shop/${item.shop_id}/list_items`)} />
+            </Row>
           </Card.Body>
         </Card>
       </Col>

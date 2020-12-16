@@ -9,7 +9,7 @@ import {
 
 import { MyTextInput, MyTextArea, MyNumberInput, MyCheckbox } from '../../tools/formik-manager';
 
-import { validate_item_form } from './validate_item_form'
+import validate_item_form from './validate_item_form'
 
 import { update } from '../../api/api-manager';
 
@@ -21,7 +21,7 @@ const ItemForm = ({handleSubmit, initialValues, createItem = true}) => {
   const [itemImage, setItemImage] = useState(null);
   const { shop_id } = useParams();
 
-  const uploadItemImage = async (item_id) => {
+  const uploadItemImage = async (item_id, shop_id, setRedirect) => {
     const { files } = itemImage;
     console.log('itemImage : ', itemImage)
     console.log('files : ', files)
@@ -44,7 +44,7 @@ const ItemForm = ({handleSubmit, initialValues, createItem = true}) => {
           images: file.secure_url,
         },
       },
-      onSuccess: (response) => console.log('reponse', response),
+      onSuccess: () => setRedirect(`/shop/${shop_id}/item/${item_id}`),
       onError: (error) => console.log('error', error),
       onErrors: (errors) => console.log('errors', errors)
     });

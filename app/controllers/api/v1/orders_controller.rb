@@ -9,10 +9,12 @@ class Api::V1::OrdersController < Api::V1::BaseController
   end
   
   def create
-    
+    @order = Order.new(params)
   end
 
+  private
+
   def order_params
-    
+    params.require(:order).permit(:name, :description, :price, :stock, :is_available_for_sale)
   end
 end

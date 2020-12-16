@@ -1,17 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import { Image } from 'cloudinary-react';
 
-import { UpdateItemButton, DestroyItemButton } from '../ItemElements';
+import { UpdateItemButton, DeleteItemButton } from '../ItemButtons';
 import { Formik, Form } from 'formik';
 import validate_item_price_and_stock from './validate_item_price_and_stock';
 import { MyNumberInput } from '../../../tools/formik-manager';
 
-const ItemCardInShopkeeperView = ({item, setReloadComponent}) => {
+import { update } from '../../../api/api-manager';
+
+const ItemCardInShopkeeperView = ({item, setRefresh}) => {
+  const [alert, setAlert] = useState(null);
+
   const initialValues = {
     stock: item.stock,
     price: item.price
   }
+
+  const handleSubmit = (data, item) => { 
+    update(`items/${item.id}`, {
+      data,
+      onSuccess: (response) => console.log(response),
+      onError: (error) => setAlert(error),
+      onErrors: (errors) => setAlert(errors)
+    });
+  };
 
   return (
   <Row className='w-100'>
@@ -34,57 +47,55 @@ const ItemCardInShopkeeperView = ({item, setReloadComponent}) => {
               <Card.Text>{ item.description }</Card.Text>
             </Col>
             <Col sm={6}>
-            <Formik
-              enableReinitialize={true}
-              initialValues={initialValues}
-              validate={validate_item_price_and_stock}
-              onSubmit={(data, { resetForm }) => {
-                handleSubmit(data, uploadItemImage, setRedirect, shop_id, setAlert, itemImage);
-                resetForm();
-              }}
-            >
-              <Form>
-                <Row>
-                  <Col sm={6}>
-                    <MyNumberInput
-                      type="number"
-                      name="price"
-                      label="Prix"
-                      min={0}
-                      max={9999999.99}
-                      alert={alert}
-                    />
-                  </Col>
-                  <Col sm={6}>
-                    <MyNumberInput
-                      type="number"
-                      name="stock"
-                      label="Stock"
-                      min={0}
-                      max={9999999}
-                      alert={alert}
-                    />
-                  </Col>
-                </Row>
-                <Row className='justify-content-center'>
-                  <Button
-                    type="submit"
-                    variant="outline-success"
-                    className="btn_success_sass"
-                  >
-                    Modifier
-                  </Button>
-                </Row>
-              </Form>
-            </Formik>
-
-
+              <Formik
+                enableReinitialize={true}
+                initialValues={initialValues}
+                validate={validate_item_price_and_stock}
+                onSubmit={(data) => handleSubmit(data, item)}
+              >
+                <Form>
+                  <Row>
+                    <Col sm={6}>
+                      <MyNumberInput
+                        type="number"
+                        name="price"
+                        label="Prix"
+                        min={0}
+                        max={9999999.99}
+                        alert={alert}
+                      />
+                    </Col>
+                    <Col sm={6}>
+                      <MyNumberInput
+                        type="number"
+                        name="stock"
+                        label="Stock"
+                        min={0}
+                        max={9999999}
+                        alert={alert}
+                      />
+                    </Col>
+                  </Row>
+                  <Row className='justify-content-center p-3'>
+                    <Button
+                      type="submit"
+                      variant="outline-success"
+                      className="btn_success_sass btn-sm"
+                    >
+                      Valider
+                    </Button>
+                  </Row>
+                </Form>
+              </Formik>
               <Row>
                 <Col sm={6} className="justify-content-center">
                   <UpdateItemButton item={item} />
                 </Col>
                 <Col sm={6} className="justify-content-center">
-                  <DestroyItemButton item={item} />
+                  <DeleteItemButton
+                    item={item}
+                    redirection={() => setRefresh({})}
+                  />
                 </Col>
               </Row>
             </Col>

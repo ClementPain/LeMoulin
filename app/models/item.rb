@@ -60,6 +60,6 @@ class Item < ApplicationRecord
       items = items.filter_by_categories(params[:categories])
     end
 
-    items
+    items = items.sort_by{ |item| item.created_at }.reverse
   end
 end
