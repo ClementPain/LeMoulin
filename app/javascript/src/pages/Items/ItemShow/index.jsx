@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import {
-  Col, Row, Container,
+  Col, Row, Container, Button
 } from 'react-bootstrap';
-import { find } from '../../api/api-manager';
+import { find } from '../../../api/api-manager';
 
 import ItemInformations from './Informations';
 import ItemImage from './Image';
 
 const Item = () => {
+  const { currentUserId } = useSelector((state) => state);
+  console.log('currentUserId', currentUserId)
   const { item_id } = useParams();
   const [item, setItem] = useState({});
 
@@ -35,6 +38,13 @@ const Item = () => {
           <ItemInformations item={item} />
         </Col>
       </Row>
+
+      { currentUserId === item?.shop?.shopkeeper_id && (
+        <Row className='ml-4'>
+          <Button as={Link} to={`/shop/${item.shop.id}/item/${item.id}/update_an_item`}>Modifier les informations</Button>
+        </Row>
+
+      )}
     </Container>
   );
 };
