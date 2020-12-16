@@ -12,6 +12,10 @@ class Shop < ApplicationRecord
   has_many :shop_categories_joins, dependent: :destroy
   has_many :shop_categories, through: :shop_categories_joins
 
+  attr_accessor :address, :latitude, :longitude
+  geocoded_by :address
+  after_validation :geocode
+
   # Validation
   validates :name, :address, :siret, presence: true
   validates :name, length: {in: 3..80 }
