@@ -1,7 +1,10 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useContext, useEffect, useState } from 'react';
 
+import { Accordion } from 'react-bootstrap';
 import CurrentUserContext from '../context';
 import { find } from '../../../api/api-manager';
+import OrderByStatus from './OrdersByStatus';
 
 const UserCommands = () => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -14,7 +17,6 @@ const UserCommands = () => {
 
     find('orders', {
       onSuccess: (orders) => {
-        console.log(orders);
         setCurrentUserOrders(orders);
       },
     });
@@ -26,7 +28,23 @@ const UserCommands = () => {
   );
 
   return (
-    <div>UserCommands</div>
+    <Accordion defaultActiveKey="0">
+      {
+        [
+          'in_progress',
+          'prepared',
+          'validated',
+          'canceled',
+        ].map((status, indx) => (
+          <OrderByStatus
+            key={indx}
+            id={`${indx}`}
+            status={status}
+            orders={currentUserOrders}
+          />
+        ))
+      }
+    </Accordion>
   );
 };
 
