@@ -1,4 +1,5 @@
 class Shop < ApplicationRecord
+  extend ::Geocoder::Model::ActiveRecord
 
   # Callbacks
   after_create :set_owner_is_shopkeeper
@@ -23,6 +24,11 @@ class Shop < ApplicationRecord
     message: "Merci de rentrer un code postal français valide."
   }, presence: true
   validates :shopkeeper_id, uniqueness: true
+
+  #Geocoding
+  geocoded_by :address
+  after_validation :geocode, :if => :address_changed?
+
 
   # scopes
   scope :select_active_shops, lambda { 

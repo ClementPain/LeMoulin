@@ -119,6 +119,7 @@ GEM
     ffi (1.13.1-java)
     ffi (1.13.1-x64-mingw32)
     ffi (1.13.1-x86-mingw32)
+    geocoder (1.6.4)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.5)
@@ -297,6 +298,7 @@ DEPENDENCIES
   devise-jwt (~> 0.7.0)
   dotenv-rails
   faker!
+  geocoder (~> 1.6, >= 1.6.4)
   jbuilder (~> 2.7)
   listen (~> 3.2)
   pg (>= 0.18, < 2.0)
