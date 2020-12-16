@@ -22,6 +22,10 @@ class Item < ApplicationRecord
     where(is_available_for_sale: true).where('stock > ?', 0)
   }
 
+  scope :select_items_from_a_shop, lambda { |shop_id|
+    where(shop_id: shop_id)
+  }
+
   scope :filter_by_name, lambda { |keyword|
     where('lower(name) LIKE ? ', "%#{keyword.downcase}%")
   }
@@ -46,7 +50,9 @@ class Item < ApplicationRecord
 
   # methodes
   def self.search(params)
-    items = Item.all.select_active_items
+    params[:shopkeeper_request] ? items = Item.all : items= Item.all.select_active_items
+    items = items.select_items_from_a_shop(params[:shop_id]) if params[:shop_id]
+
     items = items.filter_by_name(params[:keyword]).or(items.filter_by_description(params[:keyword])) if params[:keyword]
     if params[:category]
       items = items.filter_by_category(params[:category])

@@ -1,9 +1,7 @@
 import React from 'react';
 import { Image } from 'cloudinary-react';
 
-const ItemImage = ({item}) => {
-  console.log(item)
-  return (
+const ItemImage = ({item}) => (
   <>
     { item.images && (
       <Image publicId={item?.images[0]} cloudName="dhtysnpro" crop="scale" className='img-fluid' />
@@ -12,6 +10,6 @@ const ItemImage = ({item}) => {
       <Image publicId='sample' cloudName="dhtysnpro" crop="scale" className='img-fluid' />
     )}
   </>
-)}
+)
 
 export default ItemImage

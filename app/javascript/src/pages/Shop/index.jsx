@@ -18,7 +18,7 @@ const Shop = () => {
       onSuccess: (result) => setShop(result),
     }),
     [],
-  );
+  ); 
 
   return (
     <Container style={{ marginTop: 20 }}>
