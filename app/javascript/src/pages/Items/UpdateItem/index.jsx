@@ -18,11 +18,12 @@ const UpdateItem = () => {
     });
   }, []);
 
-  const handleSubmit = (data, uploadItemImage, setRedirect, shop_id, setAlert, itemImage) => {  
+  const handleSubmit = (data, uploadItemImage, setRedirect, shop_id, setAlert, itemImage) => { 
+    console.log('début', data)
     update(`items/${item_id}`, {
       data,
-      onSuccess: (response) => {
-        if (itemImage) uploadItemImage(response.id)
+      onSuccess: () => {
+        if (itemImage) uploadItemImage(item_id)
         setRedirect(`/shop/${shop_id}/item/${item_id}`)
       },
       onError: (error) => setAlert(error),
@@ -54,7 +55,7 @@ const UpdateItem = () => {
             <h5 className="text-white text-center">Modifier le produit {item?.name}</h5>
           </Card.Header>
           <Card.Body className="px-4">
-            <ItemForm handleSubmit={handleSubmit} initialValues={initialValues(item)} />
+            <ItemForm handleSubmit={handleSubmit} initialValues={initialValues(item)} createItem={false} />
           </Card.Body>
         </Card>
       </Col>

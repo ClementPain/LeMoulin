@@ -13,7 +13,8 @@ import { validate_item_form } from './validate_item_form'
 
 import { update } from '../../api/api-manager';
 
-const ItemForm = ({handleSubmit, initialValues, createForm = true}) => {
+const ItemForm = ({handleSubmit, initialValues, createItem = true}) => {
+  console.log(createItem);
   const [redirect, setRedirect] = useState(null);
   const [multipleAdd, setMultipleAdd] = useState(false);
   const [alert, setAlert] = useState(null);
@@ -126,7 +127,7 @@ const ItemForm = ({handleSubmit, initialValues, createForm = true}) => {
               Valider
             </Button>
           </Row>
-          { createForm && (
+          { createItem && (
             <Row className="justify-content-end">
               <FormCheck
                 checked={multipleAdd}
