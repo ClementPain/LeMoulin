@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { Card, Accordion } from 'react-bootstrap';
-import OrdersByShoop from './OrdersByShop';
+import OrdersByShop from './OrdersByShop';
 
 const translation = {
   in_progress: 'en cours',
@@ -14,10 +14,12 @@ const translation = {
 const OrderByStatus = ({ id, status, orders }) => {
   const [ordersGroupedByShop, setOrdersGroupedByShop] = useState(null);
 
-  const ordersFilter = (state) => {
-    const filtredOrders = orders?.filter((order) => order.status === state);
+  const filterOrdersByStatus = () => orders?.filter((order) => order.status === status);
 
-    const group = filtredOrders?.reduce((acc, order) => {
+  const groupOrdersByShop = () => {
+    const filteredOrdersByStatus = filterOrdersByStatus();
+
+    const group = filteredOrdersByStatus?.reduce((acc, order) => {
       acc[order.shop.name] = [...acc[order.shop.name] || [], order];
       return acc;
     }, {});
@@ -26,7 +28,7 @@ const OrderByStatus = ({ id, status, orders }) => {
   };
 
   useEffect(
-    () => { ordersFilter(status); },
+    () => { groupOrdersByShop(status); },
     [orders],
   );
 
@@ -37,18 +39,32 @@ const OrderByStatus = ({ id, status, orders }) => {
         {' '}
         {translation[status]}
       </Accordion.Toggle>
-      <Accordion.Collapse eventKey={id}>
-        <Card.Body>
-          {
-            ordersGroupedByShop?.map((shopOrdersGroup, indx) => (
-              <OrdersByShoop
-                key={indx}
-                group={shopOrdersGroup}
-              />
-            ))
-          }
-        </Card.Body>
-      </Accordion.Collapse>
+      {
+        ordersGroupedByShop?.length === 0
+          ? (
+            <Card.Body>
+              <Card.Text>
+                Vous n' avez aucune commande
+                {' '}
+                {translation[status]}
+              </Card.Text>
+            </Card.Body>
+          )
+          : (
+            <Accordion.Collapse eventKey={id}>
+              <Card.Body>
+                {
+                    ordersGroupedByShop?.map((shopOrdersGroup, indx) => (
+                      <OrdersByShop
+                        key={indx}
+                        group={shopOrdersGroup}
+                      />
+                    ))
+                  }
+              </Card.Body>
+            </Accordion.Collapse>
+          )
+        }
     </Card>
   );
 };

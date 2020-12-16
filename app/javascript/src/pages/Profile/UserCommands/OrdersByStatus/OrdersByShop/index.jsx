@@ -3,27 +3,27 @@
 import React from 'react';
 import { Card, ListGroup } from 'react-bootstrap';
 
-import OrderDetail from './OrderDetail';
+import OrderDetails from './OrderDetails';
 
-const OrdersByShoop = ({ group }) => {
+const OrdersByShop = ({ group }) => {
   const [shopName, ordersList] = group;
 
   return (
     <Card className="mt-2">
       <Card.Header className="text-white" style={{ backgroundColor: '#45B5AA' }}>
-        Vos commandes chez
-        {' '}
-        {shopName}
+        {`Vos commandes chez ${shopName}`}
       </Card.Header>
       <ListGroup variant="flush">
-        <ListGroup.Item>
-          {
-            ordersList.map((order, indx) => <OrderDetail key={indx} order={order} />)
-          }
-        </ListGroup.Item>
+        {
+          ordersList.map((order, indx) => (
+            <ListGroup.Item key={indx}>
+              <OrderDetails order={order} />
+            </ListGroup.Item>
+          ))
+        }
       </ListGroup>
     </Card>
   );
 };
 
-export default OrdersByShoop;
+export default OrdersByShop;
