@@ -4,9 +4,8 @@ const handleSubmit = (data, uploadItemImage, setRedirect, shop_id, setAlert, ite
   create('items', {
     data,
     onSuccess: (response) => {
-      console.log('réponse', response)
       if (itemImage) uploadItemImage(response.id)
-      setRedirect(`/shop/${shop_id}`)
+      setRedirect(`/shop/${shop_id}/item/${response.id}`)
     },
     onError: (error) => setAlert(error),
     onErrors: (errors) => setAlert(errors)

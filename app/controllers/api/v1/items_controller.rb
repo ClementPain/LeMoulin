@@ -25,9 +25,9 @@ class Api::V1::ItemsController < ApplicationController
 
   def update
     @item.update(item_params)
-    @item.update(images: @item.images.push(params[:item][:images]))
+    @item.update(images: @item.images.unshift(params[:item][:images])) if params[:item][:images]
     
-    render_resource(@item)
+    render json: @item, status: :created
   end
 
   def destroy
@@ -41,17 +41,12 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def item_params
-    params.require(:item).permit(:name, :description, :price, :stock)
+    params.require(:item).permit(:name, :description, :price, :stock, :is_available_for_sale)
   end
 
   def authenticate_shop_keeper
     @shop = Shop.find_by(shopkeeper_id: current_user.id)
-    puts '!!!!!!!!!!!!!!!!!!!!!'
-    puts @shop
-    puts current_user
-    puts current_user.id
-    puts @shop.shopkeeper_id
-    puts '************************'
+
     if !@shop && (!params[:id] || !(@item.shop.shop_keeper_id === current_user.id))
       render json: { error: "Vous n'êtes pas identifié comme propriétaire de la boutique" }
     end
