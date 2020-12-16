@@ -50,7 +50,7 @@ const MyTextArea = (props) => {
   return (
     <FormGroup>
       {label && <Form.Label htmlFor={name}>{label}</Form.Label>}
-      <Form.Control as='textarea' row={row} className="text-input" {...field} name={name} placeholder={placeholder} />
+      <Form.Control as="textarea" row={row} className="text-input" {...field} name={name} placeholder={placeholder} />
       {
         meta.touched && meta.error
           ? (<div className="text-danger">{meta.error}</div>)
@@ -62,7 +62,7 @@ const MyTextArea = (props) => {
       }
     </FormGroup>
   );
-}
+};
 
 const MyNumberInput = (props) => {
   const [field, meta] = useField(props);
@@ -91,7 +91,7 @@ const MyNumberInput = (props) => {
       }
     </FormGroup>
   );
-}
+};
 
 const MySelect = (props) => {
   const {
@@ -104,10 +104,10 @@ const MySelect = (props) => {
   return (
     <FormGroup>
       <Form.Label htmlFor={name}>{label}</Form.Label>
-      <Form.Control as='select' {...field} {...props} />
+      <Form.Control as="select" {...field} {...props} />
       {
         meta.touched && meta.error
-          ? (<div className="error">{meta.error}</div>)
+          ? (<div className="text-danger">{meta.error}</div>)
           : null
       }
       {
@@ -124,7 +124,6 @@ const MyCheckbox = (props) => {
   const {
     type,
     label,
-    checked,
     name,
     alert,
   } = props;
@@ -143,7 +142,7 @@ const MyCheckbox = (props) => {
       }
     </FormGroup>
   );
-}
+};
 
 const MyFileUploader = (props) => {
   const [field, meta] = useField(props);
@@ -170,6 +169,8 @@ const MyFileUploader = (props) => {
       }
     </FormGroup>
   );
-}
+};
 
-export { MyTextInput, MyTextArea, MyNumberInput, MySelect, MyCheckbox, MyFileUploader };
+export {
+  MyTextInput, MyTextArea, MyNumberInput, MySelect, MyCheckbox, MyFileUploader,
+};

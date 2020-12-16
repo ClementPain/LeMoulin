@@ -1,10 +1,11 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
-import { Formik, Form } from 'formik';
-import { Button, Row, Col, FormCheck, FormControl } from 'react-bootstrap';
 
-import validation_item_form from './validate_item_form';
+import { Formik, Form } from 'formik';
+import {
+  Button, Row, Col, FormCheck, FormControl,
+} from 'react-bootstrap';
 
 import { MyTextInput, MyTextArea, MyNumberInput, MyCheckbox } from '../../tools/formik-manager';
 
@@ -46,7 +47,7 @@ const ItemForm = ({handleSubmit, initialValues}) => {
       onError: (error) => console.log('error', error),
       onErrors: (errors) => console.log('errors', errors)
     });
-  }
+  };
 
   if (!reloadPage && redirect) return <Redirect to={redirect} />;
 
@@ -54,13 +55,12 @@ const ItemForm = ({handleSubmit, initialValues}) => {
     <Formik
       enableReinitialize={true}
       initialValues={initialValues}
-      setValues={initialValues}
-      validate={validation_item_form}
+      validate={validationItemForm}
       onSubmit={(data, { setSubmitting, resetForm }) => {
         setSubmitting(true);
         handleSubmit(data, uploadItemImage, setRedirect, shop_id, setAlert, itemImage);
         setSubmitting(false);
-        if (!redirect) resetForm();
+        resetForm();
       }}
     >
       {({ values, isSubmitting }) => (
@@ -68,13 +68,16 @@ const ItemForm = ({handleSubmit, initialValues}) => {
           { alert && alert.error && (<div className="alert alert-danger">{ alert.error }</div>) }
           <MyTextInput
             label="Nom de votre produit"
-            type="text" name="name"
+            type="text"
+            name="name"
             placeholder="Moulin de qualité supérieur..."
             alert={alert}
           />
           <MyTextArea
             label="Description"
-            row={3} name="description" placeholder="Ce moulin ne tombe jamais en panne..."
+            row={3}
+            name="description"
+            placeholder="Ce moulin ne tombe jamais en panne..."
             alert={alert}
           />
           <Row>
@@ -108,7 +111,7 @@ const ItemForm = ({handleSubmit, initialValues}) => {
           />
 
           <FormControl
-            type="file" 
+            type="file"
             name="image_url"
             onChange={(e) => setItemImage(e.target)}
             multiple
@@ -125,10 +128,10 @@ const ItemForm = ({handleSubmit, initialValues}) => {
           </Row>
           <Row className="justify-content-end">
             <FormCheck
-              checked={reloadPage}
+              checked={multipleAdd}
               name="redirect_item_form"
               label="Créer plusieurs produits à la suite"
-              onChange={(e) => setReloadPage(!reloadPage)}
+              onChange={() => setMultipleAdd(!multipleAdd)}
             />
           </Row>
         </Form>
