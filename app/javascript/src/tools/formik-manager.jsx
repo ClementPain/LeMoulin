@@ -120,7 +120,6 @@ const MyCheckbox = (props) => {
   const {
     type,
     label,
-    checked,
     name,
     alert,
   } = props;

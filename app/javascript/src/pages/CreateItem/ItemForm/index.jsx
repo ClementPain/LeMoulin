@@ -3,24 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 
 import { Formik, Form } from 'formik';
-<<<<<<< HEAD
 import {
-  Button, Row, Col, FormCheck,
+  Button, Row, Col, FormCheck, FormControl,
 } from 'react-bootstrap';
-=======
-import { Button, Row, Col, FormCheck, FormControl } from 'react-bootstrap';
->>>>>>> develop
 
 import {
   MyTextInput, MyTextArea, MyNumberInput, MyCheckbox,
 } from '../../../tools/formik-manager';
 
-<<<<<<< HEAD
 import validationItemForm from './validate_item_form';
-=======
-import { MyTextInput, MyTextArea, MyNumberInput, MyCheckbox, MyFileUploader } from '../../../tools/formik-manager';
->>>>>>> develop
-
 import { create, update } from '../../../api/api-manager';
 
 const ItemForm = () => {
@@ -30,7 +21,7 @@ const ItemForm = () => {
   const [itemImage, setItemImage] = useState(null);
   const { shop_id } = useParams();
 
-  useEffect(() => console.log(itemImage), [itemImage])
+  useEffect(() => console.log(itemImage), [itemImage]);
 
   const initialValues = {
     name: '',
@@ -42,7 +33,7 @@ const ItemForm = () => {
   };
 
   const uploadItemImage = async (item_id) => {
-    console.log(item_id)
+    console.log(item_id);
     const { files } = itemImage;
     const data = new FormData();
     data.append('file', files[0]);
@@ -55,7 +46,7 @@ const ItemForm = () => {
 
     const file = await response.json();
 
-    console.log('item_loaded')
+    console.log('item_loaded');
 
     update(`items/${item_id}`, {
       data: {
@@ -63,17 +54,17 @@ const ItemForm = () => {
           images: file.secure_url,
         },
       },
-      onSuccess: (response) => console.log(response)
+      onSuccess: (result) => console.log(result),
     });
-  }
+  };
 
   const handleSubmit = (data) => {
     create('items', {
       data,
-      onSuccess: () => { 
-        console.log(response.id)
-        uploadItemImage(response.id)
-        if (!multipleAdd) setRedirect(`/shop/${shop_id}`); 
+      onSuccess: (result) => {
+        console.log(result.id);
+        uploadItemImage(result.id);
+        if (!multipleAdd) setRedirect(`/shop/${shop_id}`);
       },
       onError: (error) => setAlert(error),
       onErrors: (errors) => { setAlert(errors); },
@@ -141,7 +132,7 @@ const ItemForm = () => {
           />
 
           <FormControl
-            type="file" 
+            type="file"
             name="image_url"
             onChange={(e) => setItemImage(e.target)}
           />
