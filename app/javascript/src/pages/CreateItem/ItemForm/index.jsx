@@ -1,23 +1,27 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
+
 import { Formik, Form } from 'formik';
-import { Button, Row, Col, FormCheck, FormControl } from 'react-bootstrap';
+import {
+  Button, Row, Col, FormCheck, FormControl,
+} from 'react-bootstrap';
 
-import validation_item_form from './validate_item_form';
+import {
+  MyTextInput, MyTextArea, MyNumberInput, MyCheckbox,
+} from '../../../tools/formik-manager';
 
-import { MyTextInput, MyTextArea, MyNumberInput, MyCheckbox, MyFileUploader } from '../../../tools/formik-manager';
-
+import validationItemForm from './validate_item_form';
 import { create, update } from '../../../api/api-manager';
 
-const ItemForm = ({reloadPageProp = false}) => {
+const ItemForm = () => {
   const [redirect, setRedirect] = useState(null);
-  const [reloadPage, setReloadPage] = useState(reloadPageProp);
+  const [multipleAdd, setMultipleAdd] = useState(false);
   const [alert, setAlert] = useState(null);
   const [itemImage, setItemImage] = useState(null);
   const { shop_id } = useParams();
 
-  useEffect(() => console.log(itemImage), [itemImage])
+  useEffect(() => console.log(itemImage), [itemImage]);
 
   const initialValues = {
     name: '',
@@ -29,7 +33,7 @@ const ItemForm = ({reloadPageProp = false}) => {
   };
 
   const uploadItemImage = async (item_id) => {
-    console.log(item_id)
+    console.log(item_id);
     const { files } = itemImage;
     const data = new FormData();
     data.append('file', files[0]);
@@ -42,7 +46,7 @@ const ItemForm = ({reloadPageProp = false}) => {
 
     const file = await response.json();
 
-    console.log('item_loaded')
+    console.log('item_loaded');
 
     update(`items/${item_id}`, {
       data: {
@@ -50,34 +54,34 @@ const ItemForm = ({reloadPageProp = false}) => {
           images: file.secure_url,
         },
       },
-      onSuccess: (response) => console.log(response)
+      onSuccess: (result) => console.log(result),
     });
-  }
+  };
 
   const handleSubmit = (data) => {
     create('items', {
       data,
-      onSuccess: (response) => {
-        console.log(response.id)
-        uploadItemImage(response.id)
-        setRedirect(`/shop/${shop_id}`)
+      onSuccess: (result) => {
+        console.log(result.id);
+        uploadItemImage(result.id);
+        if (!multipleAdd) setRedirect(`/shop/${shop_id}`);
       },
       onError: (error) => setAlert(error),
-      onErrors: (errors) => setAlert(errors)
+      onErrors: (errors) => { setAlert(errors); },
     });
   };
 
-  if (!reloadPage && redirect) return <Redirect to={redirect} reloadPageProp={reloadPage} />;
+  if (redirect) return <Redirect to={redirect} />;
 
   return (
     <Formik
       initialValues={initialValues}
-      validate={validation_item_form}
+      validate={validationItemForm}
       onSubmit={(data, { setSubmitting, resetForm }) => {
         setSubmitting(true);
         handleSubmit(data);
         setSubmitting(false);
-        if (!redirect) resetForm();
+        resetForm();
       }}
     >
       {({ values, isSubmitting }) => (
@@ -85,13 +89,16 @@ const ItemForm = ({reloadPageProp = false}) => {
           { alert && alert.error && (<div className="alert alert-danger">{ alert.error }</div>) }
           <MyTextInput
             label="Nom de votre produit"
-            type="text" name="name"
+            type="text"
+            name="name"
             placeholder="Moulin de qualité supérieur..."
             alert={alert}
           />
           <MyTextArea
             label="Description"
-            row={3} name="description" placeholder="Ce moulin ne tombe jamais en panne..."
+            row={3}
+            name="description"
+            placeholder="Ce moulin ne tombe jamais en panne..."
             alert={alert}
           />
           <Row>
@@ -125,7 +132,7 @@ const ItemForm = ({reloadPageProp = false}) => {
           />
 
           <FormControl
-            type="file" 
+            type="file"
             name="image_url"
             onChange={(e) => setItemImage(e.target)}
           />
@@ -141,10 +148,10 @@ const ItemForm = ({reloadPageProp = false}) => {
           </Row>
           <Row className="justify-content-end">
             <FormCheck
-              checked={reloadPage}
+              checked={multipleAdd}
               name="redirect_item_form"
               label="Créer plusieurs produits à la suite"
-              onChange={(e) => setReloadPage(!reloadPage)}
+              onChange={() => setMultipleAdd(!multipleAdd)}
             />
           </Row>
         </Form>

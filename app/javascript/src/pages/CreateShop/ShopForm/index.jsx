@@ -1,14 +1,16 @@
-/* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import {
-  Col, Button, Row, FormControl, FormLabel
-} from 'react-bootstrap';
+
 import { Formik, Form } from 'formik';
+import {
+  Col, Button, Row,
+} from 'react-bootstrap';
 
-import validation_shop_form from './config/validation_shop_form';
+import validationShopForm from './config/validation_shop_form';
 
-import { MyTextInput, MyTextArea, MyCheckbox, MySelect } from '../../../tools/formik-manager';
+import {
+  MyTextInput, MyTextArea, MyCheckbox, MySelect,
+} from '../../../tools/formik-manager';
 
 import { create, find } from '../../../api/api-manager';
 
@@ -24,11 +26,12 @@ const ShopForm = () => {
     zip_code: '',
     is_active: false,
   };
+
   const [shopId, setShopId] = useState(null);
   const [alert, setAlert] = useState(null);
 
   const handleNewShopCreation = (params) => {
-    let newParams = {...params, shop_category_ids: params.shop_category_ids.join(',') }
+    const newParams = { ...params, shop_category_ids: params.shop_category_ids.join(',') };
 
     create('shops', {
       data: {
@@ -41,19 +44,19 @@ const ShopForm = () => {
   };
 
   useEffect(() => find('shop_categories', {
-      onSuccess: (response) => {
-        response?.map((category) => {
-          setCategories((previousArray) => [category, ...previousArray]);
-        });
-      }
-    }), []);
+    onSuccess: (response) => {
+      response?.map((category) => {
+        setCategories((previousArray) => [category, ...previousArray]);
+      });
+    },
+  }), []);
 
   if (shopId) return <Redirect to={`/shop/${shopId}`} />;
 
   return (
     <Formik
       initialValues={initialValues}
-      validate={validation_shop_form}
+      validate={validationShopForm}
       onSubmit={(data, { setSubmitting }) => {
         setSubmitting(true);
         handleNewShopCreation(data);
@@ -79,7 +82,7 @@ const ShopForm = () => {
                 alert={alert}
                 multiple
               >
-                {categories?.map(({title, id}) => (
+                {categories?.map(({ title, id }) => (
                   <option value={id} key={id}>{title}</option>
                 ))}
               </MySelect>
@@ -87,7 +90,8 @@ const ShopForm = () => {
             <Col>
               <MyTextInput
                 label="Siret"
-                type="text" name="siret"
+                type="text"
+                name="siret"
                 placeholder="0000000000"
                 alert={alert}
               />
@@ -96,14 +100,16 @@ const ShopForm = () => {
 
           <MyTextArea
             label="Description"
-            row={3} name="description"
+            row={3}
+            name="description"
             placeholder="Ce moulin ne tombe jamais en panne..."
             alert={alert}
           />
 
           <MyTextInput
             label="Adresse de votre boutique"
-            type="text" name="address"
+            type="text"
+            name="address"
             placeholder="12 rue Cours-Le-Bon..."
             alert={alert}
           />
@@ -112,21 +118,23 @@ const ShopForm = () => {
             <Col sm={6}>
               <MyTextInput
                 label="Code postale"
-                type="text" name="zip_code"
+                type="text"
+                name="zip_code"
                 placeholder="83520..."
                 alert={alert}
               />
             </Col>
             <Col sm={6}>
-            <MyTextInput
+              <MyTextInput
                 label="Ville"
-                type="text" name="city"
+                type="text"
+                name="city"
                 placeholder="Roquebrune-sur-Argens..."
                 alert={alert}
               />
             </Col>
           </Row>
-          
+
           <MyCheckbox
             type="checkbox"
             checked={values.is_active}
@@ -135,7 +143,7 @@ const ShopForm = () => {
             alert={alert}
           />
 
-          <Row className='justify-content-center'>
+          <Row className="justify-content-center">
             <Button
               disabled={isSubmitting}
               type="submit"

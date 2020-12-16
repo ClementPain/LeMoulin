@@ -1,4 +1,4 @@
-const validation_item_form = (values) => {
+const validationItemForm = (values) => {
   const formErrors = {};
 
   if (!values.name) {
@@ -40,4 +40,4 @@ const validation_item_form = (values) => {
   return formErrors;
 };
 
-export default validation_item_form ;
+export default validationItemForm;

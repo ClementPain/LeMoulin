@@ -12,7 +12,7 @@ class User < ApplicationRecord
   # Relationships
   has_one :profile , dependent: :destroy
   has_one :shop, class_name: 'Shop', foreign_key: 'shopkeeper_id', dependent: :destroy
-  has_many :orders, dependent: :destroy
+  has_many :orders, class_name: 'Order', foreign_key: 'customer_id', dependent: :destroy
   
   # Instance methods
   def has_a_shop

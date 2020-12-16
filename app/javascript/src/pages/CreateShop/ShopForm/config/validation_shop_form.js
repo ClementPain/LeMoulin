@@ -1,4 +1,4 @@
-const validation_shop_form = (values) => {
+const validationShopForm = (values) => {
   const formErrors = {};
 
   if (!values.name) {
@@ -30,7 +30,7 @@ const validation_shop_form = (values) => {
   }
 
   if (!values.city) {
-    formErrors.city = "Indiquez une ville pour votre boutique";
+    formErrors.city = 'Indiquez une ville pour votre boutique';
   } else if (values.city.length < 3) {
     formErrors.city = 'Le nom de la ville fait moins de 3 caractères';
   } else if (values.city.length > 80) {
@@ -44,12 +44,12 @@ const validation_shop_form = (values) => {
   }
 
   if (values.shop_category_ids.length === 0) {
-    formErrors.shop_category_ids = 'Votre boutique doit appartenir à une catégorie !'
+    formErrors.shop_category_ids = 'Votre boutique doit appartenir à une catégorie !';
   } else if (values.shop_category_ids.length > 3) {
-    formErrors.shop_category_ids = 'Votre boutique ne peut pas avoir plus de trois catégories !'
+    formErrors.shop_category_ids = 'Votre boutique ne peut pas avoir plus de trois catégories !';
   }
 
   return formErrors;
 };
 
-export default validation_shop_form;
+export default validationShopForm;
