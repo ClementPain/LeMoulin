@@ -8,7 +8,7 @@ import { find } from '../../../api/api-manager';
 
 import ItemInformations from './Informations';
 import ItemImage from './Image';
-import { UpdateItemButton } from '../../../components/ItemCard/ItemElements';
+import { UpdateItemButton } from '../../../components/ItemCard/ItemButtons';
 
 const Item = () => {
   const { currentUserId } = useSelector((state) => state);

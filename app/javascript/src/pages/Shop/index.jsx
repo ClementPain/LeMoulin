@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import {
   Card, Col, Row, Container,
 } from 'react-bootstrap';
@@ -71,6 +71,12 @@ const Shop = () => {
           </Row>
         </Card.Body>
       </Card>
+
+      <Row>
+        <Link to={`/shop/${id}/list_items`} className='btn btn_success_sass' variant='outline-success'>
+          Voir tous mes produits
+        </Link>
+      </Row>
     </Container>
   );
 };
