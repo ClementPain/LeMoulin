@@ -1,21 +1,23 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import CurrentUserContext from '../context';
+import { find } from '../../../api/api-manager';
 
 const UserCommands = () => {
-  const { currentUser, updateCurrentUser } = useContext(CurrentUserContext);
-
-  useEffect(
-    updateCurrentUser,
-    [],
-  );
+  const { currentUser } = useContext(CurrentUserContext);
+  const [currentUserOrders, setCurrentUserOrders] = useState();
 
   const getCurrentUserCommands = () => {
     if (!currentUser) {
       return;
     }
 
-    console.log('');
+    find('orders', {
+      onSuccess: (orders) => {
+        console.log(orders);
+        setCurrentUserOrders(orders);
+      },
+    });
   };
 
   useEffect(
