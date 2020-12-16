@@ -9,11 +9,13 @@ import {
 
 import { MyTextInput, MyTextArea, MyNumberInput, MyCheckbox } from '../../tools/formik-manager';
 
+import { validate_item_form } from './validate_item_form'
+
 import { update } from '../../api/api-manager';
 
 const ItemForm = ({handleSubmit, initialValues}) => {
   const [redirect, setRedirect] = useState(null);
-  const [reloadPage, setReloadPage] = useState(false);
+  const [multipleAdd, setMultipleAdd] = useState(false);
   const [alert, setAlert] = useState(null);
   const [itemImage, setItemImage] = useState(null);
   const { shop_id } = useParams();
@@ -49,13 +51,13 @@ const ItemForm = ({handleSubmit, initialValues}) => {
     });
   };
 
-  if (!reloadPage && redirect) return <Redirect to={redirect} />;
+  if (!multipleAdd && redirect) return <Redirect to={redirect} />;
 
   return (
     <Formik
       enableReinitialize={true}
       initialValues={initialValues}
-      validate={validationItemForm}
+      validate={validate_item_form}
       onSubmit={(data, { setSubmitting, resetForm }) => {
         setSubmitting(true);
         handleSubmit(data, uploadItemImage, setRedirect, shop_id, setAlert, itemImage);
