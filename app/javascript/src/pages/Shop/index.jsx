@@ -18,10 +18,10 @@ const Shop = () => {
       onSuccess: (result) => setShop(result),
     }),
     [],
-  ); 
+  );
 
   return (
-    <Container style={{ marginTop: 20 }}>
+    <Container className="mt-4">
       <Card>
         <Card.Header style={{ backgroundColor: '#45B5AA' }} className="text-center p-2">
           <h4 className="text-white">{ shop && shop.name}</h4>

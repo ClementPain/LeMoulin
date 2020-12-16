@@ -72,7 +72,7 @@ const ShopsList = () => {
               />
               { shopCategoriesList?.map((cat) => (
                 <Form.Check
-                  className="m-2"
+                  className="m-2 p-2"
                   key={`${cat.id}`}
                   type="checkbox"
                   label={`${cat.title}`}
