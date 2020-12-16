@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Card, Col } from 'react-bootstrap';
+import {
+  Container, Row, Card, Col,
+} from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { find, update } from '../../../api/api-manager';
 
@@ -18,19 +20,19 @@ const UpdateItem = () => {
     });
   }, []);
 
-  const handleSubmit = (data, uploadItemImage, setRedirect, shop_id, setAlert, itemImage) => { 
-    console.log('début', data)
+  const handleSubmit = (data, uploadItemImage, setRedirect, shop_id, setAlert, itemImage) => {
+    console.log('début', data);
     update(`items/${item_id}`, {
       data,
       onSuccess: () => {
-        if (itemImage) uploadItemImage(item_id)
-        setRedirect(`/shop/${shop_id}/item/${item_id}`)
+        if (itemImage) uploadItemImage(item_id);
+        setRedirect(`/shop/${shop_id}/item/${item_id}`);
       },
       onError: (error) => setAlert(error),
-      onErrors: (errors) => setAlert(errors)
+      onErrors: (errors) => setAlert(errors),
     });
   };
-  
+
   const initialValues = (item) => {
     const initial_values = {
       name: item.name,
@@ -38,30 +40,34 @@ const UpdateItem = () => {
       price: item.price,
       stock: item.stock,
       is_available_for_sale: item.is_available_for_sale || false,
-      image_url: ''
-    }
-  
-    return initial_values
+      image_url: '',
+    };
+
+    return initial_values;
   };
 
-  if (!item) return <p>Chargement</p> 
+  if (!item) return <p>Chargement</p>;
 
   return (
-  <Container fluid className="mt-5">
-    <Row>
-      <Col md={{ span: 6, offset: 3 }}>
-        <Card>
-          <Card.Header className="bg-primary">
-            <h5 className="text-white text-center">Modifier le produit {item?.name}</h5>
-          </Card.Header>
-          <Card.Body className="px-4">
-            <ItemForm handleSubmit={handleSubmit} initialValues={initialValues(item)} createItem={false} />
-          </Card.Body>
-        </Card>
-      </Col>
-    </Row>
-  </Container>
-  )
-}
+    <Container fluid className="mt-5">
+      <Row>
+        <Col md={{ span: 6, offset: 3 }}>
+          <Card>
+            <Card.Header className="bg-primary">
+              <h5 className="text-white text-center">
+                Modifier le produit
+                {' '}
+                {item?.name}
+              </h5>
+            </Card.Header>
+            <Card.Body className="px-4">
+              <ItemForm handleSubmit={handleSubmit} initialValues={initialValues(item)} createItem={false} />
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
 
 export default UpdateItem;
