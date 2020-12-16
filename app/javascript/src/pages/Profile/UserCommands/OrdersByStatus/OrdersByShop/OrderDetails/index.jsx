@@ -65,7 +65,7 @@ const OrderDetails = ({ order }) => {
           }
         </tbody>
       </Table>
-      {totalTTC}
+      <h6 className="text-right">{`Total TTC ${totalTTC} €`}</h6>
     </>
   );
 };
