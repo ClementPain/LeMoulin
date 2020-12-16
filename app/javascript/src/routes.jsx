@@ -17,6 +17,7 @@ import CreateShop from './pages/CreateShop';
 import Shop from './pages/Shop/index';
 import CreateItem from './pages/Items/CreateItem';
 import UpdateItem from './pages/Items/UpdateItem';
+import ItemsShopList from './pages/Items/ItemsShopList';
 
 const Routes = () => (
   <Switch>
@@ -33,6 +34,7 @@ const Routes = () => (
     <Route exact path="/shop/:shop_id/item/:item_id" component={ItemShow} />
     <Route path="/shop/:shop_id/item/:item_id/update_an_item" component={UpdateItem} />
     <Route path="/shop/:shop_id/create_an_item" component={CreateItem} />
+    <Route path="/shop/:shop_id/list_items" component={ItemsShopList} />
   </Switch>
 );
 

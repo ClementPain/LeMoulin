@@ -7,9 +7,11 @@ Rails.application.routes.draw do
       resources :profiles, only: %w[update]
       resources :shops, only: %w[index show create]
       resources :shop_categories, only: %w[index]
-      resources :items, only: %w[index show create update]
+      resources :items, only: %w[index show create update destroy]
       resources :carts, only: %w[create] 
-      resources :orders, only: %w[index] 
+      resources :orders, only: %w[index] do
+        resources :order_items, only: %w[index]
+      end 
     end
   end
 

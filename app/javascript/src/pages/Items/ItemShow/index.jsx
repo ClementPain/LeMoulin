@@ -8,6 +8,7 @@ import { find } from '../../../api/api-manager';
 
 import ItemInformations from './Informations';
 import ItemImage from './Image';
+import { UpdateItemButton } from '../../../components/ItemCard/ItemElements';
 
 const Item = () => {
   const { currentUserId } = useSelector((state) => state);
@@ -40,10 +41,9 @@ const Item = () => {
       </Row>
 
       { currentUserId === item?.shop?.shopkeeper_id && (
-        <Row className='ml-4'>
-          <Button as={Link} to={`/shop/${item.shop.id}/item/${item.id}/update_an_item`}>Modifier les informations</Button>
+        <Row className='mt-4'>
+          <UpdateItemButton item={item} />
         </Row>
-
       )}
     </Container>
   );

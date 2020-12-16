@@ -13,14 +13,13 @@ import { validate_item_form } from './validate_item_form'
 
 import { update } from '../../api/api-manager';
 
-const ItemForm = ({handleSubmit, initialValues}) => {
+const ItemForm = ({handleSubmit, initialValues, createItem = true}) => {
+  console.log(createItem);
   const [redirect, setRedirect] = useState(null);
   const [multipleAdd, setMultipleAdd] = useState(false);
   const [alert, setAlert] = useState(null);
   const [itemImage, setItemImage] = useState(null);
   const { shop_id } = useParams();
-
-  useEffect( () => console.log(itemImage), [itemImage])
 
   const uploadItemImage = async (item_id) => {
     const { files } = itemImage;
@@ -128,14 +127,16 @@ const ItemForm = ({handleSubmit, initialValues}) => {
               Valider
             </Button>
           </Row>
-          <Row className="justify-content-end">
-            <FormCheck
-              checked={multipleAdd}
-              name="redirect_item_form"
-              label="Créer plusieurs produits à la suite"
-              onChange={() => setMultipleAdd(!multipleAdd)}
-            />
-          </Row>
+          { createItem && (
+            <Row className="justify-content-end">
+              <FormCheck
+                checked={multipleAdd}
+                name="redirect_item_form"
+                label="Créer plusieurs produits à la suite"
+                onChange={() => setMultipleAdd(!multipleAdd)}
+              />
+            </Row>
+          )}
         </Form>
       )}
     </Formik>

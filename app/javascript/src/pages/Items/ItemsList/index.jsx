@@ -17,7 +17,7 @@ const ItemsList = () => {
       .then((response) => response.json())
       .then((response) => {
         setItemsArray([]);
-        response?.map((item) => setItemsArray((previousArray) => [item, ...previousArray]));
+        response?.map((item) => setItemsArray((previousArray) => [...previousArray, item]));
       });
   }, [searchUrl]);
 
