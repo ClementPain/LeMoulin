@@ -8,12 +8,13 @@ import faker from 'faker';
 import { Link } from 'react-router-dom';
 
 const BestItems = ({ bestItems }) => (
-  <Row className="mt-5">
+  <Row>
+    <Col as="h4" xs={12} className="mb-3">Tous nos articles</Col>
     {
         bestItems?.map(({
           id, name, description, price, images, shop_id,
         }) => (
-          <Col key={id} md={4}>
+          <Col key={id} md={3}>
             <Card className="h-100">
               <Card.Img
                 as={Image}
