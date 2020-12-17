@@ -210,4 +210,3 @@ else
 
   puts "The database is filled with a few records with success !"
 end
-
