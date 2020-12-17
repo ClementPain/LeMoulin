@@ -5,27 +5,32 @@ import { Image } from 'cloudinary-react';
 
 const ItemCard = ({ item }) => (
   <Card>
+    <Card.Header className="text-white bg-primary">
+      <Card.Title>{ item.name }</Card.Title>
+    </Card.Header>
     <Card.Img variant="top" />
     <Card.Body>
-      <Link
-        className="cardlinks"
-        to={`/shop/${item.shop.id}/item/${item.id}`}
-      >
-        <div className="mb-3 text-black">
-          <Card.Title>{ item.name }</Card.Title>
-          <Card.Subtitle className="mb-2 text-black">
-            { item.shop_categories.map((cat) => cat.title).join(', ') }
-          </Card.Subtitle>
-          <Card.Text>
-            { item.images && (
-              <Image publicId={item?.images[0]} cloudName="dhtysnpro" crop="scale" className="img-fluid" style={{ height: 100 }} />
-            )}
-            { item.images?.length === 0 && (
-              <Image publicId="sample" cloudName="dhtysnpro" crop="scale" className="img-fluid" style={{ height: 100 }} />
-            )}
-          </Card.Text>
-        </div>
-      </Link>
+      <Col className="mb-4">
+        { item.images && (
+        <Image publicId={item?.images[0]} cloudName="dhtysnpro" crop="scale" className="img-fluid" style={{ height: 100 }} />
+        )}
+        { item.images?.length === 0 && (
+        <Image publicId="sample" cloudName="dhtysnpro" crop="scale" className="img-fluid" style={{ height: 100 }} />
+        )}
+
+      </Col>
+      <Col>
+        <Link
+          className="cardlinks"
+          to={`/shop/${item.shop.id}/item/${item.id}`}
+        >
+          <h6 className="mb-3 text-black">
+            <Card.Subtitle className="mb-2 text-black">
+              { item.shop_categories.map((cat) => cat.title).join(', ') }
+            </Card.Subtitle>
+          </h6>
+        </Link>
+      </Col>
       <Row>
         <Col sm={9}>
           <footer className="blockquote-footer">
