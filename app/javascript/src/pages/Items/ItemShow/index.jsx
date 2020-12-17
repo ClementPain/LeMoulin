@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import {
   Col, Row, Container, Button
 } from 'react-bootstrap';
@@ -8,14 +7,14 @@ import Alert from 'react-bootstrap/Alert';
 import { find } from '../../../api/api-manager';
 
 import ItemInformations from './Informations';
-import ItemImage from './Image';
-import { UpdateItemButton } from '../../../components/ItemCard/ItemButtons';
+import CommentsOnItem from './Comments';
+import Carousel from './Carousel';
 
 const Item = () => {
-  const { currentUserId } = useSelector((state) => state);
   const { item_id } = useParams();
   const [item, setItem] = useState({});
   const [alert, setAlert] = useState(false);
+  const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
     find(`items/${item_id}`, {
@@ -38,19 +37,26 @@ const Item = () => {
       <Alert variant='success' show={alert} >
         Le produit { item.name } a été ajouté à votre panier
       </Alert>
+
       <Row className="m-5 p-2">
         <Col sm={5}>
-          <ItemImage item={item} style={{ hight: 100 }} />
+          <Carousel item={item} />
         </Col>
         <Col sm={6} className="p-5" style={{ backgroundColor: 'white' }}>
-          <ItemInformations item={item} alert={showAlert} />
+          <Row className="justify-content-center">
+            <h2>{ item?.name }</h2>
+          </Row>
+          { !showComments && (
+            <ItemInformations item={item} alert={showAlert} />
+          )}
+          { showComments && (
+            <CommentsOnItem item={item} />
+          )}
+          <Row className="justify-content-end">
+
+          </Row>
         </Col>
       </Row>
-      { currentUserId === item?.shop?.shopkeeper_id && (
-        <Row className="p-5">
-          <UpdateItemButton item={item} />
-        </Row>
-      )}
     </Container>
   );
 };

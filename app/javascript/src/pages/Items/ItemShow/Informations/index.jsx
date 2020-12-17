@@ -5,12 +5,15 @@ import {
 
 import Cookie from 'js-cookie';
 
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { UpdateItemButton } from '../../../../components/ItemCard/ItemButtons';
 
 import TabsMoreInformations from './TabsMoreInformations';
 
 const ItemInformations = ({ item , alert}) => {
   const [nbItemToAddToCart, setNbItemToAddToCart] = useState(1);
+  const { currentUserId } = useSelector((state) => state);
 
   const handleCart = (event, alert) => {
     event.preventDefault();
@@ -38,9 +41,6 @@ const ItemInformations = ({ item , alert}) => {
 
   return (
     <Container>
-      <Row className="justify-content-center">
-        <h2>{ item.name }</h2>
-      </Row>
       <Row className="justify-content-end">
         <Link to={`/shop/${item.shop?.id}`} className="cardlinks cardlinks-black">
           <p>
@@ -88,6 +88,12 @@ const ItemInformations = ({ item , alert}) => {
       <Row className="mt-4">
         <TabsMoreInformations item={item} />
       </Row>
+
+      { currentUserId === item?.shop?.shopkeeper_id && (
+        <Row className="p-5 justify-content-end">
+          <UpdateItemButton item={item} />
+        </Row>
+      )}
     </Container>
   );
 };
