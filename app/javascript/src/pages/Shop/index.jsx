@@ -76,7 +76,7 @@ const Shop = () => {
 
       { currentUserId === shop?.shopkeeper_id && (
         <Row>
-          <Link to={`/shop/${id}/list_items`} className='btn btn_success_sass' variant='outline-success'>
+          <Link to={`/shop/${id}/list_items`} className="btn btn_success_sass" variant="outline-success">
             Voir tous mes produits
           </Link>
         </Row>
