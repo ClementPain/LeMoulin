@@ -2,6 +2,10 @@ class Api::V1::CartsController < ApplicationController
   def create
     @items_in_cart = {}
 
+    puts '$$$$$$$$$$$$$$$$$$$'
+    puts params
+    puts '§§§§§§§§§§§§§§§§§§§'
+
     params['cart'].each do |shop, items|
       @items_in_cart[shop] = {}
       @items_in_cart[shop]['shop'] = Shop.find(shop.to_i)
