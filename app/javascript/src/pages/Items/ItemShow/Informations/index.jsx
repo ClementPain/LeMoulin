@@ -21,17 +21,13 @@ const ItemInformations = ({ item }) => {
     const cartCookie = Cookie.get('cart') ? JSON.parse(Cookie.get('cart')) : {};
 
     if (Object.keys(cartCookie)?.includes(item.shop.id.toString())) {
-      console.log('shop already there');
       if (Object.keys(cartCookie[item.shop.id])?.includes(item.id.toString())) {
-        console.log('item already there');
         cartCookie[item.shop.id][item.id] = parseInt(cartCookie[item.shop.id][item.id]) + parseInt(nbItemToAddToCart);
         console.log(cartCookie[item.shop.id][item.id]);
       } else {
-        console.log('new item');
         cartCookie[item.shop.id][item.id] = nbItemToAddToCart;
       }
     } else {
-      console.log('new shop');
       cartCookie[item.shop.id] = {};
       cartCookie[item.shop.id][item.id] = nbItemToAddToCart;
     }
