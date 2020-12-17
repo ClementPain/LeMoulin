@@ -5,6 +5,7 @@ import {
 } from 'react-bootstrap';
 import Cookie from 'js-cookie';
 import ShopCard from './ShopCard';
+import ButtonCreateOrder from './ButtonCreateOrder';
 
 import { create } from '../../../../api/api-manager';
 
@@ -35,7 +36,7 @@ const Cart = () => {
   return (
     <Container fluid>
       <Row className='justify-content-end'>
-        <Button variant='outline-success' className='btn-sm mb-3 btn_success_sass'>Passer commande</Button>
+        <ButtonCreateOrder cart={cart} />
       </Row>
       <Row className="border-bottom">
         <Col sm={6}>

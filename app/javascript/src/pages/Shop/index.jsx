@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
-  Card, Col, Row, Container,
+  Card, Col, Row, Container, Button,
 } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
-import Image from 'react-bootstrap/Image';
-import ShopImage from './Page-Grise.jpg';
+import Jumbotron from 'react-bootstrap/Jumbotron';
+import ShopImage from './Boutique.jpg';
 import { find } from '../../api/api-manager';
 import BestItems from './BestItems';
 
@@ -39,19 +39,12 @@ const Shop = () => {
             }
           </p>
         </Card.Header>
+        <Jumbotron fluid style={{ backgroundImage: `url(${ShopImage})`, backgroundSize: 'cover', backgroundPosition: 'center center' }}>
+          <div className="display-4 text-center" />
+          <div className="my-4 text-center" />
+        </Jumbotron>
         <Card.Body className="text-primary">
-          <Row className="mb-5">
-            <Col xs={6} md={4}>
-              <Image src={ShopImage} className="Page-Grise.jpg/171x180" thumbnail />
-            </Col>
-            <Col xs={6} md={4}>
-              <Image src={ShopImage} className="Page-Grise.jpg/171x180" thumbnail />
-            </Col>
-            <Col xs={6} md={4}>
-              <Image src={ShopImage} className="Page-Grise.jpg/171x180" thumbnail />
-            </Col>
-          </Row>
-          <Card.Title as="h5" className="text-center">Description</Card.Title>
+          <Card.Title as="h6" className="text-center">Description</Card.Title>
           <Card.Text className="text-center">
             {
               shop && shop.description
@@ -61,7 +54,7 @@ const Shop = () => {
           </Card.Text>
           <Row>
             <Col className="text-center mt-4">
-              <p className="m-0">Shop address :</p>
+              <h6 className="m-0">Shop address :</h6>
               <p className="m-0">
                 {shop?.address}
                 {' '}
@@ -69,30 +62,31 @@ const Shop = () => {
               </p>
             </Col>
             <Col className="text-center mt-4">
-              <p className="m-0">Shop city :</p>
+              <h6 className="m-0">Shop city :</h6>
               <p className="m-0">{shop?.city}</p>
             </Col>
             <Col className="text-center mt-4">
-              <p className="m-0">References :</p>
+              <h6 className="m-0">References :</h6>
             </Col>
           </Row>
-        </Card.Body>
-      </Card>
 
-      { currentUserId && currentUserId === shop?.shopkeeper_id && (
-        <Row>
-          <Link to={`/shop/${id}/list_items`} className="btn btn_success_sass" variant="outline-success">
-            Voir tous mes produits
-          </Link>
-        </Row>
-      )}
+          { currentUserId === shop?.shopkeeper_id && (
+            <Col className="text-center mt-4">
+              <Button as={Link} to={`/shop/${id}/list_items`} className="btn btn_success_sass" variant="outline-success">
+                Voir tous mes produits
+              </Button>
+            </Col>
+          )}
 
-      {
+          {
         currentUserId !== shop?.shopkeeper_id && (
-          <BestItems bestItems={bestShopItemsList} />
+          <Row className="mt-5">
+            <BestItems bestItems={bestShopItemsList} />
+          </Row>
         )
       }
-
+        </Card.Body>
+      </Card>
     </Container>
   );
 };
