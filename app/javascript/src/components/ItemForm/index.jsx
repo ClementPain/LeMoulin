@@ -46,17 +46,13 @@ const ItemForm = ({ handleSubmit, initialValues, createItem = true }) => {
           images: file.secure_url,
         },
       },
-      onSuccess: () => {
-        if (!multipleAdd) {
-          setRedirect(`/shop/${shop_id}/item/${item_id}`);
-        }
-      },
+      onSuccess: () => setRedirect(`/shop/${shop_id}/item/${item_id}`),
       onError: (error) => console.log('error', error),
       onErrors: (errors) => console.log('errors', errors),
     });
   };
 
-  if (redirect) return <Redirect to={redirect} />;
+  if (!multipleAdd && redirect) return <Redirect to={redirect} />;
 
   return (
     <Formik
