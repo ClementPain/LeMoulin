@@ -28,7 +28,7 @@ const UserCommands = () => {
   );
 
   return (
-    <Accordion defaultActiveKey="0">
+    <Accordion defaultActiveKey="0" style={{ width: '100%', height: 500 }} className="overflow-auto">
       {
         [
           'in_progress',
