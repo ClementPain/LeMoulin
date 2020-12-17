@@ -15,6 +15,7 @@ class Api::V1::ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.shop = @shop if @shop
+    @item.images = []
 
     if @item.save
       render json: @item, status: :created
