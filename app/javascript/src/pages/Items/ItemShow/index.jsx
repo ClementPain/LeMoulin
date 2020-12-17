@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import {
   Col, Row, Container, Button
 } from 'react-bootstrap';
@@ -9,11 +8,9 @@ import { find } from '../../../api/api-manager';
 
 import ItemInformations from './Informations';
 import CommentsOnItem from './Comments';
-import ItemImage from './Image';
-import { UpdateItemButton } from '../../../components/ItemCard/ItemButtons';
+import Carousel from './Carousel';
 
 const Item = () => {
-  const { currentUserId } = useSelector((state) => state);
   const { item_id } = useParams();
   const [item, setItem] = useState({});
   const [alert, setAlert] = useState(false);
@@ -40,9 +37,10 @@ const Item = () => {
       <Alert variant='success' show={alert} >
         Le produit { item.name } a été ajouté à votre panier
       </Alert>
+
       <Row className="m-5 p-2">
         <Col sm={5}>
-          <ItemImage item={item} style={{ hight: 100 }} />
+          <Carousel item={item} />
         </Col>
         <Col sm={6} className="p-5" style={{ backgroundColor: 'white' }}>
           <Row className="justify-content-center">
@@ -59,11 +57,6 @@ const Item = () => {
           </Row>
         </Col>
       </Row>
-      { currentUserId === item?.shop?.shopkeeper_id && (
-        <Row className="p-5">
-          <UpdateItemButton item={item} />
-        </Row>
-      )}
     </Container>
   );
 };
