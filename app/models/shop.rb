@@ -41,6 +41,10 @@ class Shop < ApplicationRecord
     where('lower(description) LIKE ? ', "%#{keyword.downcase}%")
   }
 
+  scope :filter_by_location, lambda { |location|
+    where('lower(zip_code) LIKE ? OR lower(city) LIKE ?', "#{location.downcase}%", "%#{location.downcase}%")
+  }
+
   scope :filter_by_categories, lambda { |categories|
     select{ |shop|
       !( shop.shop_categories.map{ |cat| cat.title } & categories.split(',') ).empty?
@@ -51,11 +55,12 @@ class Shop < ApplicationRecord
     ShopMailer.creation_confirmation(self).deliver_now
   end
 
-
   # methodes
   def self.search(params)
     shops = Shop.all.select_active_shops
     shops = shops.filter_by_name(params[:keyword]).or(shops.filter_by_description(params[:keyword])) if params[:keyword]
+    shops = shops.filter_by_location(params[:location]) if params[:location]
+
     shops = shops.filter_by_categories(params[:categories]) if params[:categories]
 
     shops
