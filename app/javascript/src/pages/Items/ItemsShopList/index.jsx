@@ -62,7 +62,7 @@ const ItemsShopList = () => {
           <Row className="justify-content-center m-4">
             <h3>Liste des produits de votre boutique</h3>
           </Row>
-          <Row className="justify-content-center">
+          <Row className="justify-content-center overflow-auto" style={{ width: '100%', height: 700 }}>
             <Col sm={11}>
               { itemsArray.length === 0 && (
               <Row className="m-2">

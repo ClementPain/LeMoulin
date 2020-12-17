@@ -16,10 +16,7 @@ const ShopCard = ({ shop }) => (
     <Card.Body>
       <Card.Text>{ shop.description }</Card.Text>
       <footer className="blockquote-footer">
-        {shop.address}
-        {' '}
-        -
-        {shop.city}
+        {shop.address} - {shop.city}
       </footer>
     </Card.Body>
   </Card>

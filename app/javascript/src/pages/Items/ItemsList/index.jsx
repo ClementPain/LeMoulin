@@ -48,7 +48,7 @@ const ItemsList = () => {
               className="p-2"
               type="text"
               id="searchBar"
-              placeholder="Rechercher..."
+              placeholder="Rechercher par ville (ou code postale)..."
               value={search.location}
               onChange={(event) => setSearch({ ...search, location: event.target.value })}
             />
@@ -56,7 +56,7 @@ const ItemsList = () => {
         </Col>
 
         <Col sm={9}>
-          <Row style={{ width: '100%' }} className="align-self-center">
+          <Row style={{ width: '100%', height: 700 }} className="align-self-center overflow-auto">
             { itemsArray.map((item) => (
               <Col sm={4} className="p-2" key={item.id}>
                 <ItemCard item={item} />
