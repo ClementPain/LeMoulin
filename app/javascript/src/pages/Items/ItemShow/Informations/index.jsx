@@ -9,12 +9,13 @@ import { Link } from 'react-router-dom';
 
 import TabsMoreInformations from './TabsMoreInformations';
 
-const ItemInformations = ({ item }) => {
+const ItemInformations = ({ item , alert}) => {
   const [nbItemToAddToCart, setNbItemToAddToCart] = useState(1);
 
-  const handleCart = () => {
+  const handleCart = (event, alert) => {
     event.preventDefault();
     Cookie.set('cart', JSON.stringify(handleCartCookie()));
+    alert();
   };
 
   const handleCartCookie = () => {
@@ -78,7 +79,7 @@ const ItemInformations = ({ item }) => {
           <Button
             className="btn_success_sass"
             variant="outline-success"
-            onClick={(event) => handleCart()}
+            onClick={(event) => handleCart(event, alert)}
           >
             Ajouter au panier
           </Button>
