@@ -7,13 +7,15 @@ import {
   Button, Row, Col, FormCheck, FormControl,
 } from 'react-bootstrap';
 
-import { MyTextInput, MyTextArea, MyNumberInput, MyCheckbox } from '../../tools/formik-manager';
+import {
+  MyTextInput, MyTextArea, MyNumberInput, MyCheckbox,
+} from '../../tools/formik-manager';
 
-import { validate_item_form } from './validate_item_form'
+import validate_item_form from './validate_item_form';
 
 import { update } from '../../api/api-manager';
 
-const ItemForm = ({handleSubmit, initialValues, createItem = true}) => {
+const ItemForm = ({ handleSubmit, initialValues, createItem = true }) => {
   console.log(createItem);
   const [redirect, setRedirect] = useState(null);
   const [multipleAdd, setMultipleAdd] = useState(false);
@@ -21,10 +23,10 @@ const ItemForm = ({handleSubmit, initialValues, createItem = true}) => {
   const [itemImage, setItemImage] = useState(null);
   const { shop_id } = useParams();
 
-  const uploadItemImage = async (item_id) => {
+  const uploadItemImage = async (item_id, shop_id, setRedirect) => {
     const { files } = itemImage;
-    console.log('itemImage : ', itemImage)
-    console.log('files : ', files)
+    console.log('itemImage : ', itemImage);
+    console.log('files : ', files);
     const data = new FormData();
     data.append('file', files[0]);
     data.append('upload_preset', 'images_le_moulin');
@@ -36,7 +38,7 @@ const ItemForm = ({handleSubmit, initialValues, createItem = true}) => {
 
     const file = await response.json();
 
-    console.log('file : ', file)
+    console.log('file : ', file);
 
     update(`items/${item_id}`, {
       data: {
@@ -44,17 +46,21 @@ const ItemForm = ({handleSubmit, initialValues, createItem = true}) => {
           images: file.secure_url,
         },
       },
-      onSuccess: (response) => console.log('reponse', response),
+      onSuccess: () => {
+        if (!multipleAdd) {
+          setRedirect(`/shop/${shop_id}/item/${item_id}`);
+        }
+      },
       onError: (error) => console.log('error', error),
-      onErrors: (errors) => console.log('errors', errors)
+      onErrors: (errors) => console.log('errors', errors),
     });
   };
 
-  if (!multipleAdd && redirect) return <Redirect to={redirect} />;
+  if (redirect) return <Redirect to={redirect} />;
 
   return (
     <Formik
-      enableReinitialize={true}
+      enableReinitialize
       initialValues={initialValues}
       validate={validate_item_form}
       onSubmit={(data, { setSubmitting, resetForm }) => {
