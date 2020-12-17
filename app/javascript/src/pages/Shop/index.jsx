@@ -74,21 +74,13 @@ const Shop = () => {
         </Card.Body>
       </Card>
 
-<<<<<<< HEAD
-      <Row>
-        <Link to={`/shop/${id}/list_items`} className="btn btn_success_sass" variant="outline-success">
-          Voir tous mes produits
-        </Link>
-      </Row>
-=======
       { currentUserId === shop?.shopkeeper_id && (
         <Row>
-          <Link to={`/shop/${id}/list_items`} className='btn btn_success_sass' variant='outline-success'>
+          <Link to={`/shop/${id}/list_items`} className="btn btn_success_sass" variant="outline-success">
             Voir tous mes produits
           </Link>
         </Row>
       )}
->>>>>>> 362bc066e9ebbba9a5d8602ec2bd3dd3f0b7c869
     </Container>
   );
 };
