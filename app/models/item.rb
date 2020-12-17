@@ -48,12 +48,20 @@ class Item < ApplicationRecord
     }
   }
 
+  scope :filter_by_location, lambda { |location|
+    joins(:shop).where('lower(zip_code) LIKE ? OR lower(city) LIKE ?', "#{location.downcase}%", "%#{location.downcase}%")
+  }
+
   # methodes
   def self.search(params)
     params[:shopkeeper_request] ? items = Item.all : items= Item.all.select_active_items
+    
     items = items.select_items_from_a_shop(params[:shop_id]) if params[:shop_id]
 
     items = items.filter_by_name(params[:keyword]).or(items.filter_by_description(params[:keyword])) if params[:keyword]
+
+    items = items.filter_by_location(params[:location]) if params[:location]
+
     if params[:category]
       items = items.filter_by_category(params[:category])
     elsif params[:categories]

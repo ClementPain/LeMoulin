@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
+import useDebounce from '../../../tools/useDebounce';
 
 import ItemCard from '../../../components/ItemCard';
 
 const ItemsList = () => {
   const history = useHistory();
   const searchUrl = history.location.search;
-
+  const [search, setSearch] = useState({ location: '' });
   const [itemsArray, setItemsArray] = useState([]);
 
+  const debouncedSearch = useDebounce(search, 500);
+
   useEffect(() => {
-    const url = `/api/v1/items${searchUrl}`;
+    let url = `/api/v1/items${searchUrl}`;
+
+    if (search.location.length > 0) {
+      if (searchUrl.length > 0) {
+        url += '&&';
+      } else {
+        url += '?'
+      }
+
+      url += `&&location=${search.location}`;
+    }
 
     fetch(url)
       .then((response) => response.json())
@@ -19,7 +32,7 @@ const ItemsList = () => {
         setItemsArray([]);
         response?.map((item) => setItemsArray((previousArray) => [...previousArray, item]));
       });
-  }, [searchUrl]);
+  }, [searchUrl, debouncedSearch]);
 
   return (
     <Container fluid className="justify-content-center">
@@ -27,12 +40,30 @@ const ItemsList = () => {
         <h4>Voici la liste des produits</h4>
       </Row>
 
-      <Row style={{ width: '100%' }} className="align-self-center">
-        { itemsArray.map((item) => (
-          <Col sm={4} className="p-2" key={item.id}>
-            <ItemCard item={item} />
-          </Col>
-        ))}
+      <Row>
+        <Col style={{ backgroundColor: '#45B5AA' }} sm={3}>
+          <h5 className="text-black pt-4">Filtrer les résultats</h5>
+          <Form.Group className="text-white">
+            <Form.Control
+              className="p-2"
+              type="text"
+              id="searchBar"
+              placeholder="Rechercher..."
+              value={search.location}
+              onChange={(event) => setSearch({ ...search, location: event.target.value })}
+            />
+          </Form.Group>
+        </Col>
+
+        <Col sm={9}>
+          <Row style={{ width: '100%' }} className="align-self-center">
+            { itemsArray.map((item) => (
+              <Col sm={4} className="p-2" key={item.id}>
+                <ItemCard item={item} />
+              </Col>
+            ))}
+          </Row>
+        </Col>
       </Row>
     </Container>
   );

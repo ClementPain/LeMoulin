@@ -213,6 +213,12 @@ const setUrl = (url, params = {}, startOfQuery = true) => {
     newUrl += `keyword=${encodeURIComponent(params.keyword.trim())}`;
   }
 
+  if (params.location?.length > 0) {
+    newUrl += checkForFirstParameter(firstParameter);
+    firstParameter = false;
+    newUrl += `location=${encodeURIComponent(params.location.trim())}`;
+  }
+
   if (params.category?.length > 0) {
     newUrl += checkForFirstParameter(firstParameter);
     firstParameter = false;
