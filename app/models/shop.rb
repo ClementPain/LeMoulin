@@ -1,7 +1,7 @@
 class Shop < ApplicationRecord
 
   # Callbacks
-  after_create :set_owner_is_shopkeeper
+  after_create :set_owner_is_shopkeeper, :shop_creation_send
   before_destroy :set_owner_is_not_shopkeeper
   
   # Relationships
@@ -46,6 +46,11 @@ class Shop < ApplicationRecord
       !( shop.shop_categories.map{ |cat| cat.title } & categories.split(',') ).empty?
     }
   }
+
+  def shop_creation_send
+    UserMailer.creation_confirmation(self).deliver_now
+  end
+
 
   # methodes
   def self.search(params)
