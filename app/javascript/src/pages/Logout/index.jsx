@@ -10,7 +10,7 @@ const Logout = () => {
   useEffect(
     () => dispatch(handleDeauth()),
     [],
-  )
+  );
 
   return <Redirect to="/login" />;
 };

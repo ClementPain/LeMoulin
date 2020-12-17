@@ -119,7 +119,7 @@ const update = async (endpoint, {
 
 const remove = async (endpoint, {
   onSuccess,
-}) => {
+} = {}) => {
   const response = await request(endpoint, {
     method: 'delete',
   });
