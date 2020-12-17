@@ -17,7 +17,6 @@ const ItemCard = ({ item }) => (
         { item.images?.length === 0 && (
         <Image publicId="sample" cloudName="dhtysnpro" crop="scale" className="img-fluid" style={{ height: 100 }} />
         )}
-
       </Col>
       <Col>
         <Link
