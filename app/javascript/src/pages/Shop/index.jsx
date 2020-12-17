@@ -51,7 +51,7 @@ const Shop = () => {
           />
           <Card.Body className="text-primary">
             <Card.Title as="h4" className="text-center">Description</Card.Title>
-            <Card.Text className="text-center h5">
+            <Card.Text className="text-center">
               {
                 shop && shop.description
                   ? shop.description

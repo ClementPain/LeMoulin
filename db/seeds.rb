@@ -57,8 +57,6 @@ else
   shop_category_9 = ShopCategory.create! title: "Jardinerie"
   shop_category_10 = ShopCategory.create! title: "Musique"
 
-  shopId = 0
-
   shop1 = Shop.create!(
     name: 'Aberak',
     description: 'épicerie (alimentation au détail)',
@@ -71,11 +69,7 @@ else
     shop_categories: [shop_category_1] 
   )
 
-  # ShopCategoriesJoin.create!( shop_id: shop1.id, shop_category_id: shop_category_1.id )
-
   puts 'A shop is created'
-
-  shopId += 1
 
   Item.create!(
     name: 'Tomates des Pouilles pelées à la main 550 gr',
@@ -119,12 +113,7 @@ else
     shop_categories: [shop_category_2, shop_category_8]
   )
 
-  # ShopCategoriesJoin.create!( shop_id: shop2.id, shop_category_id: shop_category_2.id )
-  # ShopCategoriesJoin.create!( shop_id: shop2.id, shop_category_id: shop_category_8.id )
-
   puts 'A shop is created'
-
-  shopId += 1
 
   Item.create!(
     name: "Ascagne",
@@ -172,11 +161,7 @@ else
     shop_categories: [shop_category_3]
   )
 
-  # ShopCategoriesJoin.create!( shop_id: shop3.id, shop_category_id: shop_category_3.id )
-
   puts 'A shop is created'
-
-  shopId += 1
 
   Item.create!(
     name: "Table d'activités ",
@@ -207,6 +192,30 @@ else
   )
 
   puts 'An item is created'
+
+  # Create a shop with a lot of items for testing the feature of display items in shop show
+
+  shop = Shop.create(
+    name: 'Vendeur de drones',
+    description: Faker::Lorem.sentences(number: 10).join(' '),
+    address: '47 rue de la Goutte Or',
+    zip_code: '75018', 
+    city: 'Paris', 
+    siret: '000000000', 
+    is_active: true, 
+    shopkeeper: (User.select {|user| !user.has_a_shop}).sample,
+    shop_categories: [shop_category_3, shop_category_2, shop_category_5]
+  )
+  
+  30.times do
+    Item.create!(
+      name: Faker::Drone.name,
+      description: Faker::Lorem.sentences(number: 10).join(', '),
+      price: Faker::Number.decimal(l_digits: 2),
+      stock: Faker::Number.within(range: 1..100),
+      shop: shop
+    )
+  end
 
   puts "The database is filled with a few records with success !"
 end

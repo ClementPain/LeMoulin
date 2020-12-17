@@ -10,6 +10,6 @@ const CommentsOnItem = ({ item }) => (
       <p> les coms</p>
     </Row>
   </Container>
-)
+);
 
-export default CommentsOnItem
+export default CommentsOnItem;
