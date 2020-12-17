@@ -19,7 +19,7 @@ const validate = (values) => {
     formErrors.password = 'Doit avoir 6 caractères ou plus';
   }
 
-  if (values.password_confirmation && !values.password_confirmation) {
+  if (values.password && !values.password_confirmation) {
     formErrors.password_confirmation = 'Obligatoire';
   } else if (values.password_confirmation && values.password_confirmation.length < 6) {
     formErrors.password_confirmation = 'Doit avoir 6 caractères ou plus';

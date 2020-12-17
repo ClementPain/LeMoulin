@@ -65,7 +65,7 @@ const OrderDetails = ({ order }) => {
           }
         </tbody>
       </Table>
-      <h6 className="text-right">{`Total TTC ${totalTTC} €`}</h6>
+      <h6 className="text-right">{`Total TTC ${totalTTC?.toFixed(2)} €`}</h6>
     </>
   );
 };
