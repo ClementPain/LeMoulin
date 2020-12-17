@@ -1,5 +1,5 @@
 import React from 'react';
-import { create } from '../../../../../api/api-manager';
+import { create } from '../../../../api/api-manager';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Cookie from 'js-cookie';
