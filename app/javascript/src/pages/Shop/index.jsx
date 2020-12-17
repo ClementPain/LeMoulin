@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import Image from 'react-bootstrap/Image';
 import ShopImage from './Page-Grise.jpg';
 import { find } from '../../api/api-manager';
+import BestItems from './BestItems';
 
 const Shop = () => {
   const { currentUserId } = useSelector((state) => state) ? useSelector((state) => state) : null;
@@ -81,6 +82,15 @@ const Shop = () => {
           </Link>
         </Row>
       )}
+
+      {
+        currentUserId !== shop?.shopkeeper_id && (
+          <Row className="mt-5">
+            <BestItems />
+          </Row>
+        )
+      }
+
     </Container>
   );
 };
