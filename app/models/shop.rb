@@ -48,7 +48,7 @@ class Shop < ApplicationRecord
   }
 
   def shop_creation_send
-    UserMailer.creation_confirmation(self).deliver_now
+    ShopMailer.creation_confirmation(self).deliver_now
   end
 
 
