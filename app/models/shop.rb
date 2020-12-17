@@ -14,7 +14,7 @@ class Shop < ApplicationRecord
 
   attr_accessor :address, :latitude, :longitude
   geocoded_by :address
-  after_validation :geocode
+  after_validation :geocode, if: :address_changed?
 
   # Validation
   validates :name, :address, :siret, presence: true
