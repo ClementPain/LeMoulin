@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 const BestItems = ({ bestItems }) => (
   <Row>
-    <Col as="h4" xs={12} className="mb-3">Tous nos articles</Col>
+    <Col as="h4" xs={12} className="mb-3">Tous les produits</Col>
     {
         bestItems?.map(({
           id, name, description, price, images, shop_id,
