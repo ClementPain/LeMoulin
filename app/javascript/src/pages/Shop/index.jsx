@@ -10,7 +10,7 @@ import ShopImage from './Page-Grise.jpg';
 import { find } from '../../api/api-manager';
 
 const Shop = () => {
-  const { currentUserId } = useSelector((state) => state);
+  const { currentUserId } = useSelector((state) => state) ? useSelector((state) => state) : null;
   const { id } = useParams();
   const [shop, setShop] = useState(null);
 
@@ -74,7 +74,7 @@ const Shop = () => {
         </Card.Body>
       </Card>
 
-      { currentUserId === shop?.shopkeeper_id && (
+      { currentUserId && currentUserId === shop?.shopkeeper_id && (
         <Row>
           <Link to={`/shop/${id}/list_items`} className="btn btn_success_sass" variant="outline-success">
             Voir tous mes produits

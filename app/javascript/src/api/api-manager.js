@@ -17,7 +17,7 @@ const request = async (endpoint, {
   if (queryString) { url += `?${queryString}`; }
 
   const authorizaton = authRequired
-    ? { Authorization: `Bearer ${getAuthCookie().token}` }
+    ? { Authorization: `Bearer ${getAuthCookie()?.token}` }
     : {};
 
   const body = data
