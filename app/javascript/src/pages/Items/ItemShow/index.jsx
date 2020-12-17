@@ -14,7 +14,6 @@ const Item = () => {
   const { item_id } = useParams();
   const [item, setItem] = useState({});
   const [alert, setAlert] = useState(false);
-  const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
     find(`items/${item_id}`, {
@@ -46,16 +45,14 @@ const Item = () => {
           <Row className="justify-content-center">
             <h2>{ item?.name }</h2>
           </Row>
-          { !showComments && (
             <ItemInformations item={item} alert={showAlert} />
-          )}
-          { showComments && (
-            <CommentsOnItem item={item} />
-          )}
           <Row className="justify-content-end">
-
           </Row>
         </Col>
+      </Row>
+
+      <Row>
+        <CommentsOnItem item={item} />
       </Row>
     </Container>
   );
