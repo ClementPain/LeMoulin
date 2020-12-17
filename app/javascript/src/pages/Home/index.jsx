@@ -33,7 +33,7 @@ const Home = () => {
             <Form.Control
               className="p-2"
               type="text"
-              placeholder="Rechercher..."
+              placeholder="Rechercher par ville (ou code postale)..."
               value={search.location}
               onChange={(event) => setSearch({ ...search, location: event.target.value })}
               />
