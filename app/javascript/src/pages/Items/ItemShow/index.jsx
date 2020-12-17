@@ -12,9 +12,8 @@ import Carousel from './Carousel';
 
 const Item = () => {
   const { item_id } = useParams();
-  const [item, setItem] = useState({});
+  const [item, setItem] = useState(null);
   const [alert, setAlert] = useState(false);
-  const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
     find(`items/${item_id}`, {
@@ -32,6 +31,8 @@ const Item = () => {
     }, 2000)
   }
 
+  if (!item) return <p>Chargement...</p>
+
   return (
     <Container fluid>
       <Alert variant='success' show={alert} >
@@ -46,15 +47,15 @@ const Item = () => {
           <Row className="justify-content-center">
             <h2>{ item?.name }</h2>
           </Row>
-          { !showComments && (
             <ItemInformations item={item} alert={showAlert} />
-          )}
-          { showComments && (
-            <CommentsOnItem item={item} />
-          )}
           <Row className="justify-content-end">
-
           </Row>
+        </Col>
+      </Row>
+
+      <Row className='justify-content-center'>
+        <Col sm={9}>
+          <CommentsOnItem item={item} />
         </Col>
       </Row>
     </Container>
