@@ -82,13 +82,9 @@ const Shop = () => {
 
       {
         currentUserId !== shop?.shopkeeper_id && (
-<<<<<<< HEAD
           <Row className="mt-5">
             {/* <BestItems /> */}
           </Row>
-=======
-          <BestItems bestItems={bestShopItemsList} />
->>>>>>> develop
         )
       }
     </Container>
