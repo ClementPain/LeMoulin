@@ -12,8 +12,16 @@ class Shop < ApplicationRecord
   has_many :shop_categories_joins, dependent: :destroy
   has_many :shop_categories, through: :shop_categories_joins
 
+  attr_accessor :address, :latitude, :longitude
+  geocoded_by :address
+  after_validation :geocode, if: :address_changed?
+
   # Validation
   validates :name, :address, :siret, presence: true
+  validates :name, length: {in: 3..80 }
+  validates :address, :city, length: {in: 5..100}
+  validates :description, length: {in: 5..800}
+
   validates :zip_code, format: {
     with: /\A(([0-8][0-9])|(9[0-5])|(2[ab]))[0-9]{3}\z/, 
     message: "Merci de rentrer un code postal français valide."

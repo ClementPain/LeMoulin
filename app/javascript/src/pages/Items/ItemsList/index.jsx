@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 
-import ItemCard from '../../components/ItemCard';
+import ItemCard from '../../../components/ItemCard';
 
 const ItemsList = () => {
   const history = useHistory();
@@ -17,7 +17,7 @@ const ItemsList = () => {
       .then((response) => response.json())
       .then((response) => {
         setItemsArray([]);
-        response?.map((item) => setItemsArray((previousArray) => [item, ...previousArray]));
+        response?.map((item) => setItemsArray((previousArray) => [...previousArray, item]));
       });
   }, [searchUrl]);
 

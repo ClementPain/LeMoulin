@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Container, Row, Col, Form,
+  Container, Row, Col, Form, Card,
 } from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
@@ -57,33 +57,37 @@ const ShopsList = () => {
 
   return (
     <Container fluid>
-      <Row>
-        <Col sm={3} className="justify-content-center mt-5">
-          <h5>Filtrer les résultats</h5>
-          <Form.Group>
-            <Form.Control
-              type="text"
-              id="searchBar"
-              placeholder="Rechercher..."
-              value={search.keyword}
-              onChange={(event) => setSearch({ ...search, keyword: event.target.value })}
-            />
-            { shopCategoriesList?.map((cat) => (
-              <Form.Check
-                key={`${cat.id}`}
-                type="checkbox"
-                label={`${cat.title}`}
-                value={`${cat.title}`}
-                onChange={(event) => handleCategoriesFilter(event)}
+      <Row className="justify-content-center m-4">
+        <Card.Body className="px-2 pt-4">
+          <Col style={{ backgroundColor: '#45B5AA' }}>
+            <h5 className="text-black pt-4">Filtrer les résultats</h5>
+            <Form.Group className="text-white">
+              <Form.Control
+                className="p-2"
+                type="text"
+                id="searchBar"
+                placeholder="Rechercher..."
+                value={search.keyword}
+                onChange={(event) => setSearch({ ...search, keyword: event.target.value })}
               />
-            ))}
+              { shopCategoriesList?.map((cat) => (
+                <Form.Check
+                  className="m-2 p-2"
+                  key={`${cat.id}`}
+                  type="checkbox"
+                  label={`${cat.title}`}
+                  value={`${cat.title}`}
+                  onChange={(event) => handleCategoriesFilter(event)}
+                />
+              ))}
 
-          </Form.Group>
-        </Col>
+            </Form.Group>
+          </Col>
+        </Card.Body>
 
         <Col sm={9}>
-          <Row className="justify-content-center m-5">
-            <h4>Voici la liste des boutiques</h4>
+          <Row className="justify-content-center m-4">
+            <h4 className="text-center">Voici la liste des boutiques</h4>
           </Row>
 
           <Container>

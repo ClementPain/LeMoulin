@@ -6,7 +6,7 @@ import { Image } from 'cloudinary-react';
 
 const AboutUsComponent = () => (
 
-  <Container className="p-5">
+  <Container className="p-5" style={{ backgroundColor: '#DCDCDC' }}>
     <Container>
       <h1>About us</h1>
       <p>

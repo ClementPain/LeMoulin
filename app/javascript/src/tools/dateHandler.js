@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-const formatDate = (dateAsString) => dayjs(dateAsString).format('MMM DD, YYYY - HH:mm');
+const formatDate = (dateAsString) => dayjs(dateAsString).format('DD MMM YYYY');
 
 const dateHandler = {
   formatDate,

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import {
   Card, Col, Row, Container,
 } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 import Image from 'react-bootstrap/Image';
 import ShopImage from './Page-Grise.jpg';
 import { find } from '../../api/api-manager';
 
 const Shop = () => {
+  const { currentUserId } = useSelector((state) => state);
   const { id } = useParams();
   const [shop, setShop] = useState(null);
 
@@ -21,7 +23,7 @@ const Shop = () => {
   );
 
   return (
-    <Container style={{ marginTop: 20 }}>
+    <Container className="mt-4">
       <Card>
         <Card.Header style={{ backgroundColor: '#45B5AA' }} className="text-center p-2">
           <h4 className="text-white">{ shop && shop.name}</h4>
@@ -71,6 +73,14 @@ const Shop = () => {
           </Row>
         </Card.Body>
       </Card>
+
+      { currentUserId === shop?.shopkeeper_id && (
+        <Row>
+          <Link to={`/shop/${id}/list_items`} className='btn btn_success_sass' variant='outline-success'>
+            Voir tous mes produits
+          </Link>
+        </Row>
+      )}
     </Container>
   );
 };

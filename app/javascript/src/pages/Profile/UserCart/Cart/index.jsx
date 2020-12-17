@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import {
-  Row, Container, Col,
+  Row, Container, Col, Button
 } from 'react-bootstrap';
 import Cookie from 'js-cookie';
 import ShopCard from './ShopCard';
@@ -34,6 +34,9 @@ const Cart = () => {
 
   return (
     <Container fluid>
+      <Row className='justify-content-end'>
+        <Button variant='outline-success' className='btn-sm mb-3 btn_success_sass'>Passer commande</Button>
+      </Row>
       <Row className="border-bottom">
         <Col sm={6}>
           <p>Articles</p>

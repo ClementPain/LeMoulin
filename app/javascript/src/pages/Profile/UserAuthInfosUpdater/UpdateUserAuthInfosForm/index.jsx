@@ -65,45 +65,51 @@ const UpdateUserAuthInfosForm = () => {
     >
       {({ isSubmitting }) => (
         <Form onInput={handleOnInput}>
-          <Card.Title>Modifier le mot de passe ou Email</Card.Title>
-          { updateSuccessFlag && (<div className="alert alert-success">Informations mis à jour avec succès</div>) }
-          <MyTextInput
-            label="Email actuel"
-            name="email"
-            type="email"
-            placeholder="Email"
-            alert={alert}
-          />
+          <Card>
+            <Card.Header className="bg-primary px-4">
+              <Card.Title className="text-white text-center mt-2">Modifier le mot de passe ou Email</Card.Title>
+            </Card.Header>
+            <Card.Body>
+              { updateSuccessFlag && (<div className="alert alert-success">Informations mis à jour avec succès</div>) }
+              <MyTextInput
+                label="Email actuel"
+                name="email"
+                type="email"
+                placeholder="Email"
+                alert={alert}
+              />
 
-          <MyTextInput
-            label="Mot de passe actuel"
-            name="current_password"
-            type="password"
-            placeholder="Mot de passe actuel"
-            alert={alert}
-          />
+              <MyTextInput
+                label="Mot de passe actuel"
+                name="current_password"
+                type="password"
+                placeholder="Mot de passe actuel"
+                alert={alert}
+              />
 
-          <MyTextInput
-            label="Nouveau mot de passe"
-            name="password"
-            type="password"
-            placeholder="Entrez un nouveau mot de passe"
-            alert={alert}
-          />
+              <MyTextInput
+                label="Nouveau mot de passe"
+                name="password"
+                type="password"
+                placeholder="Entrez un nouveau mot de passe"
+                alert={alert}
+              />
 
-          <MyTextInput
-            label="Confirmation de mot de passe"
-            name="password_confirmation"
-            type="password"
-            placeholder="Confirmez le nouveau mot de passe"
-            alert={alert}
-          />
+              <MyTextInput
+                label="Confirmation de mot de passe"
+                name="password_confirmation"
+                type="password"
+                placeholder="Confirmez le nouveau mot de passe"
+                alert={alert}
+              />
 
-          <FormGroup className="text-center">
-            <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
-              Mettre à jour
-            </Button>
-          </FormGroup>
+              <FormGroup className="text-center">
+                <Button type="submit" variant="primary" size="sm" disabled={isSubmitting}>
+                  Mettre à jour
+                </Button>
+              </FormGroup>
+            </Card.Body>
+          </Card>
         </Form>
       )}
     </Formik>

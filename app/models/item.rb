@@ -12,10 +12,18 @@ class Item < ApplicationRecord
   validates :name, length: { in: 3..80 }
   validates :description, length: { in: 5..800 }
   validates :price, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: {greater_than_or_equal_to: 0}
+  validates :images, length: {
+    maximum: 5,
+    message: 'Vous ne pouvez pas avoir plus de 5 photos par produit'
+  }
 
   #Scopes
   scope :select_active_items, lambda { 
     where(is_available_for_sale: true).where('stock > ?', 0)
+  }
+
+  scope :select_items_from_a_shop, lambda { |shop_id|
+    where(shop_id: shop_id)
   }
 
   scope :filter_by_name, lambda { |keyword|
@@ -42,7 +50,9 @@ class Item < ApplicationRecord
 
   # methodes
   def self.search(params)
-    items = Item.all.select_active_items
+    params[:shopkeeper_request] ? items = Item.all : items= Item.all.select_active_items
+    items = items.select_items_from_a_shop(params[:shop_id]) if params[:shop_id]
+
     items = items.filter_by_name(params[:keyword]).or(items.filter_by_description(params[:keyword])) if params[:keyword]
     if params[:category]
       items = items.filter_by_category(params[:category])
@@ -50,6 +60,6 @@ class Item < ApplicationRecord
       items = items.filter_by_categories(params[:categories])
     end
 
-    items
+    items = items.sort_by{ |item| item.created_at }.reverse
   end
 end

@@ -117,10 +117,16 @@ const update = async (endpoint, {
   return result;
 };
 
-const remove = async (endpoint) => {
+const remove = async (endpoint, {
+  onSuccess,
+}) => {
   const response = await request(endpoint, {
     method: 'delete',
   });
+
+  if (onSuccess) {
+    onSuccess();
+  }
 
   return response;
 };
@@ -197,8 +203,8 @@ const checkForFirstParameter = (noParameter) => {
   return '&&';
 };
 
-const setUrl = (url, params = {}) => {
-  let firstParameter = true;
+const setUrl = (url, params = {}, startOfQuery = true) => {
+  let firstParameter = startOfQuery;
   let newUrl = url;
 
   if (params.keyword?.length > 0) {
