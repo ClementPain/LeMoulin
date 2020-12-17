@@ -76,8 +76,6 @@ const Shop = () => {
           )}
         </Card.Body>
       </Card>
-<<<<<<< HEAD
-=======
 
       { currentUserId && currentUserId === shop?.shopkeeper_id && (
         <Row>
@@ -94,8 +92,6 @@ const Shop = () => {
           </Row>
         )
       }
-
->>>>>>> develop
     </Container>
   );
 };

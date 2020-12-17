@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import TemplateImage from './template.jpg';
+import { Image } from 'cloudinary-react';
 
 const ItemCard = ({ item }) => (
   <Card>
@@ -17,7 +17,12 @@ const ItemCard = ({ item }) => (
             { item.shop_categories.map((cat) => cat.title).join(', ') }
           </Card.Subtitle>
           <Card.Text>
-            <img src={TemplateImage} className="template" alt="template" style={{ height: 80 }} />
+            { item.images && (
+              <Image publicId={item?.images[0]} cloudName="dhtysnpro" crop="scale" className='img-fluid' style={{height:100}} />
+            )}
+            { item.images?.length === 0 && (
+              <Image publicId='sample' cloudName="dhtysnpro" crop="scale" className='img-fluid' style={{height:100}} />
+            )}
           </Card.Text>
         </div>
       </Link>
