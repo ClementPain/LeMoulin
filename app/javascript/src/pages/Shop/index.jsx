@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import ShopImage from './Boutique.jpg';
 import { find } from '../../api/api-manager';
-// import BestItems from './BestItems';
+import BestItems from './BestItems';
 
 const Shop = () => {
   const { currentUserId } = useSelector((state) => state) ? useSelector((state) => state) : null;
@@ -77,20 +77,16 @@ const Shop = () => {
               </Button>
             </Col>
           )}
-        </Card.Body>
-      </Card>
 
-      {
+          {
         currentUserId !== shop?.shopkeeper_id && (
-<<<<<<< HEAD
           <Row className="mt-5">
-            {/* <BestItems /> */}
+            <BestItems bestItems={bestShopItemsList} />
           </Row>
-=======
-          <BestItems bestItems={bestShopItemsList} />
->>>>>>> develop
         )
       }
+        </Card.Body>
+      </Card>
     </Container>
   );
 };
