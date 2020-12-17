@@ -5,33 +5,33 @@ import {
 
 import Cookie from 'js-cookie';
 
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { UpdateItemButton } from '../../../../components/ItemCard/ItemButtons';
 
 import TabsMoreInformations from './TabsMoreInformations';
 
-const ItemInformations = ({ item }) => {
+const ItemInformations = ({ item , alert}) => {
   const [nbItemToAddToCart, setNbItemToAddToCart] = useState(1);
+  const { currentUserId } = useSelector((state) => state);
 
-  const handleCart = () => {
+  const handleCart = (event, alert) => {
     event.preventDefault();
     Cookie.set('cart', JSON.stringify(handleCartCookie()));
+    alert();
   };
 
   const handleCartCookie = () => {
     const cartCookie = Cookie.get('cart') ? JSON.parse(Cookie.get('cart')) : {};
 
     if (Object.keys(cartCookie)?.includes(item.shop.id.toString())) {
-      console.log('shop already there');
       if (Object.keys(cartCookie[item.shop.id])?.includes(item.id.toString())) {
-        console.log('item already there');
         cartCookie[item.shop.id][item.id] = parseInt(cartCookie[item.shop.id][item.id]) + parseInt(nbItemToAddToCart);
         console.log(cartCookie[item.shop.id][item.id]);
       } else {
-        console.log('new item');
         cartCookie[item.shop.id][item.id] = nbItemToAddToCart;
       }
     } else {
-      console.log('new shop');
       cartCookie[item.shop.id] = {};
       cartCookie[item.shop.id][item.id] = nbItemToAddToCart;
     }
@@ -41,9 +41,6 @@ const ItemInformations = ({ item }) => {
 
   return (
     <Container>
-      <Row className="justify-content-center">
-        <h2>{ item.name }</h2>
-      </Row>
       <Row className="justify-content-end">
         <Link to={`/shop/${item.shop?.id}`} className="cardlinks cardlinks-black">
           <p>
@@ -82,7 +79,7 @@ const ItemInformations = ({ item }) => {
           <Button
             className="btn_success_sass"
             variant="outline-success"
-            onClick={(event) => handleCart()}
+            onClick={(event) => handleCart(event, alert)}
           >
             Ajouter au panier
           </Button>
@@ -91,6 +88,12 @@ const ItemInformations = ({ item }) => {
       <Row className="mt-4">
         <TabsMoreInformations item={item} />
       </Row>
+
+      { currentUserId === item?.shop?.shopkeeper_id && (
+        <Row className="p-5 justify-content-end">
+          <UpdateItemButton item={item} />
+        </Row>
+      )}
     </Container>
   );
 };

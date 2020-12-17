@@ -119,7 +119,7 @@ const update = async (endpoint, {
 
 const remove = async (endpoint, {
   onSuccess,
-}) => {
+} = {}) => {
   const response = await request(endpoint, {
     method: 'delete',
   });
@@ -211,6 +211,12 @@ const setUrl = (url, params = {}, startOfQuery = true) => {
     newUrl += checkForFirstParameter(firstParameter);
     firstParameter = false;
     newUrl += `keyword=${encodeURIComponent(params.keyword.trim())}`;
+  }
+
+  if (params.location?.length > 0) {
+    newUrl += checkForFirstParameter(firstParameter);
+    firstParameter = false;
+    newUrl += `location=${encodeURIComponent(params.location.trim())}`;
   }
 
   if (params.category?.length > 0) {

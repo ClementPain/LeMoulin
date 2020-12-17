@@ -1,7 +1,7 @@
 class Shop < ApplicationRecord
 
   # Callbacks
-  after_create :set_owner_is_shopkeeper
+  after_create :set_owner_is_shopkeeper, :shop_creation_send
   before_destroy :set_owner_is_not_shopkeeper
   
   # Relationships
@@ -11,10 +11,6 @@ class Shop < ApplicationRecord
   has_many :items
   has_many :shop_categories_joins, dependent: :destroy
   has_many :shop_categories, through: :shop_categories_joins
-
-  attr_accessor :address, :latitude, :longitude
-  geocoded_by :address
-  after_validation :geocode, if: :address_changed?
 
   # Validation
   validates :name, :address, :siret, presence: true
@@ -41,16 +37,26 @@ class Shop < ApplicationRecord
     where('lower(description) LIKE ? ', "%#{keyword.downcase}%")
   }
 
+  scope :filter_by_location, lambda { |location|
+    where('lower(zip_code) LIKE ? OR lower(city) LIKE ?', "#{location.downcase}%", "%#{location.downcase}%")
+  }
+
   scope :filter_by_categories, lambda { |categories|
     select{ |shop|
       !( shop.shop_categories.map{ |cat| cat.title } & categories.split(',') ).empty?
     }
   }
 
+  def shop_creation_send
+    ShopMailer.creation_confirmation(self).deliver_now
+  end
+
   # methodes
   def self.search(params)
     shops = Shop.all.select_active_shops
     shops = shops.filter_by_name(params[:keyword]).or(shops.filter_by_description(params[:keyword])) if params[:keyword]
+    shops = shops.filter_by_location(params[:location]) if params[:location]
+
     shops = shops.filter_by_categories(params[:categories]) if params[:categories]
 
     shops

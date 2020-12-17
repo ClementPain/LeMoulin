@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
+import ShopImage from '../../pages/Shop/Boutique.jpg';
 
 const ShopCard = ({ shop }) => (
   <Card>
@@ -14,13 +15,17 @@ const ShopCard = ({ shop }) => (
       </Row>
     </Card.Header>
     <Card.Body>
-      <Card.Text>{ shop.description }</Card.Text>
-      <footer className="blockquote-footer">
-        {shop.address}
-        {' '}
-        -
-        {shop.city}
-      </footer>
+      <Row>
+        <Col sm={6}>
+          <Card.Text>{ shop.description }</Card.Text>
+          <footer className="blockquote-footer">
+            {shop.address} - {shop.city}
+          </footer>
+        </Col>
+        <Col sm={6} className='text-center'>
+          <img src={ShopImage} className='img-fluid' style={{height: 100}} />
+        </Col>
+      </Row>
     </Card.Body>
   </Card>
 );

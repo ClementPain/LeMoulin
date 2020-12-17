@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-create_orders = true
+create_orders = false
 
 if create_orders
   user = User.last
@@ -210,4 +210,3 @@ else
 
   puts "The database is filled with a few records with success !"
 end
-
