@@ -9,9 +9,10 @@ import Image from 'react-bootstrap/Image';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import ShopImage from './Boutique.jpg';
 import { find } from '../../api/api-manager';
+import BestItems from './BestItems';
 
 const Shop = () => {
-  const { currentUserId } = useSelector((state) => state);
+  const { currentUserId } = useSelector((state) => state) ? useSelector((state) => state) : null;
   const { id } = useParams();
   const [shop, setShop] = useState(null);
 
@@ -75,6 +76,26 @@ const Shop = () => {
           )}
         </Card.Body>
       </Card>
+<<<<<<< HEAD
+=======
+
+      { currentUserId && currentUserId === shop?.shopkeeper_id && (
+        <Row>
+          <Link to={`/shop/${id}/list_items`} className="btn btn_success_sass" variant="outline-success">
+            Voir tous mes produits
+          </Link>
+        </Row>
+      )}
+
+      {
+        currentUserId !== shop?.shopkeeper_id && (
+          <Row className="mt-5">
+            <BestItems />
+          </Row>
+        )
+      }
+
+>>>>>>> develop
     </Container>
   );
 };
