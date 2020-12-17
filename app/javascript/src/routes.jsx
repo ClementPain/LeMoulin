@@ -17,7 +17,7 @@ import CreateShop from './pages/CreateShop';
 import Shop from './pages/Shop/index';
 import CreateItem from './pages/Items/CreateItem';
 import UpdateItem from './pages/Items/UpdateItem';
-import ItemsShopList from './pages/Items/ItemsShopList';
+import ItemsShopList from './pages/DashboardShopkeeper/ItemsShopList';
 
 const Routes = () => (
   <Switch>
