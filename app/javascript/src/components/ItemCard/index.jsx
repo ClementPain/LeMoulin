@@ -8,28 +8,33 @@ const ItemCard = ({ item }) => (
     <Card.Header className="text-white bg-primary">
       <Card.Title>{ item.name }</Card.Title>
     </Card.Header>
-    <Card.Img variant="top" />
+    <Link
+      className="cardlinks"
+      to={`/shop/${item.shop.id}/item/${item.id}`}
+    >
+      <Card.Img variant="top" />
+    </Link>
     <Card.Body>
-      <Col className="mb-4">
-        { item.images && (
-        <Image publicId={item?.images[0]} cloudName="dhtysnpro" crop="scale" className="img-fluid" style={{ height: 100 }} />
-        )}
-        { item.images?.length === 0 && (
-        <Image publicId="sample" cloudName="dhtysnpro" crop="scale" className="img-fluid" style={{ height: 100 }} />
-        )}
-      </Col>
-      <Col>
-        <Link
-          className="cardlinks"
-          to={`/shop/${item.shop.id}/item/${item.id}`}
-        >
+      <Link
+        className="cardlinks"
+        to={`/shop/${item.shop.id}/item/${item.id}`}
+      >
+        <Col className="mb-4">
+          { item.images && (
+          <Image publicId={item?.images[0]} cloudName="dhtysnpro" crop="scale" className="img-fluid" style={{ height: 100 }} />
+          )}
+          { item.images?.length === 0 && (
+          <Image publicId="sample" cloudName="dhtysnpro" crop="scale" className="img-fluid" style={{ height: 100 }} />
+          )}
+        </Col>
+        <Col>
           <h6 className="mb-3 text-black">
             <Card.Subtitle className="mb-2 text-black">
               { item.shop_categories.map((cat) => cat.title).join(', ') }
             </Card.Subtitle>
           </h6>
-        </Link>
-      </Col>
+        </Col>
+      </Link>
       <Row>
         <Col sm={9}>
           <footer className="blockquote-footer">
