@@ -30,17 +30,16 @@ const Item = () => {
 
   return (
     <Container fluid>
-      <Row className="m-5">
+      <Row className="m-5 p-2">
         <Col sm={5}>
-            <ItemImage item={item} style={{ hight: 100 }}/>
+          <ItemImage item={item} style={{ hight: 100 }} />
         </Col>
-        <Col sm={1} />
-        <Col sm={6} className="p-4" style={{ backgroundColor: 'white' }}>
+        <Col sm={6} className="p-5" style={{ backgroundColor: 'white' }}>
           <ItemInformations item={item} />
         </Col>
       </Row>
       { currentUserId === item?.shop?.shopkeeper_id && (
-        <Row className="mt-4">
+        <Row className="p-5">
           <UpdateItemButton item={item} />
         </Row>
       )}
