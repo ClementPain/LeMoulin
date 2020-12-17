@@ -12,7 +12,7 @@ import Carousel from './Carousel';
 
 const Item = () => {
   const { item_id } = useParams();
-  const [item, setItem] = useState({});
+  const [item, setItem] = useState(null);
   const [alert, setAlert] = useState(false);
 
   useEffect(() => {
@@ -30,6 +30,8 @@ const Item = () => {
       setAlert(false)
     }, 2000)
   }
+
+  if (!item) return <p>Chargement...</p>
 
   return (
     <Container fluid>
@@ -51,8 +53,10 @@ const Item = () => {
         </Col>
       </Row>
 
-      <Row>
-        <CommentsOnItem item={item} />
+      <Row className='justify-content-center'>
+        <Col sm={9}>
+          <CommentsOnItem item={item} />
+        </Col>
       </Row>
     </Container>
   );
