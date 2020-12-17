@@ -39,6 +39,7 @@ const ShopsList = () => {
       onSuccess: (response) => {
         setShopsArray([]);
         response?.map((shop) => setShopsArray((previousArray) => [shop, ...previousArray]));
+        console.log(shopsArray)
       },
     });
   }, [debouncedSearch]);
@@ -78,7 +79,7 @@ const ShopsList = () => {
             <Form.Control
               className="p-2"
               type="text"
-              placeholder="Rechercher par ville..."
+              placeholder="Rechercher par ville (ou code postale)..."
               value={search.location}
               onChange={(event) => setSearch({ ...search, location: event.target.value })}
               />
@@ -102,7 +103,7 @@ const ShopsList = () => {
             <h4 className="text-center">Voici la liste des boutiques</h4>
           </Row>
 
-          <Container>
+          <Container style={{ width: '100%', height: 700 }} className="align-self-center overflow-auto">
             { shopsArray.map((shop) => (
               <Link to={`shop/${shop.id}`} key={shop.id} className="cardlinks">
                 <div className="mb-2">
