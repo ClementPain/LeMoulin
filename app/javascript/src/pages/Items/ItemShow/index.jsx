@@ -8,6 +8,7 @@ import Alert from 'react-bootstrap/Alert';
 import { find } from '../../../api/api-manager';
 
 import ItemInformations from './Informations';
+import CommentsOnItem from './Comments';
 import ItemImage from './Image';
 import { UpdateItemButton } from '../../../components/ItemCard/ItemButtons';
 
@@ -16,6 +17,7 @@ const Item = () => {
   const { item_id } = useParams();
   const [item, setItem] = useState({});
   const [alert, setAlert] = useState(false);
+  const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
     find(`items/${item_id}`, {
@@ -43,7 +45,18 @@ const Item = () => {
           <ItemImage item={item} style={{ hight: 100 }} />
         </Col>
         <Col sm={6} className="p-5" style={{ backgroundColor: 'white' }}>
-          <ItemInformations item={item} alert={showAlert} />
+          <Row className="justify-content-center">
+            <h2>{ item?.name }</h2>
+          </Row>
+          { !showComments && (
+            <ItemInformations item={item} alert={showAlert} />
+          )}
+          { showComments && (
+            <CommentsOnItem item={item} />
+          )}
+          <Row className="justify-content-end">
+
+          </Row>
         </Col>
       </Row>
       { currentUserId === item?.shop?.shopkeeper_id && (

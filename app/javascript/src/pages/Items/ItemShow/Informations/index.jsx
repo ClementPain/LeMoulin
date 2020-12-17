@@ -38,9 +38,6 @@ const ItemInformations = ({ item , alert}) => {
 
   return (
     <Container>
-      <Row className="justify-content-center">
-        <h2>{ item.name }</h2>
-      </Row>
       <Row className="justify-content-end">
         <Link to={`/shop/${item.shop?.id}`} className="cardlinks cardlinks-black">
           <p>
