@@ -14,11 +14,15 @@ const Shop = () => {
   const { currentUserId } = useSelector((state) => state) ? useSelector((state) => state) : null;
   const { id } = useParams();
   const [shop, setShop] = useState(null);
+  const [bestShopItemsList, setBestShopItemsList] = useState(null);
 
   useEffect(
     () => find(`shops/${id}`, {
       authRequired: true,
-      onSuccess: (result) => setShop(result),
+      onSuccess: (result) => {
+        setShop(result);
+        setBestShopItemsList(result.items);
+      },
     }),
     [],
   );
@@ -78,9 +82,13 @@ const Shop = () => {
 
       {
         currentUserId !== shop?.shopkeeper_id && (
+<<<<<<< HEAD
           <Row className="mt-5">
             {/* <BestItems /> */}
           </Row>
+=======
+          <BestItems bestItems={bestShopItemsList} />
+>>>>>>> develop
         )
       }
     </Container>

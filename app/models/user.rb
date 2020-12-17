@@ -1,8 +1,8 @@
 class User < ApplicationRecord
 
   # Callbacks
-  after_create :create_my_profile
-  
+  after_create :create_my_profile, :welcome_send
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise  :database_authenticatable, :registerable,
@@ -17,6 +17,10 @@ class User < ApplicationRecord
   # Instance methods
   def has_a_shop
     self.shop ? true : false
+  end
+
+  def welcome_send
+    UserMailer.welcome_email(self).deliver_now
   end
 
   private
