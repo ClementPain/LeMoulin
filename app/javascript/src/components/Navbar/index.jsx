@@ -46,10 +46,10 @@ const NavBar = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/">Home</Nav.Link>
+          <Nav.Link as={Link} to="/">Acceuil</Nav.Link>
           <Nav.Link as={Link} to="/shopslist">Boutiques</Nav.Link>
           <Nav.Link as={Link} to="/itemslist">Produits</Nav.Link>
-          <Nav.Link as={Link} to="/aboutus">About us</Nav.Link>
+          <Nav.Link as={Link} to="/aboutus">A propos</Nav.Link>
           {
           !isAuthenticated
           && (
