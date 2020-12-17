@@ -18,10 +18,10 @@ const ItemCard = ({ item }) => (
           </Card.Subtitle>
           <Card.Text>
             { item.images && (
-              <Image publicId={item?.images[0]} cloudName="dhtysnpro" crop="scale" className='img-fluid' style={{height:100}} />
+              <Image publicId={item?.images[0]} cloudName="dhtysnpro" crop="scale" className="img-fluid" style={{ height: 100 }} />
             )}
             { item.images?.length === 0 && (
-              <Image publicId='sample' cloudName="dhtysnpro" crop="scale" className='img-fluid' style={{height:100}} />
+              <Image publicId="sample" cloudName="dhtysnpro" crop="scale" className="img-fluid" style={{ height: 100 }} />
             )}
           </Card.Text>
         </div>
