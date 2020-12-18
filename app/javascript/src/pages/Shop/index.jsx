@@ -81,12 +81,6 @@ const Shop = () => {
               <Row>
                 <Col className="text-center mt-4">
                   <LinkerButton
-                    label="Changer les informations de ma boutique"
-                    to="#"
-                  />
-                </Col>
-                <Col className="text-center mt-4">
-                  <LinkerButton
                     label="Voir tous mes produits"
                     to={`/shop/${id}/list_items`}
                   />

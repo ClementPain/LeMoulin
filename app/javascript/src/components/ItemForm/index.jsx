@@ -110,7 +110,6 @@ const ItemForm = ({ handleSubmit, initialValues, createItem = true }) => {
             type="file"
             name="image_url"
             onChange={(e) => setItemImage(e.target)}
-            multiple
           />
           <Row className="justify-content-center mt-4">
             <Button

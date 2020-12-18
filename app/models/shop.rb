@@ -14,8 +14,8 @@ class Shop < ApplicationRecord
 
   # Validation
   validates :name, :address, :siret, presence: true
-  validates :name, length: {in: 3..80 }
-  validates :address, :city, length: {in: 5..100}
+  validates :name, :city, length: {in: 3..80 }
+  validates :address, length: {in: 5..100}
   validates :description, length: {in: 5..800}
 
   validates :zip_code, format: {

@@ -77,7 +77,7 @@ const Order = ({ order, nextStatus, reGetOrders }) => {
                 size="sm"
                 onClick={() => handleOnClick(nextStatus)}
               >
-                Passez le status à
+                Passer le statut à
                 {' '}
                 {translation[nextStatus]}
               </Button>
