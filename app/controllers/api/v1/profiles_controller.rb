@@ -1,5 +1,4 @@
 class Api::V1::ProfilesController < Api::V1::BaseController
-  
   before_action :authenticate_user!
   before_action :do_not_allow_to_updating_a_profile_other_your_own, only: [:update]
 

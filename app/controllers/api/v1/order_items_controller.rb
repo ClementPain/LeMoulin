@@ -1,5 +1,4 @@
 class Api::V1::OrderItemsController < Api::V1::BaseController
-
   before_action :authenticate_user!
 
   def index
