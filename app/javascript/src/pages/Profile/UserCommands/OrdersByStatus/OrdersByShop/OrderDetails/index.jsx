@@ -42,7 +42,7 @@ const OrderDetails = ({ order }) => {
 
   return (
     <>
-      <h5 className="text-center">{`Commande N° ${orderNum} du ${formatDate(orderDate)} `}</h5>
+      <h6 className="text-center">{`Commande N° ${orderNum} du ${formatDate(orderDate)} `}</h6>
       <Table striped bordered hover size="sm">
         <thead>
           <tr>

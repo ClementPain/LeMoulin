@@ -1,10 +1,18 @@
 class Api::V1::OrdersController < Api::V1::BaseController
+
   before_action :authenticate_user!, only: [:create, :index]
   
   def index
-    @orders = current_user_orders
+    @shop_id = params[:shop_id] 
+    if @shop_id
+      @shop = Shop.find(@shop_id)
 
-    render json: @orders, include: [:shop => {only: :name}]
+      render json: @shop.orders.to_json(:include => { :customer => {:include =>{:profile => {:only => [:last_name, :first_name]}}} })
+    else
+      @orders = current_user_orders
+
+      render json: @orders, include: [:shop => {only: :name}]
+    end
   end
   
   def create
@@ -46,9 +54,16 @@ class Api::V1::OrdersController < Api::V1::BaseController
     end
   end
 
+  def update
+    @order = Order.find(params[:id])
+    @order.update(order_params)
+
+    render_resource(@order)
+  end
+
   private
 
   def order_params
-    params.require(:order).permit(:shop_id)
+    params.require(:order).permit(:shop_id, :status)
   end
 end
