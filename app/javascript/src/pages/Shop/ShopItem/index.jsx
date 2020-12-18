@@ -21,10 +21,6 @@ const ShopItem = ({ item }) => {
           publicId={images[0]}
           cloudName="dhtysnpro"
         />
-        <Card.Img
-          variant="top"
-          src={faker.image.image()}
-        />
         <Card.Body className="d-flex flex-column justify-content-between">
           <Card.Title>
             <Link to={`/shop/${shop_id}/item/${id}`} className="cardlinks cardlinks-green">
