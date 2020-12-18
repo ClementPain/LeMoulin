@@ -40,7 +40,7 @@ const Shop = () => {
             }
             </p>
           </Card.Header>
-          <Jumbotron fluid style={{ backgroundImage: `url(${ShopImage})`, backgroundSize: 'cover', backgroundPosition: 'center center' }}>
+          <Jumbotron fluid style={{ backgroundImage: `url(${shop?.image ? shop.image : ShopImage})`, backgroundSize: 'cover', backgroundPosition: 'center center' }}>
             <div className="display-4 text-center" />
             <div className="my-4 text-center" />
           </Jumbotron>

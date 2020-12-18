@@ -1,8 +1,12 @@
 import React from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
 import ShopImage from '../../pages/Shop/Boutique.jpg';
+import { Image } from 'cloudinary-react';
 
-const ShopCard = ({ shop }) => (
+const ShopCard = ({ shop }) => {
+  console.log(shop)
+  
+  return (
   <Card>
     <Card.Header style={{ backgroundColor: '#45B5AA' }}>
       <Row>
@@ -23,11 +27,17 @@ const ShopCard = ({ shop }) => (
           </footer>
         </Col>
         <Col sm={6} className='text-center'>
-          <img src={ShopImage} className='img-fluid' style={{height: 100}} />
+          { shop.image && (
+            <Image publicId={shop.image} cloudName="dhtysnpro" crop="scale" className="img-fluid" style={{ height: 100 }} />
+          )}
+          { shop.image.length === 0 && (
+            <img src={ShopImage} className='img-fluid' style={{height: 100}} />
+          )}
         </Col>
       </Row>
     </Card.Body>
   </Card>
-);
+  )
+}
 
 export default ShopCard;
