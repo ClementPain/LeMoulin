@@ -6,10 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-create_orders = false
+create_orders = true
 
 if create_orders
-  user = User.last
+  Order.destroy_all
+
+  # Create some orders to test the feature cmds dashboard in Profile
+  last_user = User.last
 
   ['in_progress', 'prepared', 'validated', 'canceled'].each do |status|
     3.times do
@@ -21,11 +24,60 @@ if create_orders
         order_items << OrderItem.new(item: items.sample, quantity: Faker::Number.within(range: 1..10))
       end
       
-      Order.create(customer: user, shop: shop, order_items: order_items, status: status)
+      Order.create(customer: last_user, shop: shop, order_items: order_items, status: status)
+    end
+  end
+
+  puts "The database is filled with a few orders attached to #{last_user.email} with success !"
+  # --------------------------------------------------------------------------------------
+
+  # Create some orders to test the feature of orders tracking in shopkeeper dashboard
+  # Create a shop attached to last user, so user recently signing up
+  if last_user.shop
+    last_user.shop.destroy
+  end
+
+  category = ShopCategory.find_by(title: 'Librairie')
+  category = ShopCategory.new(title: 'Librairie') if !category
+
+  shop = Shop.create!(
+    name: 'Wazo',
+    description: 'Vendeur de livres',
+    address: '47 rue de la Goutte Or',
+    zip_code: '75018', 
+    city: 'Paris', 
+    siret: '000000000', 
+    is_active: true, 
+    shopkeeper: last_user,
+    shop_categories: [category] 
+  )
+
+  # Create some items attached to shop created above
+  50.times do
+    Item.create!(
+      name: Faker::Book.title,
+      description: Faker::Lorem.sentences(number: 10).join(', '),
+      price: Faker::Number.decimal(l_digits: 2),
+      stock: Faker::Number.within(range: 1..10),
+      shop: shop
+    )
+  end
+
+  ['in_progress', 'prepared', 'validated', 'canceled'].each do |status|
+    3.times do
+      items = shop.items
+      
+      order_items = []
+      3.times do
+        order_items << OrderItem.new(item: items.sample, quantity: Faker::Number.within(range: 1..10))
+      end
+
+      Order.create!(customer: (User.select {|user| user != last_user}).sample, shop: shop, order_items: order_items, status: status)
     end
   end
   
-  puts "The database is filled with a few orders attached to #{user.email} with success !"
+  puts "The database is filled with a few orders attached to shop of #{last_user.email} with success !"
+  # --------------------------------------------------------------------------------------
 else 
   Rails.application.eager_load!
   ApplicationRecord.descendants.each { |model|

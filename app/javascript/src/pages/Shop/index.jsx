@@ -9,6 +9,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import ShopImage from './Boutique.jpg';
 import { find } from '../../api/api-manager';
 import BestItems from './BestItems';
+import LinkerButton from './LinkerButton';
 
 const Shop = () => {
   const { currentUserId } = useSelector((state) => state) ? useSelector((state) => state) : null;
@@ -77,11 +78,26 @@ const Shop = () => {
             </Row>
 
             { currentUserId === shop?.shopkeeper_id && (
-            <Col className="text-center mt-4">
-              <Button as={Link} to={`/shop/${id}/list_items`} className="btn btn_success_sass" variant="outline-success">
-                Voir tous mes produits
-              </Button>
-            </Col>
+              <Row>
+                <Col className="text-center mt-4">
+                  <LinkerButton
+                    label="Changer les informations de ma boutique"
+                    to="#"
+                  />
+                </Col>
+                <Col className="text-center mt-4">
+                  <LinkerButton
+                    label="Voir tous mes produits"
+                    to={`/shop/${id}/list_items`}
+                  />
+                </Col>
+                <Col className="text-center mt-4">
+                  <LinkerButton
+                    label="Gérer les commandes effectuées"
+                    to={`/shop/${id}/orders_tracking`}
+                  />
+                </Col>
+              </Row>
             )}
 
           </Card.Body>
