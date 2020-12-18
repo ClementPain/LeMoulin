@@ -1,10 +1,8 @@
 class Api::V1::CartsController < ApplicationController
+  before_action :authenticate_user!
+  
   def create
     @items_in_cart = {}
-
-    puts '$$$$$$$$$$$$$$$$$$$'
-    puts params
-    puts '§§§§§§§§§§§§§§§§§§§'
 
     params['cart'].each do |shop, items|
       @items_in_cart[shop] = {}
