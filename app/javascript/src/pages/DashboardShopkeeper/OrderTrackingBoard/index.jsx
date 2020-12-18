@@ -29,7 +29,7 @@ const OrderTrackingBoard = () => {
     <Container fluid className="mt-3 pt-3">
       <Card>
         <Card.Header className="text-white px-4 h5" style={{ backgroundColor: '#45B5AA' }}>
-          Voici la liste de toutes les commandes aux près de votre boutique triées par status
+          Voici la liste de toutes les commandes auprès de votre boutique triées par statut
         </Card.Header>
         <Card.Body>
           <Accordion defaultActiveKey="0" style={{ width: '100%', height: 500 }} className="overflow-auto">
