@@ -50,8 +50,8 @@ const Shop = () => {
             }}
           />
           <Card.Body className="text-primary">
-            <Card.Title as="h4" className="text-center">Description</Card.Title>
-            <Card.Text className="text-center">
+            <Card.Title as="h5" className="text-center">Description</Card.Title>
+            <Card.Text className="text-center" style={{ fontSize: '1rem' }}>
               {
                 shop && shop.description
                   ? shop.description
@@ -89,11 +89,7 @@ const Shop = () => {
       </Container>
       {
         currentUserId !== shop?.shopkeeper_id && (
-          <Container className="px-5" fluid>
-            <Card className="p-3">
-              <BestItems bestItems={bestShopItemsList} />
-            </Card>
-          </Container>
+          <BestItems bestItems={bestShopItemsList} />
         )
       }
     </>

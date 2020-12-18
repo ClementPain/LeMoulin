@@ -3,7 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Image from 'cloudinary-react';
+import { Image } from 'cloudinary-react';
 import { Col, Card } from 'react-bootstrap';
 import faker from 'faker';
 
@@ -16,8 +16,8 @@ const ShopItem = ({ item }) => {
     <Col md={3} className="mb-4">
       <Card className="h-100">
         <Card.Img
-          as={Image}
           variant="top"
+          as={Image}
           publicId={images[0]}
           cloudName="dhtysnpro"
         />
