@@ -1,25 +1,33 @@
 import React from 'react';
 
-import { Container, Card, CardDeck } from 'react-bootstrap';
-
-import { Image } from 'cloudinary-react';
+import {
+  Container, Card, CardDeck, Row,
+} from 'react-bootstrap';
 
 const AboutUsComponent = () => (
 
-  <Container className="p-5" style={{ backgroundColor: '#DCDCDC' }}>
+  <Container className="p-5">
     <Container>
-      <h1>About us</h1>
-      <p>
-        We give you visibilty and assistance to showcase your store and implement Click & Collect
-      </p>
-      <div className="jumbotron text-center" style={{ backgroundColor: 'grey', backgroundSize: 'cover', backgroundPosition: 'center center' }}>
-        <p className="lead text-white">Our aim is to give visibility to small vendors to help them fight the Covid-19 period</p>
-        <div className="my-4">
-          <p className="text-white">It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        </div>
-      </div>
+      <h2 className="text-center mb-4">Comment ça marche</h2>
+      <Card>
+        <Card.Header className="text-center" style={{ backgroundColor: '#45B5AA' }}>
+          <Card.Title className="text-white mt-2">Vous êtes commercant?</Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <Card.Text />
+        </Card.Body>
+      </Card>
+      <Card className="mt-4">
+        <Card.Header className="text-center" style={{ backgroundColor: '#45B5AA' }}>
+          <Card.Title className="text-white mt-2">Vous êtes client?</Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <Card.Text />
+        </Card.Body>
+      </Card>
     </Container>
-    <Container>
+
+    <Container className="p-5">
       <h1>Our Team</h1>
       <p>
         The Best team from The Hacking Project
@@ -28,7 +36,7 @@ const AboutUsComponent = () => (
     <Container>
       <CardDeck>
         <Card>
-          <Image cloudName="dhtysnpro" publicId="sample" width="300" crop="scale" />
+          {/* <Image cloudName="dhtysnpro" publicId="sample" width="300" crop="scale" /> */}
           <Card.Img variant="top" src="holder.js/100px160" />
           <Card.Body>
             <Card.Title>Brahim</Card.Title>
