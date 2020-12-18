@@ -84,6 +84,7 @@ const ItemForm = ({ handleSubmit, initialValues, createItem = true }) => {
                 label="Prix"
                 min={0}
                 max={9999999.99}
+                step={0.01}
                 alert={alert}
               />
             </Col>
@@ -94,6 +95,7 @@ const ItemForm = ({ handleSubmit, initialValues, createItem = true }) => {
                 label="Nombre de produits en stock"
                 min={0}
                 max={9999999}
+                step={1}
                 alert={alert}
               />
             </Col>
