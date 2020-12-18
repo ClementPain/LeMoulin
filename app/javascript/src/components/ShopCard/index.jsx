@@ -3,10 +3,7 @@ import { Card, Row, Col } from 'react-bootstrap';
 import ShopImage from '../../pages/Shop/Boutique.jpg';
 import { Image } from 'cloudinary-react';
 
-const ShopCard = ({ shop }) => {
-  console.log(shop)
-  
-  return (
+const ShopCard = ({ shop }) => (
   <Card>
     <Card.Header style={{ backgroundColor: '#45B5AA' }}>
       <Row>
@@ -37,7 +34,6 @@ const ShopCard = ({ shop }) => {
       </Row>
     </Card.Body>
   </Card>
-  )
-}
+)
 
 export default ShopCard;

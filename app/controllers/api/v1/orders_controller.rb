@@ -34,7 +34,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
       if nb_order_item_created > 0
         if !@order.save || @errors.length > 0
-          render json: @errors, status: :errors
+          render json: @errors, status: :unprocessable_entity
         else
           @orders.push(@order)
         end

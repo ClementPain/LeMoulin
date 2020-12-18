@@ -4,7 +4,7 @@ import Switch from 'react-bootstrap/esm/Switch';
 import { Route, useRouteMatch } from 'react-router-dom';
 
 import {
-  Container, Row, Col, Card,
+  Container, Row, Col, Card, Alert
 } from 'react-bootstrap';
 
 import CurrentUserContext from './context';
@@ -19,6 +19,7 @@ const Profile = () => {
   const { path, url } = useRouteMatch();
   const { currentUserId } = useSelector((state) => state);
   const [currentUser, setCurrentUser] = useState(null);
+  const [alert, setAlert] = useState(false);
 
   const updateCurrentUser = (callback) => {
     if (!currentUserId) {
@@ -41,6 +42,15 @@ const Profile = () => {
     [currentUserId],
   );
 
+  const showAlert = () => {
+    setAlert(true);
+    window.setTimeout(() => {
+      setAlert(false);
+    }, 2000);
+  };
+
+  if (!currentUser) return <p>Chargement...</p>;
+
   return (
     <CurrentUserContext.Provider value={{
       currentUser,
@@ -48,6 +58,9 @@ const Profile = () => {
     }}
     >
       <Container fluid className="mt-3 pt-3">
+        <Alert variant="success" show={alert}>
+          Votre commande est en cours de préparation
+        </Alert>
         <Row>
           <Col md={3} className="mb-3 mb-md-0 pl-3">
             <Avatar />
@@ -58,7 +71,7 @@ const Profile = () => {
               <Card.Body>
                 <Switch style={{ padding: 0 }}>
                   <Route exact path={path}>
-                    <UserCart />
+                    <UserCart showOrderAlert={showAlert} />
                   </Route>
                   <Route path={`${path}/:selectedTab`}>
                     <Panel />

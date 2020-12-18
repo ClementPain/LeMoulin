@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :orders, only: %w[index create] do
         resources :order_items, only: %w[index]
       end
+      resources :notifications, only: %w[index update destroy]
     end
   end
 
