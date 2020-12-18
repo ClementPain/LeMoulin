@@ -19,6 +19,8 @@ const Notification = () => {
         response?.map((not) => {
           setNotifications((previousArray) => [not, ...previousArray]);
           if (!not.read) setNewNot(newNot + 1);
+          console.log(not)
+          console.log(newNot)
         });
       },
     })
@@ -31,8 +33,8 @@ const Notification = () => {
       as={ButtonGroup}
       style={{width: 250}}
       drop='up'
-      variant="outline-success"
-      className="btn_success_sass"
+      variant='outline-success'
+      className='btn_success_sass'
       title={`Notifications (${newNot})`}
     >
       { notifications.map((not) => (

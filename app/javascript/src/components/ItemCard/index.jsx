@@ -24,7 +24,7 @@ const ItemCard = ({ item }) => (
           <Image publicId={item?.images[0]} cloudName="dhtysnpro" crop="scale" className="img-fluid" style={{ height: 100 }} />
           )}
           { item?.images?.length === 0 && (
-          <Image publicId="sample" cloudName="dhtysnpro" crop="scale" className="img-fluid" style={{ height: 100 }} />
+          <Image publicId="sample" cloudName="dhtysnpro" crop="scale" className="img-fluid" style={{maxHeight: 100, maxWidth: 100}} />
           )}
         </Col>
         <Col>
