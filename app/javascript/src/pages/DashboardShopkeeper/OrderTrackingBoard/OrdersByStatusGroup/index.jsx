@@ -45,7 +45,7 @@ const ordersGroup = ({
           ? (
             <Card.Body>
               <Card.Text>
-                {`Vous n' avez aucune commande ${translation[status]}`}
+                {`Vous n'avez aucune commande ${translation[status]}`}
               </Card.Text>
             </Card.Body>
           )
