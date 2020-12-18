@@ -1,7 +1,7 @@
 class User < ApplicationRecord
 
   # Callbacks
-  # after_create :create_my_profile, :welcome_send
+  after_create :create_my_profile
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
