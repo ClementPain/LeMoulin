@@ -19,7 +19,12 @@ const NotCard = ({ not, updateList }) => {
   return (
   <Row className='w-100 p-2'>
     <Col sm={8}>
-      <p>{ not.message }</p>
+      {!not.read && (
+        <p><b>{ not.message }</b></p>
+      )}
+      {not.read && (
+        <p>{ not.message }</p>
+      )}
     </Col>
     <Col sm={2} className='text-center'>
       <p onClick={() => handleUpdate()}>Vu</p>

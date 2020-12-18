@@ -33,10 +33,8 @@ const Home = () => {
 
     <Container fluid>
       <Row className='mt-5 justify-content-center'>
-        <h5>Trouvez les boutiques proches de chez vous</h5>
-      </Row>
-      <Row className='mt-5 justify-content-center'>
-        <Col sm={8}>
+        <Col sm={4} style={{backgroundColor: '#45B5AA'}} className='p-3 text-center'>
+          <h5 className='mb-5'>Trouvez les boutiques proches de chez vous</h5>
           <Form onSubmit={(event) => handleSearch(event)}   >
             <Form.Group className="text-white">
               <Form.Control
@@ -50,7 +48,7 @@ const Home = () => {
             <Row className='justify-content-center'>
               <Button
                 type="submit"
-                className="btn_success_sass" variant="outline-success"
+                variant="outline-primary"
                 >
                 Chercher
               </Button>

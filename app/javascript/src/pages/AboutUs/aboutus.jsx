@@ -2,7 +2,7 @@
 import React from 'react';
 
 import {
-  Container, Card, CardDeck,
+  Container, Card, CardDeck, Row
 } from 'react-bootstrap';
 
 import Image from 'react-bootstrap/Image';
@@ -22,10 +22,10 @@ const AboutUsComponent = () => (
         </Card.Header>
         <Card.Body>
           <Card.Text className="text-dark p-2">
-            Il peut créer sa boutique en ligne sur le site pour gagner en visibilité auprès de ses clients
-            et augmenter ses ventes.
-            Il indique sur le site les produits qu'il a en stock et reçoit une alerte (mail, alerte interne au site, sms...)
-            dès qu'une commande est passée. Les stocks sont automatiquement décrémentés.
+            Créez votre boutique en ligne, ajoutez vos produits et mettez les en valeurs auprès de votre clientèle !
+            Vos futurs clients peuvent ainsi découvrir les nouveautés de votre magasin et les commander en ligne.
+            Vous êtes informé en tant réel de toutes les commandes et pouvez ajuster facilement vos stocks.
+            Un système intuitif et efficace pour valoriser votre enseigne !
           </Card.Text>
         </Card.Body>
       </Card>
@@ -35,11 +35,9 @@ const AboutUsComponent = () => (
         </Card.Header>
         <Card.Body>
           <Card.Text className="text-dark p-2">
-            L'utilisateur crée un compte
-            Il peut naviguer dans l'application pour rechercher des informations sur les commerces autour de chez lui.
-            Il peut faire un tri par produit, type de commerce, lieu...
-            Il peut commander et payer directement sur le site puis aller chercher son produit dans le magasin.
-            Si besoin il peut contacter par message le commerçant pour plus d'information.
+            Faites du shopping dans les boutiques proches de chez vous !
+            Le Moulin est une plateforme en ligne destinée à valoriser les commerces de proximité
+            Découvrez les nouveaux produits de votre région, commandez les et récupérez les auprès des commerçants !
           </Card.Text>
         </Card.Body>
       </Card>
@@ -54,7 +52,9 @@ const AboutUsComponent = () => (
     <Container>
       <CardDeck>
         <Card className="text-center">
-          <Image src={Image1} style={{ height: 200, width: 200 }} roundedCircle />
+          <Row className='justify-content-center'>
+            <Image src={Image1} style={{ height: 200, width: 200 }} roundedCircle />
+          </Row>
           <Card.Body>
             <Card.Title>Brahim Ouinten</Card.Title>
           </Card.Body>
@@ -63,7 +63,9 @@ const AboutUsComponent = () => (
           </Card.Footer>
         </Card>
         <Card className="text-center">
-          <Image src={Image2} style={{ height: 200, width: 200 }} roundedCircle className="text-center" />
+          <Row className='justify-content-center'>
+            <Image src={Image2} style={{ height: 200, width: 200 }} roundedCircle className="text-center" />
+          </Row>
           <Card.Body>
             <Card.Title>Nazanin Farshad</Card.Title>
           </Card.Body>
@@ -72,7 +74,9 @@ const AboutUsComponent = () => (
           </Card.Footer>
         </Card>
         <Card className="text-center">
-          <Image src={Image3} style={{ height: 200, width: 200 }} roundedCircle className="text-center" />
+          <Row className='justify-content-center'>
+            <Image src={Image3} style={{ height: 200, width: 200 }} roundedCircle className="text-center" />
+          </Row>
           <Card.Body>
             <Card.Title>Clement Pain</Card.Title>
           </Card.Body>
@@ -81,7 +85,9 @@ const AboutUsComponent = () => (
           </Card.Footer>
         </Card>
         <Card className="text-center">
-          <Image src={Image4} style={{ height: 200, width: 200 }} roundedCircle className="text-center" />
+          <Row className='justify-content-center'>
+            <Image src={Image4} style={{ height: 200, width: 200 }} roundedCircle className="text-center" />
+          </Row>
           <Card.Body>
             <Card.Title>Karim Fathi</Card.Title>
           </Card.Body>
