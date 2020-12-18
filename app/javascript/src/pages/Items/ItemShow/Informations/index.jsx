@@ -27,7 +27,6 @@ const ItemInformations = ({ item , alert}) => {
     if (Object.keys(cartCookie)?.includes(item.shop.id.toString())) {
       if (Object.keys(cartCookie[item.shop.id])?.includes(item.id.toString())) {
         cartCookie[item.shop.id][item.id] = parseInt(cartCookie[item.shop.id][item.id]) + parseInt(nbItemToAddToCart);
-        console.log(cartCookie[item.shop.id][item.id]);
       } else {
         cartCookie[item.shop.id][item.id] = nbItemToAddToCart;
       }

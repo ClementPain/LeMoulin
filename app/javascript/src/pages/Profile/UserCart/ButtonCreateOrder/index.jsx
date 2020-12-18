@@ -4,15 +4,16 @@ import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Cookie from 'js-cookie';
 
-const ButtonCreateOrder = ({ cart, setAlert }) => {
+const ButtonCreateOrder = ({ cart, setAlert, showOrderAlert }) => {
   const history = useHistory()
 
   const handleOrder = (cart, setAlert) => {
     create('orders', {
       data: { order: cart },
       onSuccess: () => {
-        Cookie.remove('cart')
-        history.push('/profile/my_cmds')
+        Cookie.remove('cart');
+        history.push('/profile/my_cmds');
+        showOrderAlert;
       },
       onError: (error) => {
         console.log('error', error)

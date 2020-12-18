@@ -16,6 +16,8 @@ Rails.application.routes.draw do
         resources :comment_on_items, only: %w[index create update destroy] 
       end
       resources :carts, only: %w[create] 
+      resources :notifications, only: %w[index update destroy]
+
     end
   end
 
