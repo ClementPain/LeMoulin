@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import {
-  Col, Row, Container, Button
+  Col, Row, Container, Button,
 } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 import { find } from '../../../api/api-manager';
@@ -25,18 +25,22 @@ const Item = () => {
   }, []);
 
   const showAlert = () => {
-    setAlert(true)
-    window.setTimeout(()=>{
-      setAlert(false)
-    }, 2000)
-  }
+    setAlert(true);
+    window.setTimeout(() => {
+      setAlert(false);
+    }, 2000);
+  };
 
-  if (!item) return <p>Chargement...</p>
+  if (!item) return <p>Chargement...</p>;
 
   return (
     <Container fluid>
-      <Alert variant='success' show={alert} >
-        Le produit { item.name } a été ajouté à votre panier
+      <Alert variant="success" show={alert}>
+        Le produit
+        {' '}
+        { item.name }
+        {' '}
+        a été ajouté à votre panier
       </Alert>
 
       <Row className="m-5 p-2">
@@ -47,13 +51,15 @@ const Item = () => {
           <Row className="justify-content-center">
             <h2>{ item?.name }</h2>
           </Row>
-            <ItemInformations item={item} alert={showAlert} />
-          <Row className="justify-content-end">
-          </Row>
+          <ItemInformations
+            item={item}
+            alert={showAlert}
+          />
+          <Row className="justify-content-end" />
         </Col>
       </Row>
 
-      <Row className='justify-content-center'>
+      <Row className="justify-content-center">
         <Col sm={9}>
           <CommentsOnItem item={item} />
         </Col>

@@ -13,7 +13,7 @@ class Api::V1::ShopsController < Api::V1::BaseController
   end
 
   def create
-    shop_category_ids = shop_params[:shop_category_ids].split(',')
+    shop_category_ids = shop_params[:shop_category_ids]
     shop_full_params = shop_params.merge({
       shopkeeper: current_user,
       shop_category_ids: shop_category_ids,
@@ -36,7 +36,7 @@ class Api::V1::ShopsController < Api::V1::BaseController
   end
 
   def shop_params
-    params.require(:shop).permit(:name, :shop_category_ids, :description, :address, :zip_code, :city, :siret, :is_active, :image)
+    params.require(:shop).permit(:name, :description, :address, :zip_code, :city, :siret, :is_active, :image, shop_category_ids: [])
   end
 
   def not_permit_to_create_more_than_one_shop

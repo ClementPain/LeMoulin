@@ -29,7 +29,7 @@ const Shop = () => {
 
   return (
     <>
-      <Container className="mt-4">
+      <Container className="p-5" fluid>
         <Card>
           <Card.Header style={{ backgroundColor: '#45B5AA' }} className="text-center p-2">
             <h4 className="text-white">{ shop && shop.name}</h4>
@@ -40,18 +40,23 @@ const Shop = () => {
             }
             </p>
           </Card.Header>
-          <Jumbotron fluid style={{ backgroundImage: `url(${shop?.image ? shop.image : ShopImage})`, backgroundSize: 'cover', backgroundPosition: 'center center' }}>
-            <div className="display-4 text-center" />
-            <div className="my-4 text-center" />
-          </Jumbotron>
+          <Jumbotron
+            fluid
+            style={{
+              backgroundImage: `url(${shop?.image ? shop.image : ShopImage})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center center',
+              height: '300px',
+            }}
+          />
           <Card.Body className="text-primary">
-            <Card.Title as="h6" className="text-center">Description</Card.Title>
-            <Card.Text className="text-center">
+            <Card.Title as="h5" className="text-center">Description</Card.Title>
+            <Card.Text className="text-center" style={{ fontSize: '1rem' }}>
               {
-              shop && shop.description
-                ? shop.description
-                : 'Shop description'
-            }
+                shop && shop.description
+                  ? shop.description
+                  : 'Shop description'
+              }
             </Card.Text>
             <Row>
               <Col className="text-center mt-4">
@@ -84,9 +89,7 @@ const Shop = () => {
       </Container>
       {
         currentUserId !== shop?.shopkeeper_id && (
-          <Container>
-            <BestItems bestItems={bestShopItemsList} />
-          </Container>
+          <BestItems bestItems={bestShopItemsList} />
         )
       }
     </>

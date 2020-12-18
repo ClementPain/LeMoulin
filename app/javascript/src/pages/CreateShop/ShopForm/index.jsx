@@ -32,11 +32,9 @@ const ShopForm = () => {
   const [itemImage, setItemImage] = useState(null);
 
   const handleNewShopCreation = (params) => {
-    const newParams = { ...params, shop_category_ids: params.shop_category_ids.join(',') };
-
     create('shops', {
       data: {
-        shop: newParams,
+        shop: params,
       },
       onError: (error) => setAlert(error),
       onErrors: (errors) => setAlert(errors),
