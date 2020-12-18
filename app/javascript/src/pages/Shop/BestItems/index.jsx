@@ -9,11 +9,10 @@ import {
 import ShopItem from '../ShopItem';
 
 const BestItems = ({ bestItems }) => {
-  const [showLength, setShowLength] = useState(10);
+  const [showLength, setShowLength] = useState(6);
 
   const showMore = () => {
-    console.log('show more');
-    setShowLength(showLength + 10);
+    setShowLength(showLength + 6);
   };
 
   const handleOnClick = () => { showMore(); };
