@@ -11,35 +11,39 @@ class Api::V1::OrdersController < Api::V1::BaseController
     @orders = []
     @errors = []
 
-    puts '$$$$$$$$$$$$$$$$$$$'
-    puts 'order'
-    puts params['order']
-
     params['order'].each do |shop, items|
       @order = Order.new(shop: Shop.find(shop.to_i), customer: current_user)
-
-      puts '@order'
-      puts @order
-      puts items
+      nb_order_item_created = 0
 
       items.each do |item, nb_in_cart|
-        puts 'item'
-        puts item
-        @order_item = OrderItem.new(quantity: nb_in_cart, order: @order, item_id: item)
-        
-        if !@order_item.save
-          @errors.push(@order_item.errors)
+        if (Item.find(item).stock > 0 && nb_in_cart.to_i > 0)
+          nb_order_item_created += 1
+          if (Item.find(item).stock < nb_in_cart.to_i)
+            @errors.push("not enough stock")
+          else
+            @order_item = OrderItem.new(quantity: nb_in_cart, order: @order, item_id: item)
+
+            if !@order_item.save
+              @errors.push(@order_item.errors)
+            else
+              Item.find(item).update(stock: Item.find(item).stock - nb_in_cart.to_i)
+            end
+          end
         end
       end
 
-      if @order.save
-        @orders.push(@order)
-      else
-        render json: @errors, status: :unprocessable_entity
+      if nb_order_item_created > 0
+        if !@order.save || @errors.length > 0
+          render json: @errors, status: :errors
+        else
+          @orders.push(@order)
+        end
       end
     end
-    puts '$$$$$$$$$$$$$$$$$$$'
-    render json: @orders, status: :created
+
+    if @errors.length === 0
+      render json: @orders, status: :created
+    end
   end
 
   private

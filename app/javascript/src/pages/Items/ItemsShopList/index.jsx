@@ -43,7 +43,7 @@ const ItemsShopList = () => {
               className="btn btn_success_sass m-4"
               variant="outline-success"
             >
-              Créer un nouveau produit
+              Ajouter un produit
             </Button>
           </Row>
           <h5 className="text-black pt-4">Filtrer les résultats</h5>

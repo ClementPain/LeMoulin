@@ -62,15 +62,20 @@ const NavBar = () => {
           {
           isAuthenticated
           && (
+            <>
+            { currentUser?.shop && (
+              <Nav.Link as={Link} to={`/shop/${currentUser.shop.id}/list_items`}>Ma boutique</Nav.Link>
+            )}
             <NavDropdown title="Mon Compte" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/profile">Mon Profil</NavDropdown.Item>
               { currentUser?.shop && (
                 <NavDropdown.Item as={Link} to={`/shop/${currentUser.shop.id}`}>
-                  Ma boutique
+                  Info boutique
                 </NavDropdown.Item>
               )}
               <NavDropdown.Item as={Link} to="/logout">Déconnexion</NavDropdown.Item>
             </NavDropdown>
+            </>
           )
         }
           <Navbar.Brand as={Link} to="/profile/my_cart">
