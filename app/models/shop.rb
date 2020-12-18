@@ -1,7 +1,7 @@
 class Shop < ApplicationRecord
 
   # Callbacks
-  after_create :set_owner_is_shopkeeper, :shop_creation_send
+  after_create :set_owner_is_shopkeeper
   before_destroy :set_owner_is_not_shopkeeper
   
   # Relationships
