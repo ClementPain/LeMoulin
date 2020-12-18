@@ -1,8 +1,15 @@
+/* eslint-disable max-len */
 import React from 'react';
 
 import {
-  Container, Card, CardDeck, Row,
+  Container, Card, CardDeck,
 } from 'react-bootstrap';
+
+import Image from 'react-bootstrap/Image';
+import Image1 from './Brahim.jpg';
+import Image2 from './Nazanin.jpeg';
+import Image3 from './Clement.png';
+import Image4 from './Karim.png';
 
 const AboutUsComponent = () => (
 
@@ -46,54 +53,37 @@ const AboutUsComponent = () => (
     </Container>
     <Container>
       <CardDeck>
-        <Card>
-          <Card.Img variant="top" src="holder.js/100px160" />
+        <Card className="text-center">
+          <Image src={Image1} style={{ height: 200, width: 200 }} roundedCircle />
           <Card.Body>
-            <Card.Title>Brahim</Card.Title>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural lead-in to
-              additional content. This content is a little bit longer.
-            </Card.Text>
+            <Card.Title>Brahim Ouinten</Card.Title>
           </Card.Body>
           <Card.Footer className="text-center">
             <small className="text-muted text-center">THP Next session 14</small>
           </Card.Footer>
         </Card>
-        <Card>
-          <Card.Img variant="top" src="holder.js/100px160" />
+        <Card className="text-center">
+          <Image src={Image2} style={{ height: 200, width: 200 }} roundedCircle className="text-center" />
           <Card.Body>
-            <Card.Title>Nazanin</Card.Title>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural lead-in to
-              additional content. This content is a little bit longer.
-            </Card.Text>
+            <Card.Title>Nazanin Farshad</Card.Title>
           </Card.Body>
           <Card.Footer className="text-center">
             <small className="text-muted">THP Next session 14</small>
           </Card.Footer>
         </Card>
-        <Card>
-          <Card.Img variant="top" src="holder.js/100px160" />
+        <Card className="text-center">
+          <Image src={Image3} style={{ height: 200, width: 200 }} roundedCircle className="text-center" />
           <Card.Body>
-            <Card.Title>Clément</Card.Title>
-            <Card.Text>
-              This card has supporting text below as a natural lead-in to additional
-              content.
-              {' '}
-            </Card.Text>
+            <Card.Title>Clement Pain</Card.Title>
           </Card.Body>
           <Card.Footer className="text-center">
             <small className="text-muted text-center">THP Next session 14</small>
           </Card.Footer>
         </Card>
-        <Card>
-          <Card.Img variant="top" src="holder.js/100px160" />
+        <Card className="text-center">
+          <Image src={Image4} style={{ height: 200, width: 200 }} roundedCircle className="text-center" />
           <Card.Body>
-            <Card.Title>Karim</Card.Title>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural lead-in to
-              additional content. This content is a little bit longer.
-            </Card.Text>
+            <Card.Title>Karim Fathi</Card.Title>
           </Card.Body>
           <Card.Footer className="text-center">
             <small className="text-muted text-center">THP Next session 14</small>
