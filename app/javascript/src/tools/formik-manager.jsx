@@ -72,6 +72,7 @@ const MyNumberInput = (props) => {
     label,
     min,
     max,
+    step,
     name,
     alert,
   } = props;
@@ -79,7 +80,7 @@ const MyNumberInput = (props) => {
   return (
     <FormGroup>
       {label && <Form.Label htmlFor={name}>{label}</Form.Label>}
-      <Form.Control type={type} min={min} max={max} className="text-input" {...field} name={name} />
+      <Form.Control type={type} min={min} max={max} step={step} className="text-input" {...field} name={name} />
       {
         meta.touched && meta.error
           ? (<div className="text-danger">{meta.error}</div>)
