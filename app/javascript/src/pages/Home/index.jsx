@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Form, Button } from 'react-bootstrap';
-
 import { useHistory } from 'react-router-dom';
-import { setUrl } from '../../api/api-manager';
 
+import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import Hero from '../../components/Jumbotron';
 
 const Home = () => {
   const history = useHistory();
+  const [alert, setAlert] = useState(history.location.state?.alertPrivateRoute ? history.location.state.alertPrivateRoute : false)
 
   const [search, setSearch] = useState({ location: '' });
 
@@ -19,27 +18,43 @@ const Home = () => {
     });
   };
 
+  useEffect( () => {
+    window.setTimeout(()=>{
+      setAlert(false)
+    }, 2000)
+  }, [])
+
   return (
   <main>
+    <Alert variant='danger' show={alert} >
+      Vous n'avez pas accès à cette page
+    </Alert>
     <Hero />
 
     <Container fluid>
       <Row className='mt-5 justify-content-center'>
-        <h5>Trouvez les boutiques proches de chez vous</h5>
-      </Row>
-      <Row className='mt-5 justify-content-center w-80'>
-        <Form onSubmit={(event) => handleSearch(event)}>
-          <Form.Group className="text-white">
-            <Form.Control
-              className="p-2"
-              type="text"
-              placeholder="Rechercher par ville (ou code postale)..."
-              value={search.location}
-              onChange={(event) => setSearch({ ...search, location: event.target.value })}
-              />
-          </Form.Group>
-          <Button type="submit" className="btn_success_sass" variant="outline-success">Chercher</Button>
-        </Form>
+        <Col sm={4} style={{backgroundColor: '#45B5AA'}} className='p-3 text-center'>
+          <h5 className='mb-5'>Trouvez les boutiques proches de chez vous</h5>
+          <Form onSubmit={(event) => handleSearch(event)}   >
+            <Form.Group className="text-white">
+              <Form.Control
+                className="p-2"
+                type="text"
+                placeholder="Rechercher par ville (ou code postale)..."
+                value={search.location}
+                onChange={(event) => setSearch({ ...search, location: event.target.value })}
+                />
+            </Form.Group>
+            <Row className='justify-content-center'>
+              <Button
+                type="submit"
+                variant="outline-primary"
+                >
+                Chercher
+              </Button>
+            </Row>
+          </Form>
+        </Col>
       </Row>
     </Container>
   </main>

@@ -2,6 +2,7 @@ class Api::V1::ShopsController < Api::V1::BaseController
   before_action :set_shop, only: %w[show update]
   before_action :authenticate_user!, only: %w[create update]
   before_action :not_permit_to_create_more_than_one_shop, only: %w[create]
+  before_action :do_not_allow_to_update_a_shop_other_your_own, only: %w[update]
   
   def index
     @shops = Shop.search(params)
@@ -13,7 +14,7 @@ class Api::V1::ShopsController < Api::V1::BaseController
   end
 
   def create
-    shop_category_ids = shop_params[:shop_category_ids].split(',')
+    shop_category_ids = shop_params[:shop_category_ids]
     shop_full_params = shop_params.merge({
       shopkeeper: current_user,
       shop_category_ids: shop_category_ids,
@@ -36,7 +37,7 @@ class Api::V1::ShopsController < Api::V1::BaseController
   end
 
   def shop_params
-    params.require(:shop).permit(:name, :shop_category_ids, :description, :address, :zip_code, :city, :siret, :is_active, :image)
+    params.require(:shop).permit(:name, :description, :address, :zip_code, :city, :siret, :is_active, :image, shop_category_ids: [])
   end
 
   def not_permit_to_create_more_than_one_shop
@@ -47,6 +48,21 @@ class Api::V1::ShopsController < Api::V1::BaseController
             status: '403',
             title: 'Bad Request',
             detail: 'You aren\'t allowed to create more than one shop',
+            code: '100'
+          }
+        ]
+      }, status: :bad_request
+    end
+  end
+
+  def do_not_allow_to_update_a_shop_other_your_own
+    if @shop.shopkeeper_id =! current_user.id
+      render json: {
+        errors: [
+          {
+            status: '403',
+            title: 'Bad Request',
+            detail: 'You aren\'t allowed to update a shop other than yours',
             code: '100'
           }
         ]

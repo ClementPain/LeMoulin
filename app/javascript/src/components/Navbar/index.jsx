@@ -28,16 +28,6 @@ const NavBar = () => {
     }, [currentUserId],
   );
 
-  const [nbItemInCart, setNbItemInCart] = useState(0);
-
-  // useEffect(() => {
-  //   Object.keys(Cookie.get('cart')).map( (shop_id) => {
-  //     Object.keys(Cookie.get('cart')[shop_id]).map( () => {
-  //       setNbItemInCart(nbItemInCart);
-  //     })
-  //   })
-  // }, [Cookie.get('cart')])
-
   return (
     <Navbar bg="primary" variant="dark" expand="lg">
       <Navbar.Brand as={Link} to="/">
@@ -50,37 +40,32 @@ const NavBar = () => {
           <Nav.Link as={Link} to="/shopslist">Boutiques</Nav.Link>
           <Nav.Link as={Link} to="/itemslist">Produits</Nav.Link>
           <Nav.Link as={Link} to="/aboutus">A propos</Nav.Link>
-          {
-          !isAuthenticated
-          && (
+          { !isAuthenticated && (
             <NavDropdown title="Rejoignez nous" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/register">Inscription</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/login">Connexion</NavDropdown.Item>
             </NavDropdown>
-          )
-        }
-          {
-          isAuthenticated
-          && (
+          )}
+          { isAuthenticated && (
             <>
             { currentUser?.shop && (
-              <Nav.Link as={Link} to={`/shop/${currentUser.shop.id}/list_items`}>Ma boutique</Nav.Link>
+              <NavDropdown title="Ma Boutique" id="basic-nav-dropdown">
+                <NavDropdown.Item as={Link} to={`/shop/${currentUser.shop.id}`}>Accueil boutique</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to={`/shop/${currentUser.shop.id}/list_items`}>Mes produits</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to={`/shop/${currentUser.shop.id}/orders_tracking`}>Mes commandes</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to={`/shop/${currentUser.shop.id}/create_an_item`}>Ajouter un produit</NavDropdown.Item>
+              </NavDropdown>
             )}
             <NavDropdown title="Mon Compte" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/profile">Mon Profil</NavDropdown.Item>
-              { currentUser?.shop && (
-                <NavDropdown.Item as={Link} to={`/shop/${currentUser.shop.id}`}>
-                  Info boutique
-                </NavDropdown.Item>
-              )}
               <NavDropdown.Item as={Link} to="/logout">Déconnexion</NavDropdown.Item>
             </NavDropdown>
+            
+            <Navbar.Brand as={Link} to="/profile/my_cart">
+              <CaddyIcon />
+            </Navbar.Brand>
             </>
-          )
-        }
-          <Navbar.Brand as={Link} to="/profile/my_cart">
-            <CaddyIcon />
-          </Navbar.Brand>
+          )}
         </Nav>
         <SearchBar />
       </Navbar.Collapse>

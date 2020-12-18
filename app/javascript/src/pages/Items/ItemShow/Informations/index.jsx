@@ -13,7 +13,7 @@ import TabsMoreInformations from './TabsMoreInformations';
 
 const ItemInformations = ({ item , alert}) => {
   const [nbItemToAddToCart, setNbItemToAddToCart] = useState(1);
-  const { currentUserId } = useSelector((state) => state);
+  const { currentUserId, isAuthenticated } = useSelector((state) => state);
 
   const handleCart = (event, alert) => {
     event.preventDefault();
@@ -27,7 +27,6 @@ const ItemInformations = ({ item , alert}) => {
     if (Object.keys(cartCookie)?.includes(item.shop.id.toString())) {
       if (Object.keys(cartCookie[item.shop.id])?.includes(item.id.toString())) {
         cartCookie[item.shop.id][item.id] = parseInt(cartCookie[item.shop.id][item.id]) + parseInt(nbItemToAddToCart);
-        console.log(cartCookie[item.shop.id][item.id]);
       } else {
         cartCookie[item.shop.id][item.id] = nbItemToAddToCart;
       }
@@ -76,13 +75,15 @@ const ItemInformations = ({ item , alert}) => {
             value={nbItemToAddToCart}
             onChange={(event) => setNbItemToAddToCart(event.target.value)}
           />
-          <Button
-            className="btn_success_sass"
-            variant="outline-success"
-            onClick={(event) => handleCart(event, alert)}
-          >
-            Ajouter au panier
-          </Button>
+          { isAuthenticated && (
+            <Button
+              className="btn_success_sass"
+              variant="outline-success"
+              onClick={(event) => handleCart(event, alert)}
+            >
+              Ajouter au panier
+            </Button>
+          )}
         </Form>
       </Row>
       <Row className="mt-4">

@@ -1,84 +1,98 @@
+/* eslint-disable max-len */
 import React from 'react';
 
-import { Container, Card, CardDeck } from 'react-bootstrap';
+import {
+  Container, Card, CardDeck, Row
+} from 'react-bootstrap';
 
-import { Image } from 'cloudinary-react';
+import Image from 'react-bootstrap/Image';
+import Image1 from './Brahim.jpg';
+import Image2 from './Nazanin.jpeg';
+import Image3 from './Clement.png';
+import Image4 from './Karim.png';
 
 const AboutUsComponent = () => (
 
-  <Container className="p-5" style={{ backgroundColor: '#DCDCDC' }}>
+  <Container className="p-5">
     <Container>
-      <h1>About us</h1>
-      <p>
-        We give you visibilty and assistance to showcase your store and implement Click & Collect
-      </p>
-      <div className="jumbotron text-center" style={{ backgroundColor: 'grey', backgroundSize: 'cover', backgroundPosition: 'center center' }}>
-        <p className="lead text-white">Our aim is to give visibility to small vendors to help them fight the Covid-19 period</p>
-        <div className="my-4">
-          <p className="text-white">It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        </div>
-      </div>
+      <h3 className="text-center mb-4">Comment ça marche</h3>
+      <Card>
+        <Card.Header className="text-center" style={{ backgroundColor: '#45B5AA' }}>
+          <Card.Title className="text-white mt-2">Vous êtes commercant?</Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <Card.Text className="text-dark p-2">
+            Créez votre boutique en ligne, ajoutez vos produits et mettez les en valeurs auprès de votre clientèle !
+            Vos futurs clients peuvent ainsi découvrir les nouveautés de votre magasin et les commander en ligne.
+            Vous êtes informé en tant réel de toutes les commandes et pouvez ajuster facilement vos stocks.
+            Un système intuitif et efficace pour valoriser votre enseigne !
+          </Card.Text>
+        </Card.Body>
+      </Card>
+      <Card className="mt-4">
+        <Card.Header className="text-center" style={{ backgroundColor: '#45B5AA' }}>
+          <Card.Title className="text-white mt-2">Vous êtes client?</Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <Card.Text className="text-dark p-2">
+            Faites du shopping dans les boutiques proches de chez vous !
+            Le Moulin est une plateforme en ligne destinée à valoriser les commerces de proximité
+            Découvrez les nouveaux produits de votre région, commandez les et récupérez les auprès des commerçants !
+          </Card.Text>
+        </Card.Body>
+      </Card>
     </Container>
-    <Container>
-      <h1>Our Team</h1>
-      <p>
-        The Best team from The Hacking Project
+
+    <Container className="p-5">
+      <h3 className="text-center">Notre équipe</h3>
+      <p className="text-center">
+        La meilleure équipe de The Hacking Project Next
       </p>
     </Container>
     <Container>
       <CardDeck>
-        <Card>
-          <Image cloudName="dhtysnpro" publicId="sample" width="300" crop="scale" />
-          <Card.Img variant="top" src="holder.js/100px160" />
+        <Card className="text-center">
+          <Row className='justify-content-center'>
+            <Image src={Image1} style={{ height: 200, width: 200 }} roundedCircle />
+          </Row>
           <Card.Body>
-            <Card.Title>Brahim</Card.Title>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural lead-in to
-              additional content. This content is a little bit longer.
-            </Card.Text>
+            <Card.Title>Brahim Ouinten</Card.Title>
           </Card.Body>
-          <Card.Footer>
+          <Card.Footer className="text-center">
+            <small className="text-muted text-center">THP Next session 14</small>
+          </Card.Footer>
+        </Card>
+        <Card className="text-center">
+          <Row className='justify-content-center'>
+            <Image src={Image2} style={{ height: 200, width: 200 }} roundedCircle className="text-center" />
+          </Row>
+          <Card.Body>
+            <Card.Title>Nazanin Farshad</Card.Title>
+          </Card.Body>
+          <Card.Footer className="text-center">
             <small className="text-muted">THP Next session 14</small>
           </Card.Footer>
         </Card>
-        <Card>
-          <Card.Img variant="top" src="holder.js/100px160" />
+        <Card className="text-center">
+          <Row className='justify-content-center'>
+            <Image src={Image3} style={{ height: 200, width: 200 }} roundedCircle className="text-center" />
+          </Row>
           <Card.Body>
-            <Card.Title>Nazanin</Card.Title>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural lead-in to
-              additional content. This content is a little bit longer.
-            </Card.Text>
+            <Card.Title>Clement Pain</Card.Title>
           </Card.Body>
-          <Card.Footer>
-            <small className="text-muted">THP Next session 14</small>
+          <Card.Footer className="text-center">
+            <small className="text-muted text-center">THP Next session 14</small>
           </Card.Footer>
         </Card>
-        <Card>
-          <Card.Img variant="top" src="holder.js/100px160" />
+        <Card className="text-center">
+          <Row className='justify-content-center'>
+            <Image src={Image4} style={{ height: 200, width: 200 }} roundedCircle className="text-center" />
+          </Row>
           <Card.Body>
-            <Card.Title>Karim</Card.Title>
-            <Card.Text>
-              This card has supporting text below as a natural lead-in to additional
-              content.
-              {' '}
-            </Card.Text>
+            <Card.Title>Karim Fathi</Card.Title>
           </Card.Body>
-          <Card.Footer>
-            <small className="text-muted">THP Next session 14</small>
-          </Card.Footer>
-        </Card>
-        <Card>
-          <Card.Img variant="top" src="holder.js/100px160" />
-          <Card.Body>
-            <Card.Title>Clément</Card.Title>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural lead-in to
-              additional content. This content is a little bit longer.
-            </Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <small className="text-muted">THP Next session 14</small>
+          <Card.Footer className="text-center">
+            <small className="text-muted text-center">THP Next session 14</small>
           </Card.Footer>
         </Card>
       </CardDeck>

@@ -9,6 +9,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import ShopImage from './Boutique.jpg';
 import { find } from '../../api/api-manager';
 import BestItems from './BestItems';
+import LinkerButton from './LinkerButton';
 
 const Shop = () => {
   const { currentUserId } = useSelector((state) => state) ? useSelector((state) => state) : null;
@@ -29,7 +30,7 @@ const Shop = () => {
 
   return (
     <>
-      <Container className="mt-4">
+      <Container className="p-5" fluid>
         <Card>
           <Card.Header style={{ backgroundColor: '#45B5AA' }} className="text-center p-2">
             <h4 className="text-white">{ shop && shop.name}</h4>
@@ -40,18 +41,23 @@ const Shop = () => {
             }
             </p>
           </Card.Header>
-          <Jumbotron fluid style={{ backgroundImage: `url(${shop?.image ? shop.image : ShopImage})`, backgroundSize: 'cover', backgroundPosition: 'center center' }}>
-            <div className="display-4 text-center" />
-            <div className="my-4 text-center" />
-          </Jumbotron>
+          <Jumbotron
+            fluid
+            style={{
+              backgroundImage: `url(${shop?.image ? shop.image : ShopImage})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center center',
+              height: '300px',
+            }}
+          />
           <Card.Body className="text-primary">
-            <Card.Title as="h6" className="text-center">Description</Card.Title>
-            <Card.Text className="text-center">
+            <Card.Title as="h5" className="text-center">Description</Card.Title>
+            <Card.Text className="text-center" style={{ fontSize: '1rem' }}>
               {
-              shop && shop.description
-                ? shop.description
-                : 'Shop description'
-            }
+                shop && shop.description
+                  ? shop.description
+                  : 'Shop description'
+              }
             </Card.Text>
             <Row>
               <Col className="text-center mt-4">
@@ -72,11 +78,26 @@ const Shop = () => {
             </Row>
 
             { currentUserId === shop?.shopkeeper_id && (
-            <Col className="text-center mt-4">
-              <Button as={Link} to={`/shop/${id}/list_items`} className="btn btn_success_sass" variant="outline-success">
-                Voir tous mes produits
-              </Button>
-            </Col>
+              <Row>
+                <Col className="text-center mt-4">
+                  <LinkerButton
+                    label="Changer les informations de ma boutique"
+                    to="#"
+                  />
+                </Col>
+                <Col className="text-center mt-4">
+                  <LinkerButton
+                    label="Voir tous mes produits"
+                    to={`/shop/${id}/list_items`}
+                  />
+                </Col>
+                <Col className="text-center mt-4">
+                  <LinkerButton
+                    label="Gérer les commandes effectuées"
+                    to={`/shop/${id}/orders_tracking`}
+                  />
+                </Col>
+              </Row>
             )}
 
           </Card.Body>
@@ -84,9 +105,7 @@ const Shop = () => {
       </Container>
       {
         currentUserId !== shop?.shopkeeper_id && (
-          <Container>
-            <BestItems bestItems={bestShopItemsList} />
-          </Container>
+          <BestItems bestItems={bestShopItemsList} />
         )
       }
     </>

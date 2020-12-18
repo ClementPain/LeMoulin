@@ -1,10 +1,18 @@
 class Api::V1::OrdersController < Api::V1::BaseController
+
   before_action :authenticate_user!, only: [:create, :index]
   
   def index
-    @orders = current_user_orders
+    @shop_id = params[:shop_id] 
+    if @shop_id
+      @shop = Shop.find(@shop_id)
 
-    render json: @orders, include: [:shop => {only: :name}]
+      render json: @shop.orders.to_json(:include => { :customer => {:include =>{:profile => {:only => [:last_name, :first_name]}}} })
+    else
+      @orders = current_user_orders
+
+      render json: @orders, include: [:shop => {only: :name}]
+    end
   end
   
   def create
@@ -34,7 +42,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
       if nb_order_item_created > 0
         if !@order.save || @errors.length > 0
-          render json: @errors, status: :errors
+          render json: @errors, status: :unprocessable_entity
         else
           @orders.push(@order)
         end
@@ -46,9 +54,18 @@ class Api::V1::OrdersController < Api::V1::BaseController
     end
   end
 
+  def update
+    @order = Order.find(params[:id])
+    @order.update(order_params)
+
+    Notification.create(user_id: @order.customer_id, message: 'Votre commande est prête !', for_shopkeeper: false)
+
+    render_resource(@order)
+  end
+
   private
 
   def order_params
-    params.require(:order).permit(:shop_id)
+    params.require(:order).permit(:shop_id, :status)
   end
 end

@@ -6,7 +6,7 @@ import CurrentUserContext from '../context';
 import { find } from '../../../api/api-manager';
 import OrderByStatus from './OrdersByStatus';
 
-const UserCommands = () => {
+const OrderDashboard = () => {
   const { currentUser } = useContext(CurrentUserContext);
   const [currentUserOrders, setCurrentUserOrders] = useState();
 
@@ -48,4 +48,4 @@ const UserCommands = () => {
   );
 };
 
-export default UserCommands;
+export default OrderDashboard;

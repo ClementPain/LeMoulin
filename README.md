@@ -1,24 +1,16 @@
-# README
+# LE MOULIN
+## Le projet final du THP NEXT session 14
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Voici notre lien d'Heroku : https://lemoulin.herokuapp.com/
 
-Things you may want to cover:
+Voici notre équipe :
 
-* Ruby version
+* Clement Pain
 
-* System dependencies
+* Nazanin Farshad
 
-* Configuration
+* Brahim Ouinten
 
-* Database creation
+* Karim Fathi
 
-* Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

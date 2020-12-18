@@ -19,12 +19,12 @@ const OrderByStatus = ({ id, status, orders }) => {
   const groupOrdersByShop = () => {
     const filteredOrdersByStatus = filterOrdersByStatus();
 
-    const group = filteredOrdersByStatus?.reduce((acc, order) => {
+    const groups = filteredOrdersByStatus?.reduce((acc, order) => {
       acc[order.shop.name] = [...acc[order.shop.name] || [], order];
       return acc;
     }, {});
 
-    setOrdersGroupedByShop(Object.entries(group || {}));
+    setOrdersGroupedByShop(Object.entries(groups || {}));
   };
 
   useEffect(
@@ -52,13 +52,13 @@ const OrderByStatus = ({ id, status, orders }) => {
             <Accordion.Collapse eventKey={id}>
               <Card.Body>
                 {
-                    ordersGroupedByShop?.map((shopOrdersGroup, indx) => (
-                      <OrdersByShop
-                        key={indx}
-                        group={shopOrdersGroup}
-                      />
-                    ))
-                  }
+                  ordersGroupedByShop?.map((shopOrdersGroup, indx) => (
+                    <OrdersByShop
+                      key={indx}
+                      group={shopOrdersGroup}
+                    />
+                  ))
+                }
               </Card.Body>
             </Accordion.Collapse>
           )
