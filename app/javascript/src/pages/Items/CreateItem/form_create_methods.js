@@ -4,11 +4,11 @@ const handleSubmit = (data, uploadItemImage, setRedirect, shop_id, setAlert, ite
   create('items', {
     data,
     onSuccess: (response) => {
-      if (itemImage) uploadItemImage(response.id, response.shop_id, setRedirect)
-      if (!itemImage) setRedirect(`/shop/${shop_id}/item/${response.id}`)
+      if (itemImage) uploadItemImage(response.id, response.shop_id, setRedirect);
+      if (!itemImage) setRedirect(`/shop/${shop_id}/item/${response.id}`);
     },
     onError: (error) => setAlert(error),
-    onErrors: (errors) => setAlert(errors)
+    onErrors: (errors) => setAlert(errors),
   });
 };
 
@@ -21,4 +21,4 @@ const initialValues = {
   image_url: '',
 };
 
-export { handleSubmit, initialValues }
+export { handleSubmit, initialValues };

@@ -33,7 +33,7 @@ const Order = ({ order, nextStatus, reGetOrders }) => {
   const computeTotalTTC = () => {
     const result = orderDetails?.reduce((
       acc, { item, quantity },
-    ) => acc + item.price * quantity,
+    ) => acc + item?.price * quantity,
     0);
 
     setTotalTTC(result);
@@ -109,9 +109,9 @@ const Order = ({ order, nextStatus, reGetOrders }) => {
               orderDetails?.map(({ item, quantity }, indx) => (
                 <tr key={indx}>
                   <td>{indx + 1}</td>
-                  <td>{item.name}</td>
+                  <td>{item?.name}</td>
                   <td>{quantity}</td>
-                  <td>{item.price}</td>
+                  <td>{item?.price}</td>
                 </tr>
               ))
             }

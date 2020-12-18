@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 
 import { Formik, Form } from 'formik';
@@ -16,7 +16,6 @@ import validate_item_form from './validate_item_form';
 import { update } from '../../api/api-manager';
 
 const ItemForm = ({ handleSubmit, initialValues, createItem = true }) => {
-  console.log(createItem);
   const [redirect, setRedirect] = useState(null);
   const [multipleAdd, setMultipleAdd] = useState(false);
   const [alert, setAlert] = useState(null);
@@ -25,8 +24,6 @@ const ItemForm = ({ handleSubmit, initialValues, createItem = true }) => {
 
   const uploadItemImage = async (item_id, shop_id, setRedirect) => {
     const { files } = itemImage;
-    console.log('itemImage : ', itemImage);
-    console.log('files : ', files);
     const data = new FormData();
     data.append('file', files[0]);
     data.append('upload_preset', 'images_le_moulin');
@@ -38,8 +35,6 @@ const ItemForm = ({ handleSubmit, initialValues, createItem = true }) => {
 
     const file = await response.json();
 
-    console.log('file : ', file);
-
     update(`items/${item_id}`, {
       data: {
         item: {
@@ -47,8 +42,6 @@ const ItemForm = ({ handleSubmit, initialValues, createItem = true }) => {
         },
       },
       onSuccess: () => setRedirect(`/shop/${shop_id}/item/${item_id}`),
-      onError: (error) => console.log('error', error),
-      onErrors: (errors) => console.log('errors', errors),
     });
   };
 
