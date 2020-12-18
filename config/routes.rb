@@ -5,13 +5,15 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: %w[show]
       resources :profiles, only: %w[update]
-      resources :shops, only: %w[index show create]
+      resources :shops, only: %w[index show create update]
       resources :shop_categories, only: %w[index]
-      resources :items, only: %w[index show create update destroy]
+      resources :items, only: %w[index show create update destroy] do
+        resources :comment_on_items, only: %w[index create update destroy] 
+      end
       resources :carts, only: %w[create] 
       resources :orders, only: %w[index create] do
         resources :order_items, only: %w[index]
-      end 
+      end
     end
   end
 

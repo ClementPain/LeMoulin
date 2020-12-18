@@ -1,6 +1,6 @@
 class Api::V1::ShopsController < Api::V1::BaseController
-  before_action :set_shop, only: %w[show]
-  before_action :authenticate_user!, only: %w[create]
+  before_action :set_shop, only: %w[show update]
+  before_action :authenticate_user!, only: %w[create update]
   before_action :not_permit_to_create_more_than_one_shop, only: %w[create]
   
   def index
@@ -23,6 +23,12 @@ class Api::V1::ShopsController < Api::V1::BaseController
     render_resource(@shop)
   end
 
+  def update
+    @shop.update(shop_params)
+    
+    render json: @shop, status: :created
+  end
+
   private
 
   def set_shop
@@ -30,7 +36,7 @@ class Api::V1::ShopsController < Api::V1::BaseController
   end
 
   def shop_params
-    params.require(:shop).permit(:name, :description, :address, :zip_code, :city, :siret, :is_active, shop_category_ids: [])
+    params.require(:shop).permit(:name, :description, :address, :zip_code, :city, :siret, :is_active, :image, shop_category_ids: [])
   end
 
   def not_permit_to_create_more_than_one_shop

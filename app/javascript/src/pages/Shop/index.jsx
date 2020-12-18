@@ -43,7 +43,7 @@ const Shop = () => {
           <Jumbotron
             fluid
             style={{
-              backgroundImage: `url(${ShopImage})`,
+              backgroundImage: `url(${shop?.image ? shop.image : ShopImage})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center center',
               height: '300px',

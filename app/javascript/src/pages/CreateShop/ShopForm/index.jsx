@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 import { Formik, Form } from 'formik';
 import {
-  Col, Button, Row,
+  Col, Button, Row, FormControl
 } from 'react-bootstrap';
 
 import validationShopForm from './config/validation_shop_form';
@@ -12,7 +12,7 @@ import {
   MyTextInput, MyTextArea, MyCheckbox, MySelect,
 } from '../../../tools/formik-manager';
 
-import { create, find } from '../../../api/api-manager';
+import { create, find, update } from '../../../api/api-manager';
 
 const ShopForm = () => {
   const [categories, setCategories] = useState([]);
@@ -29,6 +29,7 @@ const ShopForm = () => {
 
   const [shopId, setShopId] = useState(null);
   const [alert, setAlert] = useState(null);
+  const [itemImage, setItemImage] = useState(null);
 
   const handleNewShopCreation = (params) => {
     create('shops', {
@@ -37,7 +38,13 @@ const ShopForm = () => {
       },
       onError: (error) => setAlert(error),
       onErrors: (errors) => setAlert(errors),
-      onSuccess: (shop) => setShopId(shop.id),
+      onSuccess: (shop) => {
+        if (itemImage) {
+          uploadShopImage(shop.id, setShopId)
+        } else {
+          setShopId(shop.id)
+        }
+      }
     });
   };
 
@@ -48,6 +55,36 @@ const ShopForm = () => {
       });
     },
   }), []);
+
+  const uploadShopImage = async (shop_id, setRedirect) => {
+    const { files } = itemImage;
+    console.log('itemImage : ', itemImage);
+    console.log('files : ', files);
+    const data = new FormData();
+    console.log(data)
+    data.append('file', files[0]);
+    data.append('upload_preset', 'images_le_moulin');
+
+    const response = await fetch('https://api.cloudinary.com/v1_1/dhtysnpro/image/upload', {
+      method: 'post',
+      body: data,
+    });
+
+    const file = await response.json();
+
+    console.log('file : ', file);
+
+    update(`shops/${shop_id}`, {
+      data: {
+        shop: {
+          image: file.secure_url,
+        },
+      },
+      onSuccess: () => setRedirect(shop_id),
+      onError: (error) => console.log('error', error),
+      onErrors: (errors) => console.log('errors', errors),
+    });
+  };
 
   if (shopId) return <Redirect to={`/shop/${shopId}`} />;
 
@@ -132,6 +169,13 @@ const ShopForm = () => {
               />
             </Col>
           </Row>
+
+          <FormControl
+            type="file"
+            name="image_url"
+            onChange={(e) => setItemImage(e.target)}
+            multiple
+          />
 
           <MyCheckbox
             type="checkbox"
