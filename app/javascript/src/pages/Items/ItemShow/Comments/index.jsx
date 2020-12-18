@@ -12,9 +12,8 @@ const CommentsOnItem = ({ item }) => {
   useEffect(() => {
     find(`items/${item.id}/comment_on_items`, {
       onSuccess: (response) => {
-        console.log(response)
         setListComments([]);
-        response?.map((comment) => setListComments((previousArray) => [...previousArray, comment]));
+        response.map((comment) => setListComments((previousArray) => [...previousArray, comment]));
       }
     })
   }, [newComment]);
