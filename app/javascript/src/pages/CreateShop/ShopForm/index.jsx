@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 import { Formik, Form } from 'formik';
 import {
-  Col, Button, Row, FormControl
+  Col, Button, Row, FormControl,
 } from 'react-bootstrap';
 
 import validationShopForm from './config/validation_shop_form';
@@ -31,37 +31,9 @@ const ShopForm = () => {
   const [alert, setAlert] = useState(null);
   const [itemImage, setItemImage] = useState(null);
 
-  const handleNewShopCreation = (params) => {
-    create('shops', {
-      data: {
-        shop: params,
-      },
-      onError: (error) => setAlert(error),
-      onErrors: (errors) => setAlert(errors),
-      onSuccess: (shop) => {
-        if (itemImage) {
-          uploadShopImage(shop.id, setShopId)
-        } else {
-          setShopId(shop.id)
-        }
-      }
-    });
-  };
-
-  useEffect(() => find('shop_categories', {
-    onSuccess: (response) => {
-      response?.map((category) => {
-        setCategories((previousArray) => [category, ...previousArray]);
-      });
-    },
-  }), []);
-
   const uploadShopImage = async (shop_id, setRedirect) => {
     const { files } = itemImage;
-    console.log('itemImage : ', itemImage);
-    console.log('files : ', files);
     const data = new FormData();
-    console.log(data)
     data.append('file', files[0]);
     data.append('upload_preset', 'images_le_moulin');
 
@@ -72,8 +44,6 @@ const ShopForm = () => {
 
     const file = await response.json();
 
-    console.log('file : ', file);
-
     update(`shops/${shop_id}`, {
       data: {
         shop: {
@@ -81,10 +51,33 @@ const ShopForm = () => {
         },
       },
       onSuccess: () => setRedirect(shop_id),
-      onError: (error) => console.log('error', error),
-      onErrors: (errors) => console.log('errors', errors),
     });
   };
+
+  const handleNewShopCreation = (params) => {
+    create('shops', {
+      data: {
+        shop: params,
+      },
+      onError: (error) => setAlert(error),
+      onErrors: (errors) => setAlert(errors),
+      onSuccess: (shop) => {
+        if (itemImage) {
+          uploadShopImage(shop.id, setShopId);
+        } else {
+          setShopId(shop.id);
+        }
+      },
+    });
+  };
+
+  useEffect(() => find('shop_categories', {
+    onSuccess: (response) => {
+      response?.map((category) => {
+        setCategories((previousArray) => [category, ...previousArray]);
+      });
+    },
+  }), []);
 
   if (shopId) return <Redirect to={`/shop/${shopId}`} />;
 
