@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import {
   Container, Row, Col, Button,
@@ -27,10 +28,20 @@ const Footer = () => {
           { !isAuthenticated && (
             <ul className="list-unstyled list-inline text-center mt-2">
               <li className="list-inline-item">
-                <h6 className="text-white">Inscrivez-vous </h6>
+                <Button
+                  as={Link} to="/login"
+                  className='btn btn-primary' size="sm"
+                >
+                  Connectez-vous
+                </Button>
               </li>
               <li className="list-inline-item  text-white">
-                <Button type="submit" className="btn_success_sass" variant="outline-success" size="sm">Register</Button>
+                <Button 
+                  as={Link} to="/register"
+                  className="btn_success_sass" variant="outline-success" size="sm"
+                >
+                  Inscription
+                </Button>
               </li>
             </ul>
           )}

@@ -16,7 +16,7 @@ const Notification = () => {
       onSuccess: (response) => {
         setNotifications([]);
         setNewNot(0);
-        response?.map((not) => {
+        response.map((not) => {
           setNotifications((previousArray) => [not, ...previousArray]);
           if (!not.read) setNewNot(newNot + 1);
           console.log(not)
