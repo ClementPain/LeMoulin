@@ -2,16 +2,24 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { Card, Table } from 'react-bootstrap';
+import {
+  Card, Table, Button, Row,
+} from 'react-bootstrap';
 
-import { find } from '../../../../../api/api-manager';
+import { find, update } from '../../../../../api/api-manager';
 import dateHandler from '../../../../../tools/dateHandler';
 
 const { formatDate } = dateHandler;
 
-const Order = ({ order }) => {
+const translation = {
+  prepared: 'préparée',
+  validated: 'validée',
+};
+
+const Order = ({ order, nextStatus, reGetOrders }) => {
   const { id: orderNum, created_at: orderDate, customer } = order;
   const { last_name, first_name } = customer.profile;
+
   const [orderDetails, setOrderDetails] = useState(null);
   const [totalTTC, setTotalTTC] = useState(null);
 
@@ -29,6 +37,15 @@ const Order = ({ order }) => {
     0);
 
     setTotalTTC(result);
+  };
+
+  const handleOnClick = () => {
+    update(`orders/${order.id}`, {
+      data: {
+        status: nextStatus,
+      },
+      onSuccess: () => { reGetOrders(); },
+    });
   };
 
   useEffect(
@@ -51,6 +68,22 @@ const Order = ({ order }) => {
         </h6>
       </Card.Header>
       <Card.Body>
+        <Row className="mb-2">
+          {
+            nextStatus && (
+            <Button
+              variant="success"
+              size="sm"
+              className="text-left"
+              onClick={handleOnClick}
+            >
+              Passez le status à
+              {' '}
+              {translation[nextStatus]}
+            </Button>
+            )
+          }
+        </Row>
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
@@ -62,15 +95,15 @@ const Order = ({ order }) => {
           </thead>
           <tbody>
             {
-            orderDetails?.map(({ item, quantity }, indx) => (
-              <tr key={indx}>
-                <td>{indx + 1}</td>
-                <td>{item.name}</td>
-                <td>{quantity}</td>
-                <td>{item.price}</td>
-              </tr>
-            ))
-          }
+              orderDetails?.map(({ item, quantity }, indx) => (
+                <tr key={indx}>
+                  <td>{indx + 1}</td>
+                  <td>{item.name}</td>
+                  <td>{quantity}</td>
+                  <td>{item.price}</td>
+                </tr>
+              ))
+            }
           </tbody>
         </Table>
         <h6 className="text-right">{`Total TTC ${totalTTC?.toFixed(2)} €`}</h6>

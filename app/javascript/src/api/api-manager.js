@@ -110,8 +110,8 @@ const update = async (endpoint, {
     onError(error);
   } else if (errors && onErrors) {
     onErrors(errors);
-  } else {
-    onSuccess();
+  } else if (onSuccess) {
+    onSuccess(result);
   }
 
   return result;

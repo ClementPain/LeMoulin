@@ -12,8 +12,14 @@ const translation = {
   canceled: 'annulées',
 };
 
-const OrdersByStatusGroup = ({ id, group }) => {
+const OrdersByStatusGroup = ({ id, group, reGetOrders }) => {
   const [status, ordersByStatus] = group;
+
+  const keys = Object.keys(translation);
+
+  const nextStatus = (status === 'in_progress' || status === 'prepared')
+    ? keys[keys.indexOf(status) + 1]
+    : null;
 
   return (
     <Card>
@@ -40,7 +46,11 @@ const OrdersByStatusGroup = ({ id, group }) => {
                     {
                     ordersByStatus?.map((order, indx) => (
                       <ListGroup.Item key={indx}>
-                        <Order order={order} />
+                        <Order
+                          order={order}
+                          nextStatus={nextStatus}
+                          reGetOrders={reGetOrders}
+                        />
                       </ListGroup.Item>
                     ))
                   }

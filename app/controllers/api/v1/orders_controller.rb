@@ -54,9 +54,16 @@ class Api::V1::OrdersController < Api::V1::BaseController
     end
   end
 
+  def update
+    @order = Order.find(params[:id])
+    @order.update(order_params)
+
+    render_resource(@order)
+  end
+
   private
 
   def order_params
-    params.require(:order).permit(:shop_id)
+    params.require(:order).permit(:shop_id, :status)
   end
 end

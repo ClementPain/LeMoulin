@@ -47,6 +47,7 @@ const OrderTrackingBoard = () => {
                   key={orderGroup[0]}
                   id={`${indx}`}
                   group={orderGroup}
+                  reGetOrders={getShopOrders}
                 />
               ))
             }
