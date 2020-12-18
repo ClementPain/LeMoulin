@@ -63,8 +63,9 @@ const ItemCardInShopkeeperView = ({item, setRefresh}) => {
                     label="Prix"
                     min={0}
                     max={9999999.99}
+                    step={0.01}
                     alert={alert}
-                  />
+                  /> 
                 </Col>
                 <Col sm={6}>
                   <MyNumberInput
@@ -73,6 +74,7 @@ const ItemCardInShopkeeperView = ({item, setRefresh}) => {
                     label="Stock"
                     min={0}
                     max={9999999}
+                    step={1}
                     alert={alert}
                   />
                 </Col>
