@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Accordion, ListGroup } from 'react-bootstrap';
 
 import Order from './Order';
@@ -12,14 +12,26 @@ const translation = {
   canceled: 'annulées',
 };
 
-const OrdersByStatusGroup = ({ id, group, reGetOrders }) => {
-  const [status, ordersByStatus] = group;
+const ordersGroup = ({
+  id, status, orders, reGetOrders,
+}) => {
+  const [ordersByStatus, setOrdersByStatus] = useState(null);
+
+  const filterOrdersByStatus = () => {
+    const result = orders?.filter((order) => order.status === status);
+
+    setOrdersByStatus(result);
+  };
 
   const keys = Object.keys(translation);
-
   const nextStatus = (status === 'in_progress' || status === 'prepared')
     ? keys[keys.indexOf(status) + 1]
     : null;
+
+  useEffect(
+    () => filterOrdersByStatus(),
+    [orders],
+  );
 
   return (
     <Card>
@@ -44,16 +56,16 @@ const OrdersByStatusGroup = ({ id, group, reGetOrders }) => {
 
                   <ListGroup variant="flush">
                     {
-                    ordersByStatus?.map((order, indx) => (
-                      <ListGroup.Item key={indx}>
-                        <Order
-                          order={order}
-                          nextStatus={nextStatus}
-                          reGetOrders={reGetOrders}
-                        />
-                      </ListGroup.Item>
-                    ))
-                  }
+                      ordersByStatus?.map((order, indx) => (
+                        <ListGroup.Item key={indx}>
+                          <Order
+                            order={order}
+                            nextStatus={nextStatus}
+                            reGetOrders={reGetOrders}
+                          />
+                        </ListGroup.Item>
+                      ))
+                    }
                   </ListGroup>
                 </Card>
               </Card.Body>
@@ -64,4 +76,4 @@ const OrdersByStatusGroup = ({ id, group, reGetOrders }) => {
   );
 };
 
-export default OrdersByStatusGroup;
+export default ordersGroup;

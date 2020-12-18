@@ -3,7 +3,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import {
-  Card, Table, Button, Row,
+  Card, Table, Button, Row, Col,
 } from 'react-bootstrap';
 
 import { find, update } from '../../../../../api/api-manager';
@@ -39,10 +39,10 @@ const Order = ({ order, nextStatus, reGetOrders }) => {
     setTotalTTC(result);
   };
 
-  const handleOnClick = () => {
+  const handleOnClick = (status) => {
     update(`orders/${order.id}`, {
       data: {
-        status: nextStatus,
+        status,
       },
       onSuccess: () => { reGetOrders(); },
     });
@@ -68,22 +68,33 @@ const Order = ({ order, nextStatus, reGetOrders }) => {
         </h6>
       </Card.Header>
       <Card.Body>
-        <Row className="mb-2">
-          {
-            nextStatus && (
-            <Button
-              variant="success"
-              size="sm"
-              className="text-left"
-              onClick={handleOnClick}
-            >
-              Passez le status à
-              {' '}
-              {translation[nextStatus]}
-            </Button>
-            )
-          }
-        </Row>
+        {
+          nextStatus && (
+          <Row className="mb-2">
+            <Col md={{ span: 3, offset: 3 }}>
+              <Button
+                variant="success"
+                size="sm"
+                onClick={() => handleOnClick(nextStatus)}
+              >
+                Passez le status à
+                {' '}
+                {translation[nextStatus]}
+              </Button>
+
+            </Col>
+            <Col md={3}>
+              <Button
+                variant="danger"
+                size="sm"
+                onClick={() => handleOnClick('canceled')}
+              >
+                Annuler cette commande
+              </Button>
+            </Col>
+          </Row>
+          )
+        }
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
