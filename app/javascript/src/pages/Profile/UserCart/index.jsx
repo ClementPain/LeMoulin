@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import {
-  Row, Container, Col, Button
+  Row, Container, Col, Alert
 } from 'react-bootstrap';
 import Cookie from 'js-cookie';
 import ShopCard from './ShopCard';
@@ -15,6 +15,8 @@ const Cart = () => {
   useEffect(() => { if (Cookie.get('cart')) setCart(JSON.parse(Cookie.get('cart'))); }, []);
 
   const [itemsInCart, setItemsInCart] = useState({});
+
+  const [alert, setAlert] = useState('');
 
   useEffect(() => {
     if (Cookie.get('cart')) {
@@ -35,8 +37,11 @@ const Cart = () => {
 
   return (
     <Container fluid>
+      { alert.length > 0 && (
+        <Alert variant='danger'>Plus assez de stock!</Alert>
+      )}
       <Row className='justify-content-end'>
-        <ButtonCreateOrder cart={cart} />
+        <ButtonCreateOrder cart={cart} setAlert={setAlert} />
       </Row>
       <Row className="border-bottom">
         <Col sm={6}>
@@ -57,7 +62,7 @@ const Cart = () => {
               shop={itemsInCart[shop_id].shop}
               items={itemsInCart[shop_id].items}
               cart_state={setCart}
-              />
+            />
           </div>
         ))}
       </Container>

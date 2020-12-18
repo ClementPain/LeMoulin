@@ -21,7 +21,6 @@ const CommentForm = ({item_id, update_comments}) => {
       <Form.Control
         as="textarea" row={4}
         className="text-input" placeholder="J'adore !..."
-        maxlength={300}
         value={content} onChange={(e) => setContent(e.target.value)}
       />
       <Row className='justify-content-center mt-5'>

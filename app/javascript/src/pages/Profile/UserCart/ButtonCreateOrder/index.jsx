@@ -4,15 +4,23 @@ import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Cookie from 'js-cookie';
 
-const ButtonCreateOrder = ({ cart }) => {
+const ButtonCreateOrder = ({ cart, setAlert }) => {
   const history = useHistory()
 
-  const handleOrder = (cart) => {
+  const handleOrder = (cart, setAlert) => {
     create('orders', {
       data: { order: cart },
       onSuccess: () => {
         Cookie.remove('cart')
         history.push('/profile/my_cmds')
+      },
+      onError: (error) => {
+        console.log('error', error)
+        setAlert(error)
+      },
+      onErrors: (errors) => {
+        console.log('errors', errors)
+        setAlert(errors)
       }
     })
   }
@@ -21,7 +29,7 @@ const ButtonCreateOrder = ({ cart }) => {
   <Button
     variant='outline-success'
     className='btn-sm mb-3 btn_success_sass'
-    onClick={() => handleOrder(cart)}
+    onClick={() => handleOrder(cart, setAlert)}
   >
     Passer commande
   </Button>
