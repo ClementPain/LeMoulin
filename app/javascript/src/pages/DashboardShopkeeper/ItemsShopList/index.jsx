@@ -41,6 +41,12 @@ const ItemsShopList = () => {
           >
             Créer un nouveau produit
           </Button>
+          <Button
+            as={Link} to={`/shop/${shop_id}/orders_tracking`}
+            className='m-4' variant='outline-primary'
+          >
+            Voir la liste des commandes
+          </Button>
         </Row>
         <h5 className="text-black pt-4">Filtrer les résultats</h5>
         <Form.Group className="text-white">
