@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -9,21 +10,12 @@ import OrdersByStatusGroup from './OrdersByStatusGroup';
 
 const OrderTrackingBoard = () => {
   const { shop_id } = useParams();
-  const [shopOrdersGroupedByStatus, setShopOrdersGroupedByStatus] = useState(null);
-
-  const groupOrdersByStatus = (orders) => {
-    const groups = orders?.reduce((acc, order) => {
-      acc[order.status] = [...acc[order.status] || [], order];
-      return acc;
-    }, {});
-
-    setShopOrdersGroupedByStatus(Object.entries(groups || {}));
-  };
+  const [shopOrders, setShopOrders] = useState(null);
 
   const getShopOrders = () => {
     find(`shops/${shop_id}/orders`, {
       onSuccess: (orders) => {
-        groupOrdersByStatus(orders);
+        setShopOrders(orders);
       },
     });
   };
@@ -42,11 +34,18 @@ const OrderTrackingBoard = () => {
         <Card.Body>
           <Accordion defaultActiveKey="0" style={{ width: '100%', height: 500 }} className="overflow-auto">
             {
-              shopOrdersGroupedByStatus?.map((orderGroup, indx) => (
+              [
+                'in_progress',
+                'prepared',
+                'validated',
+                'canceled',
+              ].map((status, indx) => (
                 <OrdersByStatusGroup
-                  key={orderGroup[0]}
+                  key={indx}
                   id={`${indx}`}
-                  group={orderGroup}
+                  status={status}
+                  orders={shopOrders}
+                  reGetOrders={getShopOrders}
                 />
               ))
             }

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       resources :shops, only: %w[index show create update] do
         resources :orders, only: %w[index]
       end
-      resources :orders, only: %w[index create] do
+      resources :orders, only: %w[index create update] do
         resources :order_items, only: %w[index]
       end
       resources :shop_categories, only: %w[index]
