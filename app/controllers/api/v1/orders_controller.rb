@@ -58,6 +58,8 @@ class Api::V1::OrdersController < Api::V1::BaseController
     @order = Order.find(params[:id])
     @order.update(order_params)
 
+    Notification.create(user_id: @order.customer_id, message: 'Votre commande est prête !', for_shopkeeper: false)
+
     render_resource(@order)
   end
 
