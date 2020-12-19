@@ -20,7 +20,9 @@ const MyTextInput = (props) => {
       {label && <Form.Label htmlFor={name}>{label}</Form.Label>}
       <Form.Control
         className="text-input"
-        type={type} name={name} placeholder={placeholder}
+        type={type}
+        name={name}
+        placeholder={placeholder}
         {...field}
       />
       {
@@ -149,15 +151,15 @@ const MyFileUploader = (props) => {
 
   const {
     type,
-    label,
     name,
+    label,
     alert,
   } = props;
 
   return (
     <FormGroup>
       {label && <Form.Label htmlFor={name}>{label}</Form.Label>}
-      <Form.Control type={type} className="text-input" {...field} name={name} />
+      <Form.Control type={type} {...field} name={name} />
       {
         meta.touched && meta.error
           ? (<div className="text-danger">{meta.error}</div>)

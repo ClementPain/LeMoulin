@@ -13,6 +13,7 @@ const Avatar = () => {
 
   const uploadAvatar = async (e) => {
     const { files } = e.target;
+
     const data = new FormData();
     data.append('file', files[0]);
     data.append('upload_preset', 'images_le_moulin');

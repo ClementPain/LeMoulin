@@ -9,7 +9,7 @@ class Api::V1::ShopsController < Api::V1::BaseController
   end
 
   def show
-    render json: @shop, include: [:shop_categories, :items]
+    render json: @shop, include: [:shop_categories, :items], methods: :shop_category_ids
   end
 
   def create
