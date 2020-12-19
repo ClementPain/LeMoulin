@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Table } from 'react-bootstrap';
 
@@ -57,7 +58,11 @@ const OrderDetails = ({ order }) => {
             orderDetails?.map(({ item, quantity }, indx) => (
               <tr key={indx}>
                 <td>{indx + 1}</td>
-                <td>{item.name}</td>
+                <td>
+                  <Link to={`/shop/${item.shop_id}/item/${item.id}`}>
+                    {item.name}
+                  </Link>
+                </td>
                 <td>{quantity}</td>
                 <td>{item.price}</td>
               </tr>
