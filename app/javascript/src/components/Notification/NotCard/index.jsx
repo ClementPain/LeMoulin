@@ -1,33 +1,37 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Row, Col } from 'react-bootstrap';
 import Bin from './delete.png'
 
 import { update, remove } from '../../../api/api-manager';
 
-const NotCard = ({ not, updateList }) => {
-  const handleDelete = () => {
-    remove(`notifications/${not.id}`);
-    updateList({});
+const NotCard = ({ not, updateNots }) => {
+  const handleDelete = (updateNotsVar) => {
+    remove(`notifications/${not.id}`, {
+      onSuccess: () => updateNotsVar((previousArray) => [...previousArray, not.id])
+    });
   }
 
-  const handleUpdate = () => {
-    update(`notifications/${not.id}`);
-    updateList({});
+  const handleUpdate = (updateNotsVar) => {
+    update(`notifications/${not.id}`, {
+      onSuccess: () => updateNotsVar((previousArray) => [...previousArray, not.id])
+    });
   }
 
   return (
   <Row className='w-100 p-2'>
     <Col sm={8}>
-      {!not.read && (
-        <p><b>{ not.message }</b></p>
-      )}
-      {not.read && (
-        <p>{ not.message }</p>
-      )}
+      <Link to={not.for_shopkeeper ? `/shop/${not.shop.id}/orders_tracking` : '/profile/my_cmds'}>
+        <p className={`cardlinks ${!not.read ? "newNot cardlinks-black" : "cardlinks-green" }`}>
+          { not.message }
+        </p>
+      </Link>
     </Col>
     <Col sm={2} className='text-center'>
-      <p onClick={() => handleUpdate()}>Vu</p>
+      { !not.read && (
+        <p className="vu_button" onClick={() => handleUpdate(updateNots)}>Vu</p>
+      )}
     </Col>
     <Col sm={2} className='text-center'>
       <img
@@ -35,7 +39,7 @@ const NotCard = ({ not, updateList }) => {
         alt="Bin"
         className="bin"
         style={{ height: 20 }}
-        onClick={() => handleDelete()}
+        onClick={() => handleDelete(updateNots)}
       />
     </Col>
   </Row>
