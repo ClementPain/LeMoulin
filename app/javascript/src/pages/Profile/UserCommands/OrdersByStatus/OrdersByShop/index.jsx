@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Card, ListGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import OrderDetails from './OrderDetails';
 
@@ -11,7 +12,9 @@ const OrdersByShop = ({ group }) => {
   return (
     <Card className="mt-2">
       <Card.Header className="text-white" style={{ backgroundColor: '#45B5AA' }}>
-        {`Vos commandes chez ${shopName}`}
+        <Link to={`/shop/${ordersList[0].shop_id}`}>
+          {`Vos commandes chez ${shopName}`}
+        </Link>
       </Card.Header>
       <ListGroup variant="flush">
         {
