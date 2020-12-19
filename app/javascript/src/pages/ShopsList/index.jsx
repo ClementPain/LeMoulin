@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Container, Row, Col, Form, Card,
+  Container, Row, Col, Form,
 } from 'react-bootstrap';
 
 import { Link, useHistory } from 'react-router-dom';
@@ -11,14 +11,14 @@ import useDebounce from '../../tools/useDebounce';
 
 const ShopsList = () => {
   const history = useHistory();
-  const locationParam = history.location.state?.location ? history.location.state.location.location : "";
+  const locationParam = history.location.state?.location ? history.location.state.location.location : '';
 
   const [shopsArray, setShopsArray] = useState([]);
   const [shopCategoriesList, setShopCategoriesList] = useState([]);
   const [search, setSearch] = useState({
     keyword: '',
     categories: [],
-    location: locationParam
+    location: locationParam,
   });
   const debouncedSearch = useDebounce(search, 500);
 
@@ -39,7 +39,7 @@ const ShopsList = () => {
       onSuccess: (response) => {
         setShopsArray([]);
         response?.map((shop) => setShopsArray((previousArray) => [shop, ...previousArray]));
-        console.log(shopsArray)
+        console.log(shopsArray);
       },
     });
   }, [debouncedSearch]);
@@ -82,7 +82,7 @@ const ShopsList = () => {
               placeholder="Rechercher par ville (ou code postale)..."
               value={search.location}
               onChange={(event) => setSearch({ ...search, location: event.target.value })}
-              />
+            />
           </Form.Group>
           <Form.Group className="text-white">
             { shopCategoriesList?.map((cat) => (

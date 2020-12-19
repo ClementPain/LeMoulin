@@ -6,13 +6,13 @@ import {
   Card, Container, Row, Col, FormControl,
 } from 'react-bootstrap';
 
-import FormikForm from './config/FormikForm';
+import FormikForm from '../../../components/FormikForm';
 
 import {
   MyTextInput, MySelect, MyTextArea, MyCheckbox,
-} from '../../tools/formik-manager';
+} from '../../../tools/formik-manager';
 
-import { find, update } from '../../api/api-manager';
+import { find, update } from '../../../api/api-manager';
 import validate from './config/validate';
 
 const UpdateShop = () => {

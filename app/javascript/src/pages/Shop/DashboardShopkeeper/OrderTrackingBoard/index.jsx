@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import { Card, Container, Accordion } from 'react-bootstrap';
 
-import { find } from '../../../api/api-manager';
+import { find } from '../../../../api/api-manager';
 import OrdersByStatusGroup from './OrdersByStatusGroup';
 
 const OrderTrackingBoard = () => {

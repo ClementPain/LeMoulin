@@ -10,9 +10,9 @@ import validationShopForm from './config/validation_shop_form';
 
 import {
   MyTextInput, MyTextArea, MyCheckbox, MySelect,
-} from '../../../tools/formik-manager';
+} from '../../../../tools/formik-manager';
 
-import { create, find, update } from '../../../api/api-manager';
+import { create, find, update } from '../../../../api/api-manager';
 
 const ShopForm = () => {
   const [categories, setCategories] = useState([]);

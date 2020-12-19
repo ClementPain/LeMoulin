@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 import { Image } from 'cloudinary-react';
 import { Col, Card } from 'react-bootstrap';
-import faker from 'faker';
 
 const ShopItem = ({ item }) => {
   const {

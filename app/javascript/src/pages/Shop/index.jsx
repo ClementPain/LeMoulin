@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
-  Card, Col, Row, Container, Button,
+  Card, Col, Row, Container,
 } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
@@ -9,7 +9,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import ShopImage from './Boutique.jpg';
 import { find } from '../../api/api-manager';
 import BestItems from './BestItems';
-import LinkerButton from './LinkerButton';
+import LinkerButton from '../../components/LinkerButton';
 
 const Shop = () => {
   const { currentUserId } = useSelector((state) => state) ? useSelector((state) => state) : null;
