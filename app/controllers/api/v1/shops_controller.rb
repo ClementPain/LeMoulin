@@ -26,7 +26,7 @@ class Api::V1::ShopsController < Api::V1::BaseController
   def update
     @shop.update(shop_params)
     
-    render json: @shop, status: :created
+    render_resource(@shop)
   end
 
   private
