@@ -6,8 +6,8 @@ import {
   Card, Table, Button, Row, Col,
 } from 'react-bootstrap';
 
-import { find, update } from '../../../../../api/api-manager';
-import dateHandler from '../../../../../tools/dateHandler';
+import { find, update } from '../../../../../../api/api-manager';
+import dateHandler from '../../../../../../tools/dateHandler';
 
 const { formatDate } = dateHandler;
 

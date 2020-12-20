@@ -4,11 +4,10 @@ import {
   Container, Card, Row, Col,
 } from 'react-bootstrap';
 
-import ShopForm from './ShopForm';
+import CreateShopForm from './CreateShopForm';
 
-const CreateShopComponent = () => (
-
-  <Container fluid className="mt-5">
+const CreateShop = () => (
+  <Container className="mt-5" fluid>
     <Row>
       <Col md={{ span: 8, offset: 2 }}>
         <Card>
@@ -16,7 +15,7 @@ const CreateShopComponent = () => (
             <h5 className="text-white text-center">Créer votre boutique</h5>
           </Card.Header>
           <Card.Body>
-            <ShopForm />
+            <CreateShopForm />
           </Card.Body>
         </Card>
       </Col>
@@ -24,4 +23,4 @@ const CreateShopComponent = () => (
   </Container>
 );
 
-export default CreateShopComponent;
+export default CreateShop;

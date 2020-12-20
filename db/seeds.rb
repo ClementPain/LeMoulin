@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-create_orders = true
+create_orders = false
 
 if create_orders
   Order.destroy_all
@@ -16,7 +16,7 @@ if create_orders
 
   ['in_progress', 'prepared', 'validated', 'canceled'].each do |status|
     3.times do
-      shop = Shop.all.sample
+      shop = (Shop.select{|shop| shop.shopkeeper != last_user}).sample
       items = shop.items
       
       order_items = []

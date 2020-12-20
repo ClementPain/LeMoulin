@@ -29,7 +29,7 @@ const UpdateUserAuthInfosForm = () => {
       data: {
         profile: values,
       },
-      onErrors: (errors) => { setAlert(errors); },
+      onErrors: (errors) => { setAlert(errors[0].detail); },
       onSuccess: () => {
         updateCurrentUser((user) => { resetForm({ values: user.profile }); });
         setUpdateSuccessFlag(true);

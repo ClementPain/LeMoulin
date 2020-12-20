@@ -1,8 +1,10 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable camelcase */
 import React, { useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 
 import { Formik, Form } from 'formik';
+
 import {
   Button, Row, Col, FormCheck, FormControl,
 } from 'react-bootstrap';
@@ -12,7 +14,6 @@ import {
 } from '../../tools/formik-manager';
 
 import validate_item_form from './validate_item_form';
-
 import { update } from '../../api/api-manager';
 
 const ItemForm = ({ handleSubmit, initialValues, createItem = true }) => {

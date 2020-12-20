@@ -13,14 +13,14 @@ import Logout from './pages/Logout';
 import Profile from './pages/Profile';
 import ItemsList from './pages/Items/ItemsList';
 import ItemShow from './pages/Items/ItemShow';
-import CreateShop from './pages/CreateShop';
-import UpdateShop from './pages/UpdateShop';
+import CreateShop from './pages/Shop/CreateShop';
+import UpdateShop from './pages/Shop/UpdateShop';
 import Shop from './pages/Shop/index';
 import ShopsList from './pages/ShopsList';
 import CreateItem from './pages/Items/CreateItem';
 import UpdateItem from './pages/Items/UpdateItem';
-import ItemsShopList from './pages/DashboardShopkeeper/ItemsShopList';
-import OrderTrackingBoard from './pages/DashboardShopkeeper/OrderTrackingBoard';
+import ItemsShopList from './pages/Shop/DashboardShopkeeper/ItemsShopList';
+import OrderTrackingBoard from './pages/Shop/DashboardShopkeeper/OrderTrackingBoard';
 
 const Routes = () => (
   <Switch>

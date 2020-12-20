@@ -6,13 +6,13 @@ import {
   Col, Button, Row, FormControl,
 } from 'react-bootstrap';
 
-import validationShopForm from './config/validation_shop_form';
+import validate from './config/validate';
 
 import {
   MyTextInput, MyTextArea, MyCheckbox, MySelect,
-} from '../../../tools/formik-manager';
+} from '../../../../tools/formik-manager';
 
-import { create, find, update } from '../../../api/api-manager';
+import { create, find, update } from '../../../../api/api-manager';
 
 const ShopForm = () => {
   const [categories, setCategories] = useState([]);
@@ -60,7 +60,7 @@ const ShopForm = () => {
         shop: params,
       },
       onError: (error) => setAlert(error),
-      onErrors: (errors) => setAlert(errors),
+      onErrors: (errors) => { setAlert(errors[0].detail); },
       onSuccess: (shop) => {
         if (itemImage) {
           uploadShopImage(shop.id, setShopId);
@@ -84,7 +84,7 @@ const ShopForm = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validate={validationShopForm}
+      validate={validate}
       onSubmit={(data, { setSubmitting }) => {
         setSubmitting(true);
         handleNewShopCreation(data);
@@ -93,7 +93,6 @@ const ShopForm = () => {
     >
       {({ values, isSubmitting }) => (
         <Form>
-          { alert && alert.error && (<div className="alert alert-danger">{ alert.error }</div>) }
           <MyTextInput
             type="text"
             name="name"
