@@ -50,8 +50,8 @@ const Shop = () => {
                         Gérer ma boutique
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        <Dropdown.Item as={Link} to={`/shop/${id}/list_items`}>Voir tous mes produits</Dropdown.Item>
                         <Dropdown.Item as={Link} to={`/shop/${id}/orders_tracking`}>Gérer les commandes effectuées</Dropdown.Item>
+                        <Dropdown.Item as={Link} to={`/shop/${id}/list_items`}>Voir tous mes produits</Dropdown.Item>
                         <Dropdown.Item as={Link} to={`/shop/${id}/update_infos`}>Modifier les informations de ma boutique</Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
