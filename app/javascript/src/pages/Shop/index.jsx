@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import {
-  Card, Col, Row, Container,
+  Jumbotron, Card, Col, Row, Container, Dropdown,
 } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
-import Jumbotron from 'react-bootstrap/Jumbotron';
 import ShopImage from './Boutique.jpg';
 import { find } from '../../api/api-manager';
 import BestItems from './BestItems';
-import LinkerButton from '../../components/LinkerButton';
 
 const Shop = () => {
   const { currentUserId } = useSelector((state) => state) ? useSelector((state) => state) : null;
@@ -33,13 +31,33 @@ const Shop = () => {
       <Container className="p-5" fluid>
         <Card>
           <Card.Header style={{ backgroundColor: '#45B5AA' }} className="text-center p-2">
-            <h4 className="text-white">{ shop && shop.name}</h4>
-            <p className="text-white m-0">
-              {
-              shop && shop.shop_categories
-              && shop.shop_categories.map(({ title }) => title).join(' - ')
-            }
-            </p>
+            <Row>
+              <Col md={{ span: 4, offset: 4 }}>
+                <h4 className="text-white">{ shop && shop.name}</h4>
+                <p className="text-white m-0">
+                  {
+                    shop && shop.shop_categories
+                    && shop.shop_categories.map(({ title }) => title).join(' - ')
+                  }
+                </p>
+              </Col>
+              <Col md={4}>
+                {
+                  currentUserId === shop?.shopkeeper_id && (
+                    <Dropdown className="text-right">
+                      <Dropdown.Toggle style={{ backgroundColor: '#45B5AA' }}>
+                        Gérer ma boutique
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item as={Link} to={`/shop/${id}/update_infos`}>Modifier les informations de ma boutique</Dropdown.Item>
+                        <Dropdown.Item as={Link} to={`/shop/${id}/list_items`}>Voir tous mes produits</Dropdown.Item>
+                        <Dropdown.Item as={Link} to={`/shop/${id}/orders_tracking`}>Gérer les commandes effectuées</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  )
+                }
+              </Col>
+            </Row>
           </Card.Header>
           <Jumbotron
             fluid
@@ -76,30 +94,6 @@ const Shop = () => {
                 <h6 className="m-0">References :</h6>
               </Col>
             </Row>
-
-            { currentUserId === shop?.shopkeeper_id && (
-              <Row>
-                <Col className="text-center mt-4">
-                  <LinkerButton
-                    label="Modifier les informations de ma boutique"
-                    to={`/shop/${id}/update_infos`}
-                  />
-                </Col>
-                <Col className="text-center mt-4">
-                  <LinkerButton
-                    label="Voir tous mes produits"
-                    to={`/shop/${id}/list_items`}
-                  />
-                </Col>
-                <Col className="text-center mt-4">
-                  <LinkerButton
-                    label="Gérer les commandes effectuées"
-                    to={`/shop/${id}/orders_tracking`}
-                  />
-                </Col>
-              </Row>
-            )}
-
           </Card.Body>
         </Card>
       </Container>

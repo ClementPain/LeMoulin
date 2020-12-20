@@ -20,14 +20,24 @@ const BestItems = ({ bestItems }) => {
   return (
     <Container className="px-5" fluid>
       <Card className="p-3">
-        <Row>
-          <Col as="h4" xs={12} className="mb-3">Nos produits</Col>
-          {
-            bestItems?.slice(0, showLength).map((item) => (
-              <ShopItem key={item.id} item={item} />
-            ))
+        {
+            bestItems?.length === 0
+              ? (
+                <Row>
+                  <Col as="h4" xs={12} className="mb-3">Aucun produit n&apos;est disponible pour l&apos;instant</Col>
+                </Row>
+              )
+              : (
+                <Row>
+                  <Col as="h4" xs={12} className="mb-3">Nos produits</Col>
+                  {
+                    bestItems?.slice(0, showLength).map((item) => (
+                      <ShopItem key={item.id} item={item} />
+                    ))
+                  }
+                </Row>
+              )
           }
-        </Row>
         <Row className="d-flex flex-column">
           {
             showLength < bestItems?.length && (
