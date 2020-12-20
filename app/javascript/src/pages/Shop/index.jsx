@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import {
   Jumbotron, Card, Col, Row, Container, Dropdown,
 } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
 
+import ShopItems from './ShopItems';
 import ShopImage from './Boutique.jpg';
 import { find } from '../../api/api-manager';
-import BestItems from './BestItems';
 
 const Shop = () => {
   const { currentUserId } = useSelector((state) => state) ? useSelector((state) => state) : null;
   const { id } = useParams();
   const [shop, setShop] = useState(null);
-  const [bestShopItemsList, setBestShopItemsList] = useState(null);
+  const [shopItemsList, setShopItemsList] = useState(null);
 
   useEffect(
     () => find(`shops/${id}`, {
       authRequired: true,
       onSuccess: (result) => {
         setShop(result);
-        setBestShopItemsList(result.items);
+        setShopItemsList(result.items.sort((a, b) => a.price - b.price));
       },
     }),
     [],
@@ -49,9 +50,9 @@ const Shop = () => {
                         Gérer ma boutique
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        <Dropdown.Item as={Link} to={`/shop/${id}/update_infos`}>Modifier les informations de ma boutique</Dropdown.Item>
                         <Dropdown.Item as={Link} to={`/shop/${id}/list_items`}>Voir tous mes produits</Dropdown.Item>
                         <Dropdown.Item as={Link} to={`/shop/${id}/orders_tracking`}>Gérer les commandes effectuées</Dropdown.Item>
+                        <Dropdown.Item as={Link} to={`/shop/${id}/update_infos`}>Modifier les informations de ma boutique</Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                   )
@@ -99,7 +100,7 @@ const Shop = () => {
       </Container>
       {
         currentUserId !== shop?.shopkeeper_id && (
-          <BestItems bestItems={bestShopItemsList} />
+          <ShopItems shopItemsList={shopItemsList} />
         )
       }
     </>
