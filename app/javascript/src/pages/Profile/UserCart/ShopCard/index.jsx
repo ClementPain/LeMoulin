@@ -8,7 +8,7 @@ import ItemCard from './ItemCard';
 const ShopCard = ({ shop, items, cart_state }) => (
   <div className="mb-2">
     <Row className="p-3">
-      <Link to={`/shop/${shop.id}`}>
+      <Link to={`/shop/${shop?.id ? shop.id : ''}`}>
         <h5 className="cardlinks cardlinks-black">
           Vos articles auprès de
           {' '}
