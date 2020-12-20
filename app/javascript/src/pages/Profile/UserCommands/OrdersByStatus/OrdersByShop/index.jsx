@@ -12,7 +12,7 @@ const OrdersByShop = ({ group }) => {
   return (
     <Card className="mt-2">
       <Card.Header className="text-white" style={{ backgroundColor: '#45B5AA' }}>
-        <Link to={`/shop/${ordersList[0].shop_id}`}>
+        <Link to={`/shop/${ordersList[0].shop_id}`} className="text-decoration-none">
           {`Vos commandes chez ${shopName}`}
         </Link>
       </Card.Header>
