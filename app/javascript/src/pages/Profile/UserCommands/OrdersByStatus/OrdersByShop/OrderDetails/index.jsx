@@ -59,7 +59,7 @@ const OrderDetails = ({ order }) => {
               <tr key={indx}>
                 <td>{indx + 1}</td>
                 <td>
-                  <Link to={`/shop/${item.shop_id}/item/${item.id}`}>
+                  <Link to={`/shop/${item.shop_id}/item/${item.id}`} className="text-decoration-none">
                     {item.name}
                   </Link>
                 </td>

@@ -28,7 +28,7 @@ const ShopItems = ({ shopItemsList }) => {
   return (
     <Container className="px-5" fluid>
       <Card className="p-3">
-        <Row>
+        <Row className="d-flex flex-row justify-content-between align-items-center">
           <Col as="h4" xs={6} className="mb-3">
             {
               itemsFound?.length === 0
@@ -46,6 +46,8 @@ const ShopItems = ({ shopItemsList }) => {
               setItemsFound={setItemsFound}
             />
           </Col>
+        </Row>
+        <Row>
           {
             itemsFound?.slice(0, showLength).map((item) => (
               <ShopItem key={item.id} item={item} />
