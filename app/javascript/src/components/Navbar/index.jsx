@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import Cookie from 'js-cookie';
-
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 import { find } from '../../api/api-manager';
@@ -13,8 +11,7 @@ import Logo from '../Logo';
 import CaddyIcon from '../Caddy/index';
 
 const NavBar = () => {
-  const { isAuthenticated } = useSelector((state) => state);
-  const { currentUserId } = useSelector((state) => state);
+  const { isAuthenticated, currentUserId } = useSelector((state) => state);
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(
@@ -35,7 +32,7 @@ const NavBar = () => {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
+        <Nav className="d-flex align-items-center mr-auto">
           <Nav.Link as={Link} to="/">Accueil</Nav.Link>
           <Nav.Link as={Link} to="/shopslist">Boutiques</Nav.Link>
           <Nav.Link as={Link} to="/itemslist">Produits</Nav.Link>
@@ -46,26 +43,30 @@ const NavBar = () => {
               <NavDropdown.Item as={Link} to="/login">Connexion</NavDropdown.Item>
             </NavDropdown>
           )}
-          { isAuthenticated && (
-            <>
-            { currentUser?.shop && (
-              <NavDropdown title="Ma Boutique" id="basic-nav-dropdown">
-                <NavDropdown.Item as={Link} to={`/shop/${currentUser.shop.id}`}>Accueil boutique</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to={`/shop/${currentUser.shop.id}/list_items`}>Mes produits</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to={`/shop/${currentUser.shop.id}/orders_tracking`}>Mes commandes</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to={`/shop/${currentUser.shop.id}/create_an_item`}>Ajouter un produit</NavDropdown.Item>
-              </NavDropdown>
-            )}
-            <NavDropdown title="Mon Compte" id="basic-nav-dropdown">
-              <NavDropdown.Item as={Link} to="/profile">Mon Profil</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/logout">Déconnexion</NavDropdown.Item>
-            </NavDropdown>
-            
-            <Navbar.Brand as={Link} to="/profile/my_cart">
-              <CaddyIcon />
-            </Navbar.Brand>
-            </>
-          )}
+          {
+            isAuthenticated && (
+              <>
+                {
+                  currentUser?.shop && (
+                    <NavDropdown title="Ma Boutique" id="basic-nav-dropdown">
+                      <NavDropdown.Item as={Link} to={`/shop/${currentUser.shop.id}`}>Accueil boutique</NavDropdown.Item>
+                      <NavDropdown.Item as={Link} to={`/shop/${currentUser.shop.id}/list_items`}>Mes produits</NavDropdown.Item>
+                      <NavDropdown.Item as={Link} to={`/shop/${currentUser.shop.id}/orders_tracking`}>Mes commandes</NavDropdown.Item>
+                      <NavDropdown.Item as={Link} to={`/shop/${currentUser.shop.id}/create_an_item`}>Ajouter un produit</NavDropdown.Item>
+                    </NavDropdown>
+                  )
+                }
+                <NavDropdown title="Mon Compte" id="basic-nav-dropdown">
+                  <NavDropdown.Item as={Link} to="/profile">Mon Profil</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/logout">Déconnexion</NavDropdown.Item>
+                </NavDropdown>
+
+                <Navbar.Brand as={Link} to="/profile/my_cart">
+                  <CaddyIcon />
+                </Navbar.Brand>
+              </>
+            )
+          }
         </Nav>
         <SearchBar />
       </Navbar.Collapse>

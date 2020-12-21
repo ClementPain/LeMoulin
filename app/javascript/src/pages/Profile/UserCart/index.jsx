@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import {
-  Row, Container, Col, Alert
+  Row, Container, Col, Alert,
 } from 'react-bootstrap';
 import Cookie from 'js-cookie';
 import ShopCard from './ShopCard';
@@ -9,7 +10,7 @@ import ButtonCreateOrder from './ButtonCreateOrder';
 
 import { create } from '../../../api/api-manager';
 
-const Cart = ({showOrderAlert}) => {
+const Cart = ({ showOrderAlert }) => {
   const [cart, setCart] = useState({});
 
   useEffect(() => { if (Cookie.get('cart')) setCart(JSON.parse(Cookie.get('cart'))); }, []);
@@ -38,9 +39,9 @@ const Cart = ({showOrderAlert}) => {
   return (
     <Container fluid>
       { alert.length > 0 && (
-        <Alert variant='danger'>Plus assez de stock!</Alert>
+        <Alert variant="danger">Plus assez de stock!</Alert>
       )}
-      <Row className='justify-content-end'>
+      <Row className="justify-content-end">
         <ButtonCreateOrder cart={cart} setAlert={setAlert} showOrderAlert={showOrderAlert} />
       </Row>
       <Row className="border-bottom">

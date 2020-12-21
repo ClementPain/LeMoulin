@@ -1,19 +1,24 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
-import { Col } from 'react-bootstrap';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+
 import Cookie from 'js-cookie';
+import { Col } from 'react-bootstrap';
+
 import Bin from './delete.png';
+import CartGlobalQuantityContext from '../../../../TheMill/context';
 
 const ItemCard = ({ item, shop_id, cart_state }) => {
+  const { computeCartGlobalQuantity } = useContext(CartGlobalQuantityContext);
+
   let cart = {};
   if (Cookie.get('cart')) {
     cart = JSON.parse(Cookie.get('cart'));
     if (item.data.stock < cart[shop_id][item.data.id]) {
-      cart[shop_id][item.data.id] = item.data.stock
-      Cookie.set('cart', cart)
+      cart[shop_id][item.data.id] = item.data.stock;
+      Cookie.set('cart', cart);
     }
-  } 
+  }
 
   const handleDelete = () => {
     delete cart[shop_id][item.data.id];
@@ -22,6 +27,8 @@ const ItemCard = ({ item, shop_id, cart_state }) => {
     }
     Cookie.set('cart', JSON.stringify(cart));
     cart_state(cart);
+
+    computeCartGlobalQuantity();
   };
 
   return (
@@ -36,11 +43,15 @@ const ItemCard = ({ item, shop_id, cart_state }) => {
           <p>{ item.in_cart > 1 ? `${item.in_cart} articles` : `${item.in_cart} article` }</p>
         )}
         { item.in_cart > item.data.stock && (
-          <p>Plus {item.data.stock > 1 ? 
-            `que ${item.data.stock} articles disponibles`
-            : item.data.stock === 1 ? "qu'un article disponible"
-            : "aucun article disponible"
-          }</p>
+          <p>
+            Plus
+            {' '}
+            {item.data.stock > 1
+              ? `que ${item.data.stock} articles disponibles`
+              : item.data.stock === 1 ? "qu'un article disponible"
+                : 'aucun article disponible'}
+
+          </p>
         )}
       </Col>
       <Col sm={3} className="text-right pr-2">
