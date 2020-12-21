@@ -58,11 +58,11 @@ class Api::V1::OrdersController < Api::V1::BaseController
     @order = Order.find(params[:id])
     @order.update(order_params)
 
-    if @order.status === 'prepared'
+    if @order.status == 'prepared'
       Notification.create(user_id: @order.customer_id, message: "Votre commande n°#{@order.id} est prête !", for_shopkeeper: false)
     end
 
-    if @order.status === 'canceled'
+    if @order.status == 'canceled'
       Notification.create(user_id: @order.customer_id, message: "Votre commande n°#{@order.id}a été annulée", for_shopkeeper: false)
     end
 
