@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
