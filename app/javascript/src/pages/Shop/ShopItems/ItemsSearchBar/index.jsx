@@ -15,9 +15,8 @@ const ItemsSearchBar = ({ shopItemsList, setItemsFound }) => {
     keywordsAry = keywordsAry.map((keyword) => keyword.toLowerCase());
 
     const search = (prevKeyword, keyword, collection) => collection.filter(
-      ({ name, description }) => (
+      ({ name }) => (
         name.toLowerCase().substring(name.toLowerCase().indexOf(prevKeyword)).replace(prevKeyword, '').includes(keyword)
-        || description.toLowerCase().substring(description.toLowerCase().indexOf(prevKeyword)).replace(prevKeyword, '').includes(keyword)
       ),
     );
 

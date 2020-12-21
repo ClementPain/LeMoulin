@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react/prop-types */
+import React, { useState, useContext } from 'react';
 import {
   Row, Container, Button, Form,
 } from 'react-bootstrap';
@@ -7,19 +8,16 @@ import Cookie from 'js-cookie';
 
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { UpdateItemButton } from '../../../../components/ItemCard/ItemButtons';
 
+import { UpdateItemButton } from '../../../../components/ItemCard/ItemButtons';
 import TabsMoreInformations from './TabsMoreInformations';
 
-const ItemInformations = ({ item , alert}) => {
+import CartGlobalQuantityContext from '../../../TheMill/context';
+
+const ItemInformations = ({ item, alert }) => {
   const [nbItemToAddToCart, setNbItemToAddToCart] = useState(1);
   const { currentUserId, isAuthenticated } = useSelector((state) => state);
-
-  const handleCart = (event, alert) => {
-    event.preventDefault();
-    Cookie.set('cart', JSON.stringify(handleCartCookie()));
-    alert();
-  };
+  const { computeCartGlobalQuantity } = useContext(CartGlobalQuantityContext);
 
   const handleCartCookie = () => {
     const cartCookie = Cookie.get('cart') ? JSON.parse(Cookie.get('cart')) : {};
@@ -36,6 +34,14 @@ const ItemInformations = ({ item , alert}) => {
     }
 
     return cartCookie;
+  };
+
+  const handleCart = (event, alert) => {
+    event.preventDefault();
+    Cookie.set('cart', JSON.stringify(handleCartCookie()));
+    alert();
+
+    computeCartGlobalQuantity();
   };
 
   return (
