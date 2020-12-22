@@ -24,14 +24,14 @@ const TheMill = () => {
 
   const computeCartGlobalQuantity = () => {
     const flatCartCookie = (cartCookie) => {
-      const toArrayOfArrays = (arrayContainObject) => arrayContainObject.map((el) => {
+      const flat = (arrayContainObject) => arrayContainObject.map((el) => {
         if (typeof el === 'object') {
-          return (Object.entries(el)).map((ary) => toArrayOfArrays(ary));
+          return (Object.entries(el)).map((ary) => flat(ary));
         }
         return el;
       });
 
-      return (Object.entries(cartCookie)).map((el) => toArrayOfArrays(el));
+      return (Object.entries(cartCookie)).map((el) => flat(el));
     };
 
     const somme = (ary) => ary.reduce((acc, el) => (typeof el[1] === 'number' ? acc + el[1] : acc + somme(el[1])), 0);
