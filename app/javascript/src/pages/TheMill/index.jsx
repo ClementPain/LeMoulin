@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -24,19 +23,15 @@ const TheMill = () => {
   };
 
   const computeCartGlobalQuantity = () => {
-    const flatCartCookie = (cookie) => {
-      const toArrayOfArrays = (arrayOfObjects) => {
-        arrayOfObjects.forEach((el) => {
-          if (typeof el[1] === 'object') {
-            el[1] = Object.entries(el[1]);
-            toArrayOfArrays(el[1]);
-          }
-        });
+    const flatCartCookie = (cartCookie) => {
+      const toArrayOfArrays = (arrayContainObject) => arrayContainObject.map((el) => {
+        if (typeof el === 'object') {
+          return (Object.entries(el)).map((ary) => toArrayOfArrays(ary));
+        }
+        return el;
+      });
 
-        return arrayOfObjects;
-      };
-
-      return toArrayOfArrays(Object.entries(cookie));
+      return (Object.entries(cartCookie)).map((el) => toArrayOfArrays(el));
     };
 
     const somme = (ary) => ary.reduce((acc, el) => (typeof el[1] === 'number' ? acc + el[1] : acc + somme(el[1])), 0);

@@ -4,7 +4,7 @@ import Switch from 'react-bootstrap/esm/Switch';
 import { Route, useRouteMatch } from 'react-router-dom';
 
 import {
-  Container, Row, Col, Card, Alert
+  Container, Row, Col, Card, Alert,
 } from 'react-bootstrap';
 
 import CurrentUserContext from './context';
@@ -38,7 +38,7 @@ const Profile = () => {
   };
 
   useEffect(
-    updateCurrentUser,
+    () => updateCurrentUser(),
     [currentUserId],
   );
 
