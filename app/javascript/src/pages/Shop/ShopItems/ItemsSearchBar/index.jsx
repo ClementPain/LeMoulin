@@ -40,7 +40,7 @@ const ItemsSearchBar = ({ shopItemsList, setItemsFound }) => {
   };
 
   useEffect(
-    updateSearchResult,
+    () => updateSearchResult(),
     [keywords],
   );
 
